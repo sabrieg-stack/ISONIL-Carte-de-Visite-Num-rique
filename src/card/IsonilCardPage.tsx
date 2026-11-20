@@ -86,16 +86,21 @@ export function IsonilCardPage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<'url' | 'phone' | 'email' | 'address' | null>(null);
   const [logoFailed, setLogoFailed] = useState(false);
+  const [langAnimPhase, setLangAnimPhase] = useState<'idle' | 'a' | 'b'>('idle');
 
   const toastTimerRef = useRef<number | null>(null);
   const copyTimerRef = useRef<number | null>(null);
 
   const t = CARD_TRANSLATIONS[lang];
   const isRtl = t.dir === 'rtl';
+  const langAnimClass =
+    langAnimPhase === 'idle' ? '' : langAnimPhase === 'a' ? 'isonil-lang-a' : 'isonil-lang-b';
 
   // Persist card-only language preference without altering any main-site language state
   const handleSelectLanguage = (nextLang: CardLanguage) => {
+    if (nextLang === lang) return;
     setLang(nextLang);
+    setLangAnimPhase((prev) => (prev === 'a' ? 'b' : 'a'));
     try {
       window.localStorage.setItem(STORAGE_LANG_KEY, nextLang);
     } catch {
@@ -224,19 +229,19 @@ export function IsonilCardPage() {
         isRtl ? 'font-[var(--font-arabic)]' : 'font-[var(--font-sans)]'
       }`}
     >
-      {/* Subtle atmospheric light-blue & sky-blue illumination on official #0B192C canvas */}
+      {/* Subtle one-shot atmospheric light-blue & sky-blue illumination on official #0B192C canvas */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(121,200,232,0.14),transparent_42%),radial-gradient(circle_at_88%_92%,rgba(169,221,241,0.10),transparent_44%)]"
+        className="isonil-bg-atmosphere pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(121,200,232,0.14),transparent_42%),radial-gradient(circle_at_88%_92%,rgba(169,221,241,0.10),transparent_44%)]"
       />
 
       <main className="relative z-10 w-full max-w-5xl mx-auto safe-area-main">
         {/* Compact Mobile-First top bar: single row on phones to keep identity & CTAs immediately above the fold */}
-        <header className="flex items-center justify-between gap-2.5 sm:gap-4 mb-3.5 sm:mb-6 no-print">
-          <p className="hidden sm:block text-sm font-medium text-[#C5D0DC] leading-snug">
+        <header className="isonil-fade flex items-center justify-between gap-2.5 sm:gap-4 mb-3.5 sm:mb-6 no-print">
+          <p className={`hidden sm:block text-sm font-medium text-[#C5D0DC] leading-snug ${langAnimClass}`}>
             {t.cardKicker}
           </p>
-          <p className="sm:hidden text-[11px] font-medium text-[#9FB3C8] leading-tight truncate min-w-0">
+          <p className={`sm:hidden text-[11px] font-medium text-[#9FB3C8] leading-tight truncate min-w-0 ${langAnimClass}`}>
             {t.cardKicker}
           </p>
 
@@ -255,7 +260,7 @@ export function IsonilCardPage() {
                   onClick={() => handleSelectLanguage(code)}
                   aria-pressed={active}
                   lang={code}
-                  className={`min-h-[38px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[38px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
                     active
                       ? 'bg-white text-[#0B192C] shadow-xs'
                       : 'text-[#C5D0DC] hover:text-white hover:bg-[#163052]'
@@ -271,17 +276,17 @@ export function IsonilCardPage() {
         {/* Responsive Executive Two-Column Grid (Desktop) / Single-Column Mobile-First Flow */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
           {/* Primary Identity & Contact Card */}
-          <article className="lg:col-span-7 bg-[#11243E]/92 backdrop-blur-md rounded-2xl border border-[#79C8E8]/20 shadow-[0_24px_60px_-28px_rgba(4,12,24,0.72)] overflow-hidden flex flex-col min-w-0">
+          <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#11243E]/92 backdrop-blur-md rounded-2xl border border-[#79C8E8]/20 shadow-[0_24px_60px_-28px_rgba(4,12,24,0.72)] overflow-hidden flex flex-col min-w-0">
             {/* Official #0B192C Brand Header Band: poised centered vertical hero on phones, executive horizontal on tablet/desktop */}
             <div className="relative bg-gradient-to-br from-[#0B192C] via-[#0F213A] to-[#142D4E] text-white px-5 sm:px-8 pt-6 pb-5 sm:pt-7 sm:pb-6 border-b border-[#79C8E8]/15">
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#E50914] via-[#79C8E8] to-[#A9DDF1]"
+                className="isonil-accent-line absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#E50914] via-[#79C8E8] to-[#A9DDF1]"
               />
 
               <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-start gap-3.5 sm:gap-5">
-                {/* Original Transparent ISONIL Logo directly over card background — zero white box, lossless WebP + PNG fallback */}
-                <div className="w-[76px] h-[76px] min-[390px]:w-20 min-[390px]:h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
+                {/* Original Transparent ISONIL Logo directly over card background — gentle reveal, zero distortion or white box */}
+                <div className="isonil-logo-reveal w-[76px] h-[76px] min-[390px]:w-20 min-[390px]:h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
                   {!logoFailed ? (
                     <picture className="w-full h-full flex items-center justify-center">
                       <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
@@ -302,7 +307,7 @@ export function IsonilCardPage() {
                   )}
                 </div>
 
-                <div className="min-w-0 w-full sm:flex-1">
+                <div className={`min-w-0 w-full sm:flex-1 isonil-enter isonil-delay-2 ${langAnimClass}`}>
                   <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
                     {ISONIL_CONTACT.company}
                   </h1>
@@ -323,7 +328,10 @@ export function IsonilCardPage() {
             {/* Card Body */}
             <div className="p-4 min-[390px]:p-5 sm:p-8 flex-1 flex flex-col">
               {/* Primary Action Controls */}
-              <section aria-labelledby="isonil-quick-actions-heading">
+              <section
+                aria-labelledby="isonil-quick-actions-heading"
+                className={`isonil-enter isonil-delay-2 ${langAnimClass}`}
+              >
                 <h2
                   id="isonil-quick-actions-heading"
                   className="text-xs font-semibold text-[#9FB3C8] mb-3"
@@ -336,9 +344,9 @@ export function IsonilCardPage() {
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
-                    className="col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="isonil-btn col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] hover:border-[#79C8E8]/55 border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <Phone className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#79C8E8] shrink-0" />
+                    <Phone className="isonil-btn-icon w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#79C8E8] shrink-0" />
                     <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
                       {t.actions.call}
                     </span>
@@ -349,9 +357,9 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.whatsappAction}
-                    className="col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="isonil-btn col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] hover:border-[#79C8E8]/55 border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <MessageCircle className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#A9DDF1] shrink-0" />
+                    <MessageCircle className="isonil-btn-icon w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#A9DDF1] shrink-0" />
                     <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
                       {t.actions.whatsapp}
                     </span>
@@ -360,9 +368,9 @@ export function IsonilCardPage() {
                   <a
                     href={ISONIL_CONTACT.emailHref}
                     aria-label={t.aria.emailAction}
-                    className="col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 bg-[#0B192C]/65 hover:bg-[#163052] active:scale-[0.98] text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 hover:border-[#79C8E8]/45 bg-[#0B192C]/65 hover:bg-[#163052] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <Mail className="w-5 h-5 text-[#79C8E8] shrink-0" />
+                    <Mail className="isonil-btn-icon w-5 h-5 text-[#79C8E8] shrink-0" />
                     <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
                       {t.actions.email}
                     </span>
@@ -373,9 +381,9 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.websiteAction}
-                    className="col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 bg-[#0B192C]/65 hover:bg-[#163052] active:scale-[0.98] text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 hover:border-[#79C8E8]/45 bg-[#0B192C]/65 hover:bg-[#163052] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <Globe className="w-5 h-5 text-[#79C8E8] shrink-0" />
+                    <Globe className="isonil-btn-icon w-5 h-5 text-[#79C8E8] shrink-0" />
                     <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
                       {t.actions.website}
                     </span>
@@ -386,9 +394,9 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.locationAction}
-                    className="col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 bg-[#0B192C]/65 hover:bg-[#163052] active:scale-[0.98] text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#C5D0DC]/20 hover:border-[#79C8E8]/45 bg-[#0B192C]/65 hover:bg-[#163052] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <MapPin className="w-5 h-5 text-[#E50914] shrink-0" />
+                    <MapPin className="isonil-btn-icon w-5 h-5 text-[#E50914] shrink-0" />
                     <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
                       {t.actions.location}
                     </span>
@@ -397,14 +405,14 @@ export function IsonilCardPage() {
               </section>
 
               {/* Dominant Primary CTA (Save Contact VCF) + Share & Favorites */}
-              <div className="mt-5 space-y-3 no-print">
+              <div className={`mt-5 space-y-3 no-print isonil-enter isonil-delay-3 ${langAnimClass}`}>
                 <button
                   type="button"
                   onClick={handleSaveContact}
                   aria-label={t.aria.saveContactAction}
-                  className="w-full min-h-[52px] px-5 py-3 rounded-xl bg-white hover:bg-[#EDF7FC] active:scale-[0.99] text-[#0B192C] text-sm sm:text-[15px] font-semibold inline-flex items-center justify-center gap-2.5 shadow-sm transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+                  className="isonil-btn-primary w-full min-h-[52px] px-5 py-3 rounded-xl bg-white hover:bg-[#EDF7FC] text-[#0B192C] text-sm sm:text-[15px] font-semibold inline-flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
                 >
-                  <UserPlus className="w-5 h-5 text-[#0B192C] shrink-0" />
+                  <UserPlus className="isonil-btn-icon w-5 h-5 text-[#0B192C] shrink-0" />
                   <span className="whitespace-nowrap">{t.actions.saveContact}</span>
                 </button>
 
@@ -413,9 +421,9 @@ export function IsonilCardPage() {
                     type="button"
                     onClick={handleShareCard}
                     aria-label={t.aria.shareCardAction}
-                    className="min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] active:scale-[0.99] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+                    className="isonil-btn min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
                   >
-                    <Share2 className="w-4 h-4 text-[#79C8E8] shrink-0" />
+                    <Share2 className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
                     <span className="whitespace-nowrap">{t.actions.shareCard}</span>
                   </button>
 
@@ -424,14 +432,14 @@ export function IsonilCardPage() {
                     onClick={handleOpenFavorites}
                     aria-label={t.aria.favoritesAction}
                     aria-pressed={isFavorite}
-                    className={`min-h-[48px] px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all duration-150 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
+                    className={`isonil-btn min-h-[48px] px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
                       isFavorite
                         ? 'border-[#E50914]/55 bg-[#E50914]/12 text-white hover:bg-[#E50914]/20'
-                        : 'border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] text-white'
+                        : 'border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white'
                     }`}
                   >
                     <Bookmark
-                      className={`w-4 h-4 shrink-0 ${
+                      className={`isonil-btn-icon w-4 h-4 shrink-0 ${
                         isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#79C8E8]'
                       }`}
                     />
@@ -445,7 +453,7 @@ export function IsonilCardPage() {
               {/* Official Contact Information (Hairline separated, zero nested card clutter) */}
               <section
                 aria-labelledby="isonil-contact-details-heading"
-                className="mt-6 sm:mt-7 pt-5 border-t border-[#C5D0DC]/15"
+                className={`mt-6 sm:mt-7 pt-5 border-t border-[#C5D0DC]/15 isonil-enter isonil-delay-4 ${langAnimClass}`}
               >
                 <h2
                   id="isonil-contact-details-heading"
@@ -479,10 +487,10 @@ export function IsonilCardPage() {
                         )
                       }
                       aria-label={t.aria.copyPhone}
-                      className="min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center transition-colors shrink-0 no-print cursor-pointer"
+                      className="isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center shrink-0 no-print cursor-pointer"
                     >
                       {copiedField === 'phone' ? (
-                        <Check className="w-4 h-4 text-[#79C8E8]" />
+                        <Check className="isonil-check-pop w-4 h-4 text-[#79C8E8]" />
                       ) : (
                         <Copy className="w-4 h-4" />
                       )}
@@ -509,10 +517,10 @@ export function IsonilCardPage() {
                         handleCopyValue('email', ISONIL_CONTACT.email, t.toasts.emailCopied)
                       }
                       aria-label={t.aria.copyEmail}
-                      className="min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center transition-colors shrink-0 no-print cursor-pointer"
+                      className="isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center shrink-0 no-print cursor-pointer"
                     >
                       {copiedField === 'email' ? (
-                        <Check className="w-4 h-4 text-[#79C8E8]" />
+                        <Check className="isonil-check-pop w-4 h-4 text-[#79C8E8]" />
                       ) : (
                         <Copy className="w-4 h-4" />
                       )}
@@ -540,7 +548,7 @@ export function IsonilCardPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={t.aria.websiteAction}
-                      className="min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center transition-colors shrink-0 no-print"
+                      className="isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center shrink-0 no-print"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -577,10 +585,10 @@ export function IsonilCardPage() {
                         )
                       }
                       aria-label={t.aria.copyAddress}
-                      className="min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center transition-colors shrink-0 no-print cursor-pointer"
+                      className="isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9FB3C8] hover:text-white hover:bg-[#163052] flex items-center justify-center shrink-0 no-print cursor-pointer"
                     >
                       {copiedField === 'address' ? (
-                        <Check className="w-4 h-4 text-[#79C8E8]" />
+                        <Check className="isonil-check-pop w-4 h-4 text-[#79C8E8]" />
                       ) : (
                         <Copy className="w-4 h-4" />
                       )}
@@ -592,9 +600,10 @@ export function IsonilCardPage() {
           </article>
 
           {/* Secondary Column: Permanent Scannable QR Code */}
-          <aside className="lg:col-span-5 min-w-0">
+          <aside className="isonil-enter isonil-delay-2 lg:col-span-5 min-w-0">
             <QrCodePanel
               t={t}
+              langAnimClass={langAnimClass}
               onNotify={showToast}
               onCopyUrl={() =>
                 handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
@@ -605,7 +614,7 @@ export function IsonilCardPage() {
         </div>
 
         {/* Quiet Footer with discreet card-management NFC Settings entry */}
-        <footer className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#9FB3C8] px-1 text-center sm:text-start">
+        <footer className={`isonil-enter isonil-delay-5 mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#9FB3C8] px-1 text-center sm:text-start ${langAnimClass}`}>
           <p>{t.footer.officialNotice}</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <a
@@ -624,7 +633,7 @@ export function IsonilCardPage() {
               type="button"
               onClick={() => setNfcModalOpen(true)}
               aria-label={t.nfc.triggerAria}
-              className="no-print min-h-[36px] inline-flex items-center gap-1.5 font-medium text-[#9FB3C8] hover:text-[#A9DDF1] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] rounded-md px-1.5 cursor-pointer"
+              className="isonil-icon-btn no-print min-h-[36px] inline-flex items-center gap-1.5 font-medium text-[#9FB3C8] hover:text-[#A9DDF1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] rounded-md px-1.5 cursor-pointer"
             >
               <Nfc className="w-3.5 h-3.5 text-[#79C8E8] shrink-0" />
               <span className="whitespace-nowrap">{t.nfc.triggerLabel}</span>
@@ -672,7 +681,10 @@ export function IsonilCardPage() {
         className="pointer-events-none fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] inset-x-4 z-50 flex justify-center no-print"
       >
         {toastMessage && (
-          <div className="pointer-events-auto max-w-md bg-white text-[#0B192C] text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl shadow-lg border border-[#79C8E8]/50">
+          <div
+            key={toastMessage}
+            className="isonil-toast-enter pointer-events-auto max-w-md bg-white text-[#0B192C] text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl shadow-lg border border-[#79C8E8]/50"
+          >
             {toastMessage}
           </div>
         )}

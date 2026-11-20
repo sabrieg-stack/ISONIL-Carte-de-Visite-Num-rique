@@ -40,11 +40,11 @@ export function FavoritesModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-favorites-title"
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-0 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="w-full sm:max-w-md bg-[#11243E] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
+        className="isonil-sheet-enter w-full sm:max-w-md bg-[#11243E] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -63,7 +63,7 @@ export function FavoritesModal({
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
-            className="min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -84,7 +84,7 @@ export function FavoritesModal({
           <button
             type="button"
             onClick={onToggleFavorite}
-            className={`min-h-[42px] px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`isonil-btn min-h-[42px] px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer ${
               isFavorite
                 ? 'bg-[#0B192C]/70 hover:bg-[#163052] border border-[#C5D0DC]/25 text-white'
                 : 'bg-white hover:bg-[#EDF7FC] text-[#0B192C]'
@@ -142,16 +142,16 @@ export function FavoritesModal({
           <button
             type="button"
             onClick={onCopyUrl}
-            className="min-h-[44px] px-4 py-2 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/60 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-colors cursor-pointer"
+            className="isonil-btn min-h-[44px] px-4 py-2 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/60 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
             {urlCopied ? (
               <>
-                <Check className="w-4 h-4 text-[#A9DDF1]" />
+                <Check className="isonil-check-pop w-4 h-4 text-[#A9DDF1]" />
                 <span className="text-[#A9DDF1]">{t.actions.copied}</span>
               </>
             ) : (
               <>
-                <Copy className="w-4 h-4 text-[#79C8E8]" />
+                <Copy className="isonil-btn-icon w-4 h-4 text-[#79C8E8]" />
                 <span>{t.actions.copyLink}</span>
               </>
             )}

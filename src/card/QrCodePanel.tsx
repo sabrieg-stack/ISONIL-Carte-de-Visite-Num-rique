@@ -6,6 +6,7 @@ import type { CardTranslation } from './translations';
 
 interface QrCodePanelProps {
   t: CardTranslation;
+  langAnimClass?: string;
   onNotify: (message: string) => void;
   onCopyUrl: () => void;
   urlCopied: boolean;
@@ -46,7 +47,13 @@ export function buildPermanentQrMatrix(): QrSvgMatrix {
   };
 }
 
-export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelProps) {
+export function QrCodePanel({
+  t,
+  langAnimClass = '',
+  onNotify,
+  onCopyUrl,
+  urlCopied,
+}: QrCodePanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -97,7 +104,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
       >
         <div>
           <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
+            <div className={`min-w-0 ${langAnimClass}`}>
               <h2
                 id="isonil-qr-heading"
                 className="text-base sm:text-lg font-semibold text-white tracking-tight"
@@ -122,7 +129,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
               type="button"
               onClick={() => setIsExpanded(true)}
               aria-label={`${t.actions.enlargeQr} — ${t.aria.qrCodeImage}`}
-              className="group relative w-full max-w-[204px] min-[390px]:max-w-[224px] sm:max-w-[248px] aspect-square bg-white rounded-xl border border-[#A9DDF1]/40 p-2.5 sm:p-3 shadow-md transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+              className="isonil-qr-frame group relative w-full max-w-[204px] min-[390px]:max-w-[224px] sm:max-w-[248px] aspect-square bg-white rounded-xl border border-[#A9DDF1]/40 p-2.5 sm:p-3 shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
             >
               <div className="qr-svg-container w-full h-full">
                 <svg
@@ -140,7 +147,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
             </button>
 
             {/* Permanent canonical link bar */}
-            <div className="mt-5 w-full pt-4 border-t border-[#C5D0DC]/15">
+            <div className={`mt-5 w-full pt-4 border-t border-[#C5D0DC]/15 ${langAnimClass}`}>
               <p className="text-xs font-medium text-[#9FB3C8]">{t.sections.permanentLinkLabel}</p>
               <div className="mt-1.5 flex flex-wrap items-center justify-between gap-2">
                 <a
@@ -156,11 +163,11 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
                   type="button"
                   onClick={onCopyUrl}
                   aria-label={t.aria.copyCardUrl}
-                  className="min-h-[44px] min-w-[44px] px-2.5 rounded-lg text-xs font-medium text-[#79C8E8] hover:bg-[#163052] hover:text-white transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+                  className="isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-lg text-xs font-medium text-[#79C8E8] hover:bg-[#163052] hover:text-white inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
                 >
                   {urlCopied ? (
                     <>
-                      <Check className="w-4 h-4 text-[#A9DDF1]" />
+                      <Check className="isonil-check-pop w-4 h-4 text-[#A9DDF1]" />
                       <span className="text-[#A9DDF1]">{t.actions.copied}</span>
                     </>
                   ) : (
@@ -176,13 +183,13 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
         </div>
 
         {/* Utility actions for scanning & print */}
-        <div className="mt-5 pt-4 border-t border-[#C5D0DC]/15 grid grid-cols-1 min-[360px]:grid-cols-2 gap-3 no-print">
+        <div className={`mt-5 pt-4 border-t border-[#C5D0DC]/15 grid grid-cols-1 min-[360px]:grid-cols-2 gap-3 no-print ${langAnimClass}`}>
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] active:scale-[0.99] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
-            <Maximize2 className="w-4 h-4 text-[#79C8E8] shrink-0" />
+            <Maximize2 className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.enlargeQr}</span>
           </button>
 
@@ -190,9 +197,9 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
             type="button"
             onClick={handleDownloadPng}
             disabled={isDownloading}
-            className="min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] active:scale-[0.99] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
-            <Download className="w-4 h-4 text-[#79C8E8] shrink-0" />
+            <Download className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.downloadQr}</span>
           </button>
         </div>
@@ -204,11 +211,11 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
           role="dialog"
           aria-modal="true"
           aria-labelledby="isonil-qr-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-4"
+          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-4"
           onClick={() => setIsExpanded(false)}
         >
           <div
-            className="w-full max-w-sm max-h-[92dvh] overflow-y-auto bg-[#11243E] rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 text-center text-white"
+            className="isonil-dialog-enter w-full max-w-sm max-h-[92dvh] overflow-y-auto bg-[#11243E] rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 text-center text-white"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-3">
@@ -222,7 +229,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
                 type="button"
                 onClick={() => setIsExpanded(false)}
                 aria-label={t.actions.close}
-                className="min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+                className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -257,15 +264,15 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
                 type="button"
                 onClick={handleDownloadPng}
                 disabled={isDownloading}
-                className="min-h-[46px] px-3 py-2 rounded-xl bg-white hover:bg-[#EDF7FC] text-[#0B192C] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors whitespace-nowrap cursor-pointer"
+                className="isonil-btn-primary min-h-[46px] px-3 py-2 rounded-xl bg-white hover:bg-[#EDF7FC] text-[#0B192C] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
               >
-                <Download className="w-4 h-4 shrink-0" />
+                <Download className="isonil-btn-icon w-4 h-4 shrink-0" />
                 <span>{t.actions.downloadQr}</span>
               </button>
               <button
                 type="button"
                 onClick={() => setIsExpanded(false)}
-                className="min-h-[46px] px-3 py-2 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/60 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium transition-colors whitespace-nowrap cursor-pointer"
+                className="isonil-btn min-h-[46px] px-3 py-2 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/60 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium whitespace-nowrap cursor-pointer"
               >
                 {t.actions.close}
               </button>

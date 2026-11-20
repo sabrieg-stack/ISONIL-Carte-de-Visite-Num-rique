@@ -74,11 +74,350 @@ button {
   text-wrap: balance;
 }
 
+/* ==========================================================================
+   ISONIL Institutional Motion System
+   Pure CSS, compositor-only (transform & opacity), zero infinite loops.
+   Tuned separately for mobile touch vs. desktop pointer devices.
+   ========================================================================== */
+:root {
+  --isonil-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --isonil-ease-tactile: cubic-bezier(0.2, 0, 0, 1);
+  --isonil-rise-y: 7px;
+  --isonil-dur-enter: 380ms;
+  --isonil-dur-logo: 460ms;
+  --isonil-dur-bg: 1500ms;
+  --isonil-dur-lang: 185ms;
+  --isonil-stagger: 45ms;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --isonil-rise-y: 12px;
+    --isonil-dur-enter: 500ms;
+    --isonil-dur-logo: 580ms;
+    --isonil-dur-bg: 2100ms;
+    --isonil-dur-lang: 220ms;
+    --isonil-stagger: 60ms;
+  }
+}
+
+@keyframes isonil-bg-settle {
+  0% {
+    opacity: 0.55;
+    transform: translate3d(0, -1.25%, 0) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes isonil-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes isonil-rise-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, var(--isonil-rise-y), 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-logo-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes isonil-accent-draw {
+  0% {
+    opacity: 0.35;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes isonil-lang-settle-a {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(0, 3px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-lang-settle-b {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(0, 3px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-sheet-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-dialog-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.975);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes isonil-toast-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes isonil-check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* One-shot subtle atmospheric navy glow settle — rests at 0% GPU/battery after load */
+.isonil-bg-atmosphere {
+  animation: isonil-bg-settle var(--isonil-dur-bg) var(--isonil-ease-out) 1 both;
+}
+
+/* Choreographed entrance utilities */
+.isonil-fade {
+  animation: isonil-fade-in 320ms var(--isonil-ease-out) backwards;
+}
+
+.isonil-enter {
+  animation: isonil-rise-in var(--isonil-dur-enter) var(--isonil-ease-out) backwards;
+}
+
+.isonil-delay-1 {
+  animation-delay: calc(var(--isonil-stagger) * 1);
+}
+
+.isonil-delay-2 {
+  animation-delay: calc(var(--isonil-stagger) * 2);
+}
+
+.isonil-delay-3 {
+  animation-delay: calc(var(--isonil-stagger) * 3);
+}
+
+.isonil-delay-4 {
+  animation-delay: calc(var(--isonil-stagger) * 4);
+}
+
+.isonil-delay-5 {
+  animation-delay: calc(var(--isonil-stagger) * 5);
+}
+
+/* Gentle reveal for the original transparent logo without altering its shape */
+.isonil-logo-reveal {
+  animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-out) 75ms backwards;
+}
+
+/* Quiet top brand stripe reveal respecting LTR/RTL reading direction */
+.isonil-accent-line {
+  transform-origin: left center;
+  animation: isonil-accent-draw 560ms var(--isonil-ease-out) 90ms backwards;
+}
+
+[dir="rtl"] .isonil-accent-line {
+  transform-origin: right center;
+}
+
+/* Smooth non-remounting language switch cross-settle */
+.isonil-lang-a {
+  animation: isonil-lang-settle-a var(--isonil-dur-lang) var(--isonil-ease-out) backwards;
+}
+
+.isonil-lang-b {
+  animation: isonil-lang-settle-b var(--isonil-dur-lang) var(--isonil-ease-out) backwards;
+}
+
+/* Modal, bottom-sheet, toast, and confirmation icon entrances */
+.isonil-backdrop-enter {
+  animation: isonil-fade-in 190ms ease-out backwards;
+}
+
+.isonil-sheet-enter {
+  animation: isonil-sheet-in 260ms var(--isonil-ease-out) backwards;
+}
+
+@media (min-width: 640px) {
+  .isonil-sheet-enter {
+    animation: isonil-dialog-in 240ms var(--isonil-ease-out) backwards;
+  }
+}
+
+.isonil-dialog-enter {
+  animation: isonil-dialog-in 240ms var(--isonil-ease-out) backwards;
+}
+
+.isonil-toast-enter {
+  animation: isonil-toast-in 220ms var(--isonil-ease-out) backwards;
+}
+
+.isonil-check-pop {
+  animation: isonil-check-pop 190ms var(--isonil-ease-out) backwards;
+}
+
+/* Tactile button & control interactions — touch-first active response, desktop hover lift */
+.isonil-btn,
+.isonil-btn-primary,
+.isonil-icon-btn,
+.isonil-qr-frame {
+  transition:
+    transform 160ms var(--isonil-ease-tactile),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 200ms ease;
+}
+
+.isonil-btn-icon {
+  transition: transform 180ms var(--isonil-ease-out), color 180ms ease;
+}
+
+.isonil-btn:active {
+  transform: scale(0.975);
+  transition-duration: 90ms;
+}
+
+.isonil-btn-primary:active {
+  transform: scale(0.985);
+  transition-duration: 90ms;
+}
+
+.isonil-icon-btn:active {
+  transform: scale(0.93);
+  transition-duration: 90ms;
+}
+
+.isonil-qr-frame:active {
+  transform: scale(0.988);
+  transition-duration: 90ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .isonil-btn:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 10px 22px -14px rgba(4, 12, 24, 0.8);
+  }
+
+  .isonil-btn:hover .isonil-btn-icon {
+    transform: scale(1.06);
+  }
+
+  .isonil-btn-primary:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 12px 26px -12px rgba(121, 200, 232, 0.35);
+  }
+
+  .isonil-btn-primary:hover .isonil-btn-icon {
+    transform: scale(1.05);
+  }
+
+  .isonil-icon-btn:hover {
+    transform: scale(1.04);
+  }
+
+  .isonil-qr-frame:hover {
+    transform: translateY(-2px) scale(1.012);
+    box-shadow: 0 16px 32px -14px rgba(4, 12, 24, 0.65);
+  }
+}
+
+.isonil-tab-btn {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease,
+    transform 120ms var(--isonil-ease-tactile);
+}
+
+.isonil-tab-btn:active {
+  transform: scale(0.96);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .isonil-bg-atmosphere,
+  .isonil-fade,
+  .isonil-enter,
+  .isonil-logo-reveal,
+  .isonil-accent-line,
+  .isonil-lang-a,
+  .isonil-lang-b,
+  .isonil-backdrop-enter,
+  .isonil-sheet-enter,
+  .isonil-dialog-enter,
+  .isonil-toast-enter,
+  .isonil-check-pop {
+    animation: none !important;
+  }
+
+  .isonil-btn:hover,
+  .isonil-btn:active,
+  .isonil-btn-primary:hover,
+  .isonil-btn-primary:active,
+  .isonil-icon-btn:hover,
+  .isonil-icon-btn:active,
+  .isonil-qr-frame:hover,
+  .isonil-qr-frame:active,
+  .isonil-tab-btn:active,
+  .isonil-btn:hover .isonil-btn-icon,
+  .isonil-btn-primary:hover .isonil-btn-icon {
+    transform: none !important;
   }
 }
 

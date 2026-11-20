@@ -92,11 +92,11 @@ export function NfcSettingsModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-nfc-modal-title"
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-0 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="w-full sm:max-w-xl bg-[#11243E] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
+        className="isonil-sheet-enter w-full sm:max-w-xl bg-[#11243E] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -128,7 +128,7 @@ export function NfcSettingsModal({
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
-            className="min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C5D0DC] hover:bg-[#163052] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -191,16 +191,16 @@ export function NfcSettingsModal({
             <button
               type="button"
               onClick={onCopyNfcUrl}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-white hover:bg-[#EDF7FC] active:scale-[0.99] text-[#0B192C] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 transition-all cursor-pointer"
+              className="isonil-btn-primary min-h-[44px] px-4 py-2 rounded-xl bg-white hover:bg-[#EDF7FC] text-[#0B192C] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
             >
               {urlCopied ? (
                 <>
-                  <Check className="w-4 h-4 text-[#0B192C] shrink-0" />
+                  <Check className="isonil-check-pop w-4 h-4 text-[#0B192C] shrink-0" />
                   <span>{t.actions.copied}</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4 text-[#0B192C] shrink-0" />
+                  <Copy className="isonil-btn-icon w-4 h-4 text-[#0B192C] shrink-0" />
                   <span>{t.nfc.copyNfcLink}</span>
                 </>
               )}
@@ -288,9 +288,9 @@ export function NfcSettingsModal({
               <button
                 type="button"
                 onClick={onDownloadVCard}
-                className="w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/65 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors whitespace-nowrap cursor-pointer"
+                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/65 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
               >
-                <UserPlus className="w-4 h-4 text-[#79C8E8] shrink-0" />
+                <UserPlus className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
                 <span>{t.nfc.downloadVcard}</span>
               </button>
 
@@ -298,9 +298,9 @@ export function NfcSettingsModal({
                 type="button"
                 onClick={handleDownloadQrPng}
                 disabled={isDownloadingQr}
-                className="w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/65 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/65 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 cursor-pointer"
               >
-                <Download className="w-4 h-4 text-[#79C8E8] shrink-0" />
+                <Download className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
                 <span>{t.actions.downloadQr}</span>
               </button>
             </div>
