@@ -122,7 +122,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
               type="button"
               onClick={() => setIsExpanded(true)}
               aria-label={`${t.actions.enlargeQr} — ${t.aria.qrCodeImage}`}
-              className="group relative w-full max-w-[216px] min-[390px]:max-w-[236px] sm:max-w-[248px] aspect-square bg-white rounded-xl border border-[#A9DDF1]/40 p-2.5 sm:p-3 shadow-md transition-transform duration-150 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+              className="group relative w-full max-w-[204px] min-[390px]:max-w-[224px] sm:max-w-[248px] aspect-square bg-white rounded-xl border border-[#A9DDF1]/40 p-2.5 sm:p-3 shadow-md transition-transform duration-150 hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
             >
               <div className="qr-svg-container w-full h-full">
                 <svg
@@ -156,7 +156,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
                   type="button"
                   onClick={onCopyUrl}
                   aria-label={t.aria.copyCardUrl}
-                  className="min-h-[42px] min-w-[42px] px-2.5 rounded-lg text-xs font-medium text-[#79C8E8] hover:bg-[#163052] hover:text-white transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+                  className="min-h-[44px] min-w-[44px] px-2.5 rounded-lg text-xs font-medium text-[#79C8E8] hover:bg-[#163052] hover:text-white transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
                 >
                   {urlCopied ? (
                     <>
@@ -176,11 +176,11 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
         </div>
 
         {/* Utility actions for scanning & print */}
-        <div className="mt-5 pt-4 border-t border-[#C5D0DC]/15 grid grid-cols-1 min-[360px]:grid-cols-2 gap-2.5 no-print">
+        <div className="mt-5 pt-4 border-t border-[#C5D0DC]/15 grid grid-cols-1 min-[360px]:grid-cols-2 gap-3 no-print">
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="min-h-[46px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] active:scale-[0.99] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <Maximize2 className="w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.enlargeQr}</span>
@@ -190,7 +190,7 @@ export function QrCodePanel({ t, onNotify, onCopyUrl, urlCopied }: QrCodePanelPr
             type="button"
             onClick={handleDownloadPng}
             disabled={isDownloading}
-            className="min-h-[46px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 bg-[#0B192C]/55 hover:bg-[#163052] active:scale-[0.99] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 transition-all whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <Download className="w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.downloadQr}</span>

@@ -230,17 +230,20 @@ export function IsonilCardPage() {
         className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(121,200,232,0.14),transparent_42%),radial-gradient(circle_at_88%_92%,rgba(169,221,241,0.10),transparent_44%)]"
       />
 
-      <main className="relative z-10 w-full max-w-5xl mx-auto px-3.5 min-[390px]:px-4 sm:px-6 lg:px-8 pt-4 sm:pt-10 lg:pt-12 pb-[max(1.75rem,env(safe-area-inset-bottom))] sm:pb-12">
-        {/* Top language selector bar — adapts smoothly on small phones without crowding */}
-        <header className="flex flex-col-reverse min-[460px]:flex-row min-[460px]:items-center min-[460px]:justify-between gap-2.5 sm:gap-4 mb-4 sm:mb-6 no-print">
-          <p className="text-xs sm:text-sm font-medium text-[#C5D0DC] leading-snug">
+      <main className="relative z-10 w-full max-w-5xl mx-auto safe-area-main">
+        {/* Compact Mobile-First top bar: single row on phones to keep identity & CTAs immediately above the fold */}
+        <header className="flex items-center justify-between gap-2.5 sm:gap-4 mb-3.5 sm:mb-6 no-print">
+          <p className="hidden sm:block text-sm font-medium text-[#C5D0DC] leading-snug">
+            {t.cardKicker}
+          </p>
+          <p className="sm:hidden text-[11px] font-medium text-[#9FB3C8] leading-tight truncate min-w-0">
             {t.cardKicker}
           </p>
 
           <div
             role="group"
             aria-label={t.languageSelectorAria}
-            className="self-end min-[460px]:self-auto inline-flex items-center p-1 rounded-xl bg-[#11243E]/90 backdrop-blur-md border border-[#79C8E8]/20 shadow-xs shrink-0"
+            className="inline-flex items-center p-1 rounded-xl bg-[#11243E]/90 backdrop-blur-md border border-[#79C8E8]/20 shadow-xs shrink-0"
           >
             {LANGUAGE_ORDER.map((code) => {
               const active = lang === code;
@@ -252,7 +255,7 @@ export function IsonilCardPage() {
                   onClick={() => handleSelectLanguage(code)}
                   aria-pressed={active}
                   lang={code}
-                  className={`min-h-[42px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
+                  className={`min-h-[38px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer ${
                     active
                       ? 'bg-white text-[#0B192C] shadow-xs'
                       : 'text-[#C5D0DC] hover:text-white hover:bg-[#163052]'
@@ -269,39 +272,46 @@ export function IsonilCardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
           {/* Primary Identity & Contact Card */}
           <article className="lg:col-span-7 bg-[#11243E]/92 backdrop-blur-md rounded-2xl border border-[#79C8E8]/20 shadow-[0_24px_60px_-28px_rgba(4,12,24,0.72)] overflow-hidden flex flex-col min-w-0">
-            {/* Official #0B192C Brand Header Band with refined #E50914 / #79C8E8 / #A9DDF1 top hairline */}
-            <div className="relative bg-gradient-to-br from-[#0B192C] via-[#0F213A] to-[#142D4E] text-white px-4 min-[390px]:px-5 sm:px-8 pt-6 pb-5 sm:pt-7 sm:pb-6 border-b border-[#79C8E8]/15">
+            {/* Official #0B192C Brand Header Band: poised centered vertical hero on phones, executive horizontal on tablet/desktop */}
+            <div className="relative bg-gradient-to-br from-[#0B192C] via-[#0F213A] to-[#142D4E] text-white px-5 sm:px-8 pt-6 pb-5 sm:pt-7 sm:pb-6 border-b border-[#79C8E8]/15">
               <div
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#E50914] via-[#79C8E8] to-[#A9DDF1]"
               />
 
-              <div className="flex items-center gap-3.5 min-[390px]:gap-4 sm:gap-5">
-                {/* Original Transparent ISONIL Logo directly over card background — zero white box, zero CSS fill/shadow */}
-                <div className="w-16 h-16 min-[390px]:w-[76px] min-[390px]:h-[76px] sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
+              <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-start gap-3.5 sm:gap-5">
+                {/* Original Transparent ISONIL Logo directly over card background — zero white box, lossless WebP + PNG fallback */}
+                <div className="w-[76px] h-[76px] min-[390px]:w-20 min-[390px]:h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
                   {!logoFailed ? (
-                    <img
-                      src={ISONIL_CONTACT.logoSrc}
-                      alt={t.aria.logoAlt}
-                      referrerPolicy="no-referrer"
-                      onError={() => setLogoFailed(true)}
-                      className="w-full h-full object-contain bg-transparent"
-                    />
+                    <picture className="w-full h-full flex items-center justify-center">
+                      <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
+                      <img
+                        src={ISONIL_CONTACT.logoSrc}
+                        alt={t.aria.logoAlt}
+                        width={96}
+                        height={96}
+                        decoding="async"
+                        fetchPriority="high"
+                        referrerPolicy="no-referrer"
+                        onError={() => setLogoFailed(true)}
+                        className="w-full h-full object-contain bg-transparent"
+                      />
+                    </picture>
                   ) : (
                     <span className="text-3xl font-bold text-[#E50914] tracking-tight">i</span>
                   )}
                 </div>
 
-                <div className="min-w-0 flex-1">
-                  <h1 className="text-[22px] min-[390px]:text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                <div className="min-w-0 w-full sm:flex-1">
+                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
                     {ISONIL_CONTACT.company}
                   </h1>
 
-                  <p className="mt-0.5 text-[15px] min-[390px]:text-base sm:text-lg font-semibold text-[#A9DDF1] leading-snug">
+                  <p className="mt-1 sm:mt-0.5 text-base sm:text-lg font-semibold text-[#A9DDF1] leading-snug">
                     {t.displayName}
                   </p>
 
-                  <p className="mt-1.5 text-[13px] min-[390px]:text-sm sm:text-[15px] text-white/90 leading-snug text-balance">
+                  <p className="mt-1.5 text-[13px] min-[390px]:text-sm sm:text-[15px] text-white/90 leading-relaxed sm:leading-snug text-balance max-w-[34ch] mx-auto sm:mx-0 sm:max-w-none">
                     {t.businessActivity}
                   </p>
 
@@ -321,15 +331,15 @@ export function IsonilCardPage() {
                   {t.sections.quickActions}
                 </h2>
 
-                {/* Mobile-first touch grid: 2 generous top buttons (Call, WhatsApp) + 3 clean buttons below; 5-up row on tablet/desktop */}
-                <div className="grid grid-cols-6 sm:grid-cols-5 gap-2.5 sm:gap-3">
+                {/* Mobile-first touch grid: 2 generous horizontal tactile buttons (Call & WhatsApp) + 3 spacious tiles below; 5-up row on sm+ */}
+                <div className="grid grid-cols-6 sm:grid-cols-5 gap-3 sm:gap-3">
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
-                    className="col-span-3 sm:col-span-1 min-h-[64px] px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/25 text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <Phone className="w-5 h-5 text-[#79C8E8] shrink-0" />
-                    <span className="text-[12px] font-semibold whitespace-nowrap">
+                    <Phone className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#79C8E8] shrink-0" />
+                    <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
                       {t.actions.call}
                     </span>
                   </a>
@@ -339,10 +349,10 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.whatsappAction}
-                    className="col-span-3 sm:col-span-1 min-h-[64px] px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/25 text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
+                    className="col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#163052] hover:bg-[#1C3B64] active:scale-[0.98] border border-[#79C8E8]/30 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8]"
                   >
-                    <MessageCircle className="w-5 h-5 text-[#A9DDF1] shrink-0" />
-                    <span className="text-[12px] font-semibold whitespace-nowrap">
+                    <MessageCircle className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#A9DDF1] shrink-0" />
+                    <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
                       {t.actions.whatsapp}
                     </span>
                   </a>
@@ -398,7 +408,7 @@ export function IsonilCardPage() {
                   <span className="whitespace-nowrap">{t.actions.saveContact}</span>
                 </button>
 
-                <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2.5 sm:gap-3">
+                <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-3">
                   <button
                     type="button"
                     onClick={handleShareCard}

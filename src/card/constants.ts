@@ -23,5 +23,6 @@ export const ISONIL_CONTACT = {
   mapsHref:
     "https://www.google.com/maps/search/?api=1&query=3%C3%A8me%20%C3%A9tage%2C%20Bureau%20N%C2%B0%2024%2C%20Centre%20Andalousie%20(Pr%C3%A8s%20D'Acidal)%2C%20El%20Jadida%2024000%2C%20Maroc",
   logoSrc: '/assets/isonil-logo-transparent.png',
+  logoWebpSrc: '/assets/isonil-logo-transparent.webp',
   vcardFilename: 'ISONIL-Management.vcf',
 } as const;

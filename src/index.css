@@ -15,6 +15,45 @@
   --color-isonil-gray: #9FB3C8;
 }
 
+html,
+body {
+  background-color: #0B192C;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Portrait & landscape safe-area container padding for iPhone notch / Dynamic Island / Android gesture bar */
+.safe-area-main {
+  padding-top: max(0.875rem, env(safe-area-inset-top));
+  padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+  padding-left: max(0.875rem, env(safe-area-inset-left));
+  padding-right: max(0.875rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 640px) {
+  .safe-area-main {
+    padding-top: max(2.25rem, env(safe-area-inset-top));
+    padding-bottom: max(2.75rem, env(safe-area-inset-bottom));
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 1024px) {
+  .safe-area-main {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 /* Strict LTR isolation for phone numbers, emails, and URLs inside Arabic RTL layouts */
 .ltr-isolate {
   direction: ltr;
