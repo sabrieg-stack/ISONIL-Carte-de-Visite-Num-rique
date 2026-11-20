@@ -14,7 +14,7 @@ export const ISONIL_CONTACT = {
   emailHref: 'mailto:contact@isonil.com',
   websiteUrl: 'https://www.isonil.com',
   websiteDisplay: 'www.isonil.com',
-  cardCanonicalUrl: 'https://www.isonil.com/card',
+  cardCanonicalUrl: 'https://carte.isonil.com/',
   address: "3ème étage, Bureau N° 24, Centre Andalousie (Près D'Acidal), El Jadida 24000, Maroc",
   addressStreet: "3ème étage, Bureau N° 24, Centre Andalousie (Près D'Acidal)",
   addressCity: 'El Jadida',

@@ -182,7 +182,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: "Copier l'adresse e-mail",
       copyAddress: "Copier l'adresse postale",
       copyCardUrl: 'Copier le lien permanent de la carte',
-      qrCodeImage: 'Code QR permanent vers https://www.isonil.com/card',
+      qrCodeImage: 'Code QR permanent vers https://carte.isonil.com/',
       logoAlt: 'Logo officiel ISONIL',
     },
     sections: {
@@ -328,7 +328,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: 'Copy email address',
       copyAddress: 'Copy street address',
       copyCardUrl: 'Copy permanent card link',
-      qrCodeImage: 'Permanent QR code linking to https://www.isonil.com/card',
+      qrCodeImage: 'Permanent QR code linking to https://carte.isonil.com/',
       logoAlt: 'Official ISONIL logo',
     },
     sections: {
@@ -474,7 +474,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: 'نسخ البريد الإلكتروني',
       copyAddress: 'نسخ العنوان الكامل',
       copyCardUrl: 'نسخ الرابط الدائم للبطاقة',
-      qrCodeImage: 'رمز QR دائم يفتح الرابط https://www.isonil.com/card',
+      qrCodeImage: 'رمز QR دائم يفتح الرابط https://carte.isonil.com/',
       logoAlt: 'الشعار الرسمي لشركة ISONIL',
     },
     sections: {

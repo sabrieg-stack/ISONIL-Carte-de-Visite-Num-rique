@@ -19,7 +19,7 @@ export interface QrSvgMatrix {
 
 /**
  * Computes a deterministic, high-error-correction (Level H) SVG vector path
- * encoding the permanent canonical URL: https://www.isonil.com/card.
+ * encoding the permanent canonical URL: https://carte.isonil.com/.
  * This value is completely independent of UI language or temporary host URLs.
  */
 export function buildPermanentQrMatrix(): QrSvgMatrix {

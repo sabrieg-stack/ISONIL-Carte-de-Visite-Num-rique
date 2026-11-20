@@ -105,7 +105,7 @@ export function evaluateNfcReadiness(): NfcReadinessReport {
   const ntagMemoryCompatible = metrics.fitsNtag213 && metrics.fitsNtag215;
 
   // QR code in QrCodePanel and NfcSettingsModal both encode ISONIL_CONTACT.cardCanonicalUrl directly
-  const qrLinkSynced = permanentHttpsUrl && canonicalUrl === 'https://www.isonil.com/card';
+  const qrLinkSynced = permanentHttpsUrl && canonicalUrl === 'https://carte.isonil.com/';
 
   const vcard = buildIsonilVCard();
   const vcardComplete =
