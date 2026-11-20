@@ -40,11 +40,11 @@ export function FavoritesModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-favorites-title"
-      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060E1A]/86 backdrop-blur-sm p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#071324]/86 backdrop-blur-sm p-0 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="isonil-sheet-enter w-full sm:max-w-md bg-[#0D1C31] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/30 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
+        className="isonil-sheet-enter w-full sm:max-w-md bg-[#102442] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/35 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
