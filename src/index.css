@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-isonil-navy: #0B192C;
+  --color-isonil-surface: #11243E;
+  --color-isonil-surface-elevated: #163052;
+  --color-isonil-red: #E50914;
+  --color-isonil-light-blue: #79C8E8;
+  --color-isonil-sky-blue: #A9DDF1;
+  --color-isonil-silver: #C5D0DC;
+  --color-isonil-gray: #9FB3C8;
+}
+
+/* Strict LTR isolation for phone numbers, emails, and URLs inside Arabic RTL layouts */
+.ltr-isolate {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+/* Crisp SVG rendering for scannable QR codes */
+.qr-svg-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  shape-rendering: crispEdges;
+}
+
+/* Balanced headlines */
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

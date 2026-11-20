@@ -1,0 +1,6 @@
+{
+  "name": "ISONIL — Carte de Visite Numérique",
+  "description": "Carte de visite numérique officielle de l'équipe ISONIL — Solutions d'Isolation Thermique et Industrielle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
