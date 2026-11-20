@@ -6,8 +6,9 @@
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --color-isonil-navy: #0B192C;
-  --color-isonil-surface: #11243E;
-  --color-isonil-surface-elevated: #163052;
+  --color-isonil-navy-deep: #081322;
+  --color-isonil-surface: #0D1C31;
+  --color-isonil-surface-elevated: #142B49;
   --color-isonil-red: #E50914;
   --color-isonil-light-blue: #79C8E8;
   --color-isonil-sky-blue: #A9DDF1;
@@ -17,7 +18,7 @@
 
 html,
 body {
-  background-color: #0B192C;
+  background-color: #081322;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
@@ -81,10 +82,14 @@ button {
    ========================================================================== */
 :root {
   --isonil-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --isonil-ease-approach: cubic-bezier(0.16, 1, 0.3, 1);
   --isonil-ease-tactile: cubic-bezier(0.2, 0, 0, 1);
   --isonil-rise-y: 7px;
   --isonil-dur-enter: 380ms;
-  --isonil-dur-logo: 460ms;
+  --isonil-dur-logo: 780ms;
+  --isonil-logo-scale-from: 0.62;
+  --isonil-logo-z-from: -120px;
+  --isonil-logo-blur-from: 2px;
   --isonil-dur-bg: 1500ms;
   --isonil-dur-lang: 185ms;
   --isonil-stagger: 45ms;
@@ -94,7 +99,10 @@ button {
   :root {
     --isonil-rise-y: 12px;
     --isonil-dur-enter: 500ms;
-    --isonil-dur-logo: 580ms;
+    --isonil-dur-logo: 940ms;
+    --isonil-logo-scale-from: 0.52;
+    --isonil-logo-z-from: -180px;
+    --isonil-logo-blur-from: 2.5px;
     --isonil-dur-bg: 2100ms;
     --isonil-dur-lang: 220ms;
     --isonil-stagger: 60ms;
@@ -135,11 +143,17 @@ button {
 @keyframes isonil-logo-in {
   0% {
     opacity: 0;
-    transform: scale(0.965);
+    transform: perspective(760px) translate3d(0, 5px, var(--isonil-logo-z-from)) scale(var(--isonil-logo-scale-from));
+    filter: blur(var(--isonil-logo-blur-from));
+  }
+  58% {
+    opacity: 1;
+    filter: blur(0px);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: perspective(760px) translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
   }
 }
 
@@ -254,9 +268,9 @@ button {
   animation-delay: calc(var(--isonil-stagger) * 5);
 }
 
-/* Gentle reveal for the original transparent logo without altering its shape */
+/* Approach-from-distance reveal for the original transparent logo without altering its final shape */
 .isonil-logo-reveal {
-  animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-out) 75ms backwards;
+  animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-approach) 40ms backwards;
 }
 
 /* Quiet top brand stripe reveal respecting LTR/RTL reading direction */

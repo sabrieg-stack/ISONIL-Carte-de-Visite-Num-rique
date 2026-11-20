@@ -92,11 +92,11 @@ export function NfcSettingsModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-nfc-modal-title"
-      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060E1A]/86 backdrop-blur-sm p-0 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="isonil-sheet-enter w-full sm:max-w-xl bg-[#11243E] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
+        className="isonil-sheet-enter w-full sm:max-w-xl bg-[#0D1C31] text-white rounded-t-3xl sm:rounded-2xl border border-[#79C8E8]/30 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div

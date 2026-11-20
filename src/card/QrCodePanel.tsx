@@ -100,7 +100,7 @@ export function QrCodePanel({
     <>
       <section
         aria-labelledby="isonil-qr-heading"
-        className="flex flex-col justify-between bg-[#11243E]/92 backdrop-blur-md rounded-2xl border border-[#79C8E8]/20 shadow-[0_24px_60px_-28px_rgba(4,12,24,0.72)] p-4 min-[390px]:p-5 sm:p-7 h-full min-w-0"
+        className="flex flex-col justify-between bg-[#0D1C31]/92 backdrop-blur-md rounded-2xl border border-[#79C8E8]/28 shadow-[0_24px_60px_-28px_rgba(2,8,18,0.82)] p-4 min-[390px]:p-5 sm:p-7 h-full min-w-0"
       >
         <div>
           <div className="flex items-start justify-between gap-3">
@@ -187,7 +187,7 @@ export function QrCodePanel({
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#79C8E8]/25 hover:border-[#79C8E8]/50 bg-[#081322]/70 hover:bg-[#132946] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <Maximize2 className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.enlargeQr}</span>
@@ -197,7 +197,7 @@ export function QrCodePanel({
             type="button"
             onClick={handleDownloadPng}
             disabled={isDownloading}
-            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#C5D0DC]/25 hover:border-[#79C8E8]/45 bg-[#0B192C]/55 hover:bg-[#163052] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
+            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#79C8E8]/25 hover:border-[#79C8E8]/50 bg-[#081322]/70 hover:bg-[#132946] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#79C8E8] cursor-pointer"
           >
             <Download className="isonil-btn-icon w-4 h-4 text-[#79C8E8] shrink-0" />
             <span>{t.actions.downloadQr}</span>
@@ -211,11 +211,11 @@ export function QrCodePanel({
           role="dialog"
           aria-modal="true"
           aria-labelledby="isonil-qr-modal-title"
-          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-center justify-center bg-[#0B192C]/85 backdrop-blur-sm p-4"
+          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-center justify-center bg-[#060E1A]/86 backdrop-blur-sm p-4"
           onClick={() => setIsExpanded(false)}
         >
           <div
-            className="isonil-dialog-enter w-full max-w-sm max-h-[92dvh] overflow-y-auto bg-[#11243E] rounded-2xl border border-[#79C8E8]/25 shadow-2xl p-5 sm:p-6 text-center text-white"
+            className="isonil-dialog-enter w-full max-w-sm max-h-[92dvh] overflow-y-auto bg-[#0D1C31] rounded-2xl border border-[#79C8E8]/30 shadow-2xl p-5 sm:p-6 text-center text-white"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-3">
