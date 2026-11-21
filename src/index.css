@@ -5,20 +5,20 @@
   --font-arabic: "IBM Plex Sans Arabic", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-isonil-navy: #0B192C;
-  --color-isonil-navy-deep: #0A1A32;
-  --color-isonil-surface: #102442;
-  --color-isonil-surface-elevated: #16335A;
+  --color-isonil-navy: #0C1217;
+  --color-isonil-navy-deep: #0B1116;
+  --color-isonil-surface: #11181F;
+  --color-isonil-surface-elevated: #17222B;
   --color-isonil-red: #E50914;
-  --color-isonil-light-blue: #79C8E8;
-  --color-isonil-sky-blue: #A9DDF1;
-  --color-isonil-silver: #C5D0DC;
-  --color-isonil-gray: #9FB3C8;
+  --color-isonil-light-blue: #4CC3DB;
+  --color-isonil-sky-blue: #76D4E6;
+  --color-isonil-silver: #D0D7DE;
+  --color-isonil-gray: #9AA9B5;
 }
 
 html,
 body {
-  background-color: #0A1A32;
+  background-color: #0C1217;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
@@ -368,7 +368,7 @@ button {
 
   .isonil-btn-primary:hover {
     transform: translateY(-1.5px);
-    box-shadow: 0 12px 26px -12px rgba(121, 200, 232, 0.35);
+    box-shadow: 0 12px 26px -12px rgba(76, 195, 219, 0.32);
   }
 
   .isonil-btn-primary:hover .isonil-btn-icon {
