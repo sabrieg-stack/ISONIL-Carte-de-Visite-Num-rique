@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
-import { Check, Copy, Download, Maximize2, QrCode, X } from 'lucide-react';
+import { Check, Copy, Download, Maximize2, QrCode, Share2, X } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
 import type { CardTranslation } from './translations';
 
@@ -9,6 +9,7 @@ interface QrCodePanelProps {
   langAnimClass?: string;
   onNotify: (message: string) => void;
   onCopyUrl: () => void;
+  onShareCard?: () => void;
   urlCopied: boolean;
 }
 
@@ -52,6 +53,7 @@ export function QrCodePanel({
   langAnimClass = '',
   onNotify,
   onCopyUrl,
+  onShareCard,
   urlCopied,
 }: QrCodePanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -184,26 +186,40 @@ export function QrCodePanel({
           </div>
         </div>
 
-        {/* Utility actions for scanning & print */}
-        <div className={`mt-5 pt-4 border-t border-[#D0D7DE]/14 grid grid-cols-1 min-[360px]:grid-cols-2 gap-3 no-print ${langAnimClass}`}>
+        {/* Utility actions for scanning, download & mobile share */}
+        <div className={`mt-5 pt-4 border-t border-[#D0D7DE]/14 grid grid-cols-2 gap-2.5 sm:gap-3 no-print ${langAnimClass}`}>
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+            aria-label={t.actions.enlargeQr}
+            className="isonil-btn min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
           >
             <Maximize2 className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
-            <span>{t.actions.enlargeQr}</span>
+            <span className="truncate">{t.actions.enlargeQr}</span>
           </button>
 
           <button
             type="button"
             onClick={handleDownloadPng}
             disabled={isDownloading}
-            className="isonil-btn min-h-[48px] px-3 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+            aria-label={t.actions.downloadQr}
+            className="isonil-btn min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
           >
             <Download className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
-            <span>{t.actions.downloadQr}</span>
+            <span className="truncate">{t.actions.downloadQr}</span>
           </button>
+
+          {onShareCard && (
+            <button
+              type="button"
+              onClick={onShareCard}
+              aria-label={t.aria.shareCardAction}
+              className="lg:hidden col-span-2 isonil-btn w-full min-h-[48px] px-4 py-2.5 rounded-xl border border-[#4CC3DB]/40 hover:border-[#4CC3DB]/70 active:border-[#4CC3DB]/75 bg-[#16242E] hover:bg-[#1D2F3C] active:bg-[#1D2F3C] text-white text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+            >
+              <Share2 className="isonil-btn-icon w-4 h-4 text-[#76D4E6] shrink-0" />
+              <span className="truncate">{t.actions.shareCard}</span>
+            </button>
+          )}
         </div>
       </section>
 
