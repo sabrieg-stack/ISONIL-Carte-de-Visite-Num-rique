@@ -19,6 +19,7 @@ export interface CardTranslation {
     whatsapp: string;
     email: string;
     website: string;
+    companyProfile: string;
     location: string;
     saveContact: string;
     contactReady: string;
@@ -30,6 +31,7 @@ export interface CardTranslation {
     openMap: string;
     enlargeQr: string;
     downloadQr: string;
+    jumpToQr: string;
     close: string;
   };
   aria: {
@@ -37,20 +39,26 @@ export interface CardTranslation {
     whatsappAction: string;
     emailAction: string;
     websiteAction: string;
+    companyProfileAction: string;
     locationAction: string;
     saveContactAction: string;
     shareCardAction: string;
     favoritesAction: string;
+    linkedinAction: string;
+    facebookAction: string;
+    instagramAction: string;
     copyPhone: string;
     copyEmail: string;
     copyAddress: string;
     copyCardUrl: string;
     qrCodeImage: string;
+    jumpToQrAction: string;
     logoAlt: string;
   };
   sections: {
     quickActions: string;
     contactDetails: string;
+    followUs: string;
     qrTitle: string;
     qrSubtitle: string;
     permanentLinkLabel: string;
@@ -179,7 +187,8 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsapp: 'WhatsApp',
       email: 'E-mail',
       website: 'Site web',
-      location: 'Localisation',
+      companyProfile: 'Profil de l’entreprise',
+      location: 'Localisation sur la carte',
       saveContact: 'Enregistrer le contact',
       contactReady: 'Fiche prête',
       shareCard: 'Partager la carte',
@@ -190,6 +199,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       openMap: 'Voir sur la carte',
       enlargeQr: 'Agrandir le QR',
       downloadQr: 'Télécharger PNG',
+      jumpToQr: 'QR Code',
       close: 'Fermer',
     },
     aria: {
@@ -197,20 +207,26 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsappAction: 'Contacter ISONIL sur WhatsApp',
       emailAction: 'Envoyer un e-mail à contact@isonil.com',
       websiteAction: 'Ouvrir le site officiel isonil.com',
+      companyProfileAction: 'Ouvrir le profil de l’entreprise ISONIL dans un nouvel onglet',
       locationAction: "Ouvrir l'adresse ISONIL sur Google Maps",
       saveContactAction: 'Télécharger la fiche contact VCF pour iPhone et Android',
       shareCardAction: 'Partager le lien permanent de la carte ISONIL',
       favoritesAction: 'Ajouter cette carte aux favoris du navigateur',
+      linkedinAction: 'Suivre ISONIL sur LinkedIn',
+      facebookAction: 'Suivre ISONIL sur Facebook',
+      instagramAction: 'Suivre ISONIL sur Instagram',
       copyPhone: 'Copier le numéro de téléphone',
       copyEmail: "Copier l'adresse e-mail",
       copyAddress: "Copier l'adresse postale",
       copyCardUrl: 'Copier le lien permanent de la carte',
       qrCodeImage: 'Code QR permanent vers https://carte.isonil.com/',
+      jumpToQrAction: 'Descendre directement vers le QR Code',
       logoAlt: 'Logo officiel ISONIL',
     },
     sections: {
       quickActions: 'Contact direct',
       contactDetails: 'Coordonnées officielles',
+      followUs: 'Suivez-nous',
       qrTitle: 'Scanner le QR Code',
       qrSubtitle: 'Ouvre directement cette carte officielle sur mobile, sans application requise.',
       permanentLinkLabel: 'Lien permanent',
@@ -344,7 +360,8 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsapp: 'WhatsApp',
       email: 'Email',
       website: 'Website',
-      location: 'Location',
+      companyProfile: 'Company Profile',
+      location: 'Location on Map',
       saveContact: 'Save Contact',
       contactReady: 'Contact ready',
       shareCard: 'Share Card',
@@ -355,6 +372,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       openMap: 'Open in Maps',
       enlargeQr: 'Enlarge QR',
       downloadQr: 'Download PNG',
+      jumpToQr: 'QR Code',
       close: 'Close',
     },
     aria: {
@@ -362,20 +380,26 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsappAction: 'Start a WhatsApp chat with ISONIL',
       emailAction: 'Send an email to contact@isonil.com',
       websiteAction: 'Visit official website isonil.com',
+      companyProfileAction: 'Open the ISONIL Company Profile in a new tab',
       locationAction: 'Open ISONIL address in Google Maps',
       saveContactAction: 'Download VCF contact card for iPhone and Android',
       shareCardAction: 'Share the permanent ISONIL card link',
       favoritesAction: 'Save this card to browser favorites',
+      linkedinAction: 'Follow ISONIL on LinkedIn',
+      facebookAction: 'Follow ISONIL on Facebook',
+      instagramAction: 'Follow ISONIL on Instagram',
       copyPhone: 'Copy phone number',
       copyEmail: 'Copy email address',
       copyAddress: 'Copy street address',
       copyCardUrl: 'Copy permanent card link',
       qrCodeImage: 'Permanent QR code linking to https://carte.isonil.com/',
+      jumpToQrAction: 'Scroll directly to the QR Code',
       logoAlt: 'Official ISONIL logo',
     },
     sections: {
       quickActions: 'Direct Actions',
       contactDetails: 'Official Contact Details',
+      followUs: 'Follow us',
       qrTitle: 'Scan QR Code',
       qrSubtitle: 'Opens this official digital card directly on any smartphone camera.',
       permanentLinkLabel: 'Permanent link',
@@ -507,9 +531,10 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     actions: {
       call: 'اتصال',
       whatsapp: 'واتساب',
-      email: 'البريد',
-      website: 'الموقع',
-      location: 'الخريطة',
+      email: 'إيميل',
+      website: 'الموقع الإلكتروني',
+      companyProfile: 'بروفايل الشركة',
+      location: 'الموقع على الخريطة',
       saveContact: 'حفظ جهة الاتصال',
       contactReady: 'تم تجهيز الملف',
       shareCard: 'مشاركة البطاقة',
@@ -520,6 +545,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       openMap: 'فتح في الخرائط',
       enlargeQr: 'تكبير الرمز',
       downloadQr: 'تنزيل PNG',
+      jumpToQr: 'رمز QR',
       close: 'إغلاق',
     },
     aria: {
@@ -527,20 +553,26 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsappAction: 'بدء محادثة واتساب مع شركة ISONIL',
       emailAction: 'إرسال بريد إلكتروني إلى contact@isonil.com',
       websiteAction: 'فتح الموقع الرسمي isonil.com',
+      companyProfileAction: 'فتح بروفايل شركة ISONIL في تبويب جديد',
       locationAction: 'فتح عنوان ISONIL على خرائط جوجل',
-      saveContactAction: 'تنزيل ملف جهة الاتصال VCF لهواتف أندرويد وآيفون',
+      saveContactAction: 'تنزيل ملف جهة الاتصال /contact.vcf لهواتف أندرويد وآيفون',
       shareCardAction: 'مشاركة الرابط الدائم لبطاقة ISONIL',
       favoritesAction: 'حفظ البطاقة في مفضلة المتصفح',
+      linkedinAction: 'متابعة ISONIL على LinkedIn',
+      facebookAction: 'متابعة ISONIL على Facebook',
+      instagramAction: 'متابعة ISONIL على Instagram',
       copyPhone: 'نسخ رقم الهاتف',
       copyEmail: 'نسخ البريد الإلكتروني',
       copyAddress: 'نسخ العنوان الكامل',
       copyCardUrl: 'نسخ الرابط الدائم للبطاقة',
       qrCodeImage: 'رمز QR دائم يفتح الرابط https://carte.isonil.com/',
+      jumpToQrAction: 'الانتقال مباشرة إلى رمز QR',
       logoAlt: 'الشعار الرسمي لشركة ISONIL',
     },
     sections: {
       quickActions: 'التواصل السريع',
       contactDetails: 'بيانات التواصل الرسمية',
+      followUs: 'تابعنا',
       qrTitle: 'مسح رمز QR',
       qrSubtitle: 'يفتح هذه البطاقة الرقمية الرسمية مباشرة عبر كاميرا الهاتف دون الحاجة لأي تطبيق.',
       permanentLinkLabel: 'الرابط الدائم',

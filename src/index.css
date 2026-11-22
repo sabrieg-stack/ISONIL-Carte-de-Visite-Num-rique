@@ -56,6 +56,17 @@ button {
   }
 }
 
+/* Preserve full vertical reading area on short landscape mobile screens */
+@media (max-height: 480px) and (orientation: landscape) {
+  .isonil-mobile-sticky-bar {
+    display: none !important;
+  }
+
+  .safe-area-main {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
 /* Strict LTR isolation for phone numbers, emails, and URLs inside Arabic RTL layouts */
 .ltr-isolate {
   direction: ltr;

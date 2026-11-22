@@ -38,25 +38,14 @@ export function buildIsonilVCard(): string {
 }
 
 /**
- * Triggers a clean download of the UTF-8 .vcf file compatible with Android and iPhone.
+ * Triggers a clean download of /contact.vcf compatible with Android and iPhone.
  */
 export function downloadIsonilVCard(): void {
-  const vcardContent = buildIsonilVCard();
-  const blob = new Blob([vcardContent], {
-    type: 'text/vcard;charset=utf-8',
-  });
-  const objectUrl = URL.createObjectURL(blob);
-
   const link = document.createElement('a');
-  link.href = objectUrl;
+  link.href = ISONIL_CONTACT.vcardPublicPath;
   link.download = ISONIL_CONTACT.vcardFilename;
   link.rel = 'noopener';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-
-  // Allow iOS Safari / Android browsers enough time to consume the Blob URL before revoking.
-  window.setTimeout(() => {
-    URL.revokeObjectURL(objectUrl);
-  }, 1500);
 }

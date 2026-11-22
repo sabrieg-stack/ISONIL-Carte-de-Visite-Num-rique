@@ -4,6 +4,7 @@ import {
   Check,
   Copy,
   ExternalLink,
+  FileText,
   Globe,
   HelpCircle,
   Mail,
@@ -11,11 +12,13 @@ import {
   MessageCircle,
   Nfc,
   Phone,
+  QrCode,
   Share2,
   Smartphone,
   UserPlus,
   X,
 } from 'lucide-react';
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import {
   DEFAULT_LANGUAGE,
   ISONIL_CONTACT,
@@ -274,9 +277,8 @@ export function IsonilCardPage() {
     [showToast, t.toasts.copyError]
   );
 
-  const handleSaveContact = () => {
+  const triggerSaveContactFeedback = useCallback(() => {
     triggerSubtleHaptic();
-    downloadIsonilVCard();
     setContactSavedFeedback(true);
     showToast(t.toasts.vcfDownloaded);
     if (vcardTimerRef.current !== null) {
@@ -285,7 +287,12 @@ export function IsonilCardPage() {
     vcardTimerRef.current = window.setTimeout(() => {
       setContactSavedFeedback(false);
     }, 2400);
-  };
+  }, [showToast, t.toasts.vcfDownloaded]);
+
+  const handleSaveContactFromModal = useCallback(() => {
+    downloadIsonilVCard();
+    triggerSaveContactFeedback();
+  }, [triggerSaveContactFeedback]);
 
   const handleShareCard = async () => {
     triggerSubtleHaptic();
@@ -335,6 +342,21 @@ export function IsonilCardPage() {
     setFavoritesModalOpen(true);
   };
 
+  const handleJumpToQr = () => {
+    triggerSubtleHaptic();
+    const qrSection = document.getElementById('isonil-qr-section');
+    if (qrSection) {
+      qrSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Uniform full-width button classes for clean equal heights, rounded corners & spacing
+  const uniformStandardBtnClass =
+    'isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+
+  const companyProfileHighlightClass =
+    'isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/60 hover:border-[#76D4E6] active:border-[#76D4E6] bg-[#17222B] hover:bg-[#1E2E3A] active:bg-[#1E2E3A] text-white text-sm font-semibold flex items-center justify-center gap-2.5 shadow-[0_10px_24px_-16px_rgba(76,195,219,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+
   return (
     <div
       dir={t.dir}
@@ -365,14 +387,15 @@ export function IsonilCardPage() {
 
       <a
         href="#isonil-card-main"
+        aria-label={t.skipToContent}
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-50 focus:px-4 focus:py-2.5 focus:rounded-xl focus:bg-white focus:text-[#0C1217] focus:text-sm focus:font-semibold focus:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-[#4CC3DB]"
       >
         {t.skipToContent}
       </a>
 
       <main id="isonil-card-main" className="relative z-10 w-full max-w-5xl mx-auto safe-area-main">
-        {/* Compact Mobile-First top bar: single row on phones to keep identity & CTAs immediately above the fold */}
-        <header className="isonil-fade flex items-center justify-between gap-2.5 sm:gap-4 mb-3.5 sm:mb-6 no-print">
+        {/* Compact Mobile-First top bar */}
+        <header className="isonil-fade flex items-center justify-between gap-2 sm:gap-4 mb-2.5 sm:mb-6 no-print">
           <p className={`hidden sm:block text-sm font-medium text-[#D0D7DE] leading-snug ${langAnimClass}`}>
             {t.cardKicker}
           </p>
@@ -393,6 +416,7 @@ export function IsonilCardPage() {
                   key={code}
                   type="button"
                   onClick={() => handleSelectLanguage(code)}
+                  aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
                   className={`isonil-tab-btn min-h-[40px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
@@ -409,11 +433,11 @@ export function IsonilCardPage() {
         </header>
 
         {/* Responsive Executive Two-Column Grid (Desktop) / Single-Column Mobile-First Flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
-          {/* Primary Identity & Contact Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-start">
+          {/* Primary Official Card: Logo & Info -> Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact (/contact.vcf) -> Follow Us & Socials */}
           <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] overflow-hidden flex flex-col min-w-0">
             {/* Official obsidian slate header band with signature diagonal cyan sheen */}
-            <div className="relative bg-gradient-to-br from-[#0B1116] via-[#10181F] to-[#16222C] text-white px-5 sm:px-8 pt-6 pb-5 sm:pt-7 sm:pb-6 border-b border-[#4CC3DB]/20 overflow-hidden">
+            <div className="relative bg-gradient-to-br from-[#0B1116] via-[#10181F] to-[#16222C] text-white px-4 min-[390px]:px-5 sm:px-8 pt-5 pb-5 sm:pt-7 sm:pb-6 border-b border-[#4CC3DB]/20 overflow-hidden">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-12 -right-12 w-56 h-32 -rotate-[26deg] bg-gradient-to-b from-[#4CC3DB]/10 to-transparent border-b border-[#4CC3DB]/25"
@@ -423,9 +447,9 @@ export function IsonilCardPage() {
                 className="isonil-accent-line absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#E50914] via-[#4CC3DB] to-[#76D4E6]"
               />
 
-              <div className="relative flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-start gap-3.5 sm:gap-5">
-                {/* Original Transparent ISONIL Logo directly over card background — gentle reveal, zero distortion or white box */}
-                <div className="isonil-logo-reveal w-[76px] h-[76px] min-[390px]:w-20 min-[390px]:h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
+              <div className="relative flex flex-col items-center text-center min-[520px]:flex-row min-[520px]:items-center min-[520px]:text-start gap-2.5 min-[390px]:gap-3 sm:gap-5">
+                {/* Original Transparent ISONIL Logo directly over card background — zero white box */}
+                <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-20 min-[390px]:h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
                   {!logoFailed ? (
                     <picture className="w-full h-full flex items-center justify-center">
                       <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
@@ -446,61 +470,73 @@ export function IsonilCardPage() {
                   )}
                 </div>
 
-                <div className={`min-w-0 w-full sm:flex-1 isonil-enter isonil-delay-2 ${langAnimClass}`}>
-                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                <div className={`min-w-0 w-full min-[520px]:flex-1 isonil-enter isonil-delay-2 ${langAnimClass}`}>
+                  <h1 className="text-[22px] min-[390px]:text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
                     {ISONIL_CONTACT.company}
                   </h1>
 
-                  <p className="mt-1 sm:mt-0.5 text-base sm:text-lg font-semibold text-[#5EC6DA] leading-snug">
+                  <p className="mt-0.5 text-[15px] min-[390px]:text-base sm:text-lg font-semibold text-[#5EC6DA] leading-snug">
                     {t.displayName}
                   </p>
 
                   {/* Signature cyan hairline bar inspired by print card */}
                   <div
                     aria-hidden="true"
-                    className="mt-2 mb-2 h-[2px] w-14 rounded-full bg-[#4CC3DB] mx-auto sm:mx-0"
+                    className="mt-1.5 mb-1.5 sm:mt-2 sm:mb-2 h-[2px] w-14 rounded-full bg-[#4CC3DB] mx-auto min-[520px]:mx-0"
                   />
 
-                  <p className="text-[13px] min-[390px]:text-sm sm:text-[15px] text-white/90 leading-relaxed sm:leading-snug text-balance max-w-[34ch] mx-auto sm:mx-0 sm:max-w-none">
+                  <p className="text-[13px] min-[390px]:text-sm sm:text-[15px] text-white/90 leading-snug text-balance max-w-[34ch] mx-auto min-[520px]:mx-0 min-[520px]:max-w-none">
                     {t.businessActivity}
                   </p>
 
-                  <p className="mt-1.5 text-xs text-[#9AA9B5]">{t.cityCountry}</p>
+                  <p className="mt-1 sm:mt-1.5 text-xs text-[#9AA9B5]">{t.cityCountry}</p>
                 </div>
               </div>
             </div>
 
-            {/* Card Body */}
+            {/* Card Body: Uniform full-width buttons in exact requested order + Social row at card bottom */}
             <div className="p-4 min-[390px]:p-5 sm:p-8 flex-1 flex flex-col">
-              {/* Primary Action Controls */}
+              {/* Top utilities bar inside card: Quick Actions title + Mobile QR jump + Visitor NFC Help */}
               <section
                 aria-labelledby="isonil-quick-actions-heading"
                 className={langAnimClass || undefined}
               >
                 <div ref={nfcHelpContainerRef}>
-                  <div className="isonil-enter isonil-delay-2 flex items-center justify-between gap-2 mb-2.5">
+                  <div className="isonil-enter isonil-delay-2 flex items-center justify-between gap-2 mb-3">
                     <h2
                       id="isonil-quick-actions-heading"
-                      className="text-xs font-semibold text-[#9AA9B5]"
+                      className="text-xs font-semibold text-[#9AA9B5] truncate"
                     >
                       {t.sections.quickActions}
                     </h2>
 
-                    <button
-                      type="button"
-                      onClick={() => setNfcHelpOpen((prev) => !prev)}
-                      aria-expanded={nfcHelpOpen}
-                      aria-controls="isonil-nfc-tap-guide"
-                      aria-label={t.nfcTapHelp.triggerAria}
-                      className={`isonil-icon-btn no-print min-h-[44px] -my-2 -me-2 px-2.5 rounded-xl text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                        nfcHelpOpen
-                          ? 'text-[#76D4E6] bg-[#17222B]'
-                          : 'text-[#9AA9B5] hover:text-[#76D4E6] hover:bg-[#17222B]/70'
-                      }`}
-                    >
-                      <HelpCircle className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
-                      <span>{t.nfcTapHelp.triggerLabel}</span>
-                    </button>
+                    <div className="no-print flex items-center gap-0.5 shrink-0 -my-2 -me-2">
+                      <button
+                        type="button"
+                        onClick={handleJumpToQr}
+                        aria-label={t.aria.jumpToQrAction}
+                        className="isonil-icon-btn lg:hidden min-h-[44px] px-2.5 rounded-xl text-xs font-medium text-[#9AA9B5] hover:text-[#76D4E6] active:text-[#76D4E6] hover:bg-[#17222B]/70 active:bg-[#17222B] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+                      >
+                        <QrCode className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
+                        <span>{t.actions.jumpToQr}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setNfcHelpOpen((prev) => !prev)}
+                        aria-expanded={nfcHelpOpen}
+                        aria-controls="isonil-nfc-tap-guide"
+                        aria-label={t.nfcTapHelp.triggerAria}
+                        className={`isonil-icon-btn min-h-[44px] px-2.5 rounded-xl text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                          nfcHelpOpen
+                            ? 'text-[#76D4E6] bg-[#17222B]'
+                            : 'text-[#9AA9B5] hover:text-[#76D4E6] active:text-[#76D4E6] hover:bg-[#17222B]/70 active:bg-[#17222B]'
+                        }`}
+                      >
+                        <HelpCircle className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
+                        <span>{t.nfcTapHelp.triggerLabel}</span>
+                      </button>
+                    </div>
                   </div>
 
                   {nfcHelpOpen && (
@@ -519,7 +555,7 @@ export function IsonilCardPage() {
                           type="button"
                           onClick={() => setNfcHelpOpen(false)}
                           aria-label={t.actions.close}
-                          className="isonil-icon-btn min-h-[32px] min-w-[32px] -me-1.5 -mt-1.5 rounded-lg text-[#9AA9B5] hover:text-white hover:bg-[#17222B] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+                          className="isonil-icon-btn min-h-[36px] min-w-[36px] -me-1.5 -mt-1.5 rounded-lg text-[#9AA9B5] hover:text-white hover:bg-[#17222B] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
                         >
                           <X className="w-3.5 h-3.5" />
                         </button>
@@ -533,317 +569,377 @@ export function IsonilCardPage() {
                   )}
                 </div>
 
-                {/* Mobile-first touch grid: 2 generous horizontal tactile buttons (Call & WhatsApp) + 3 spacious tiles below; 5-up row on sm+ */}
-                <div className="grid grid-cols-6 sm:grid-cols-5 gap-3 sm:gap-3">
+                {/* Uniform Full-Width Button Stack: Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact */}
+                <div className="flex flex-col gap-3">
+                  {/* 1. Call */}
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
-                    className="isonil-enter isonil-delay-3 isonil-btn col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#17222B] hover:bg-[#1E2C38] hover:border-[#4CC3DB]/55 border border-[#4CC3DB]/32 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                    className={`isonil-enter isonil-delay-3 ${uniformStandardBtnClass}`}
                   >
-                    <Phone className="isonil-btn-icon w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
-                      {t.actions.call}
-                    </span>
+                    <Phone className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
+                    <span className="whitespace-nowrap">{t.actions.call}</span>
                   </a>
 
+                  {/* 2. WhatsApp */}
                   <a
                     href={whatsappDirectHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.whatsappAction}
-                    className="isonil-enter isonil-delay-4 isonil-btn col-span-3 sm:col-span-1 min-h-[54px] sm:min-h-[64px] px-3 sm:px-2 py-3 rounded-xl bg-[#17222B] hover:bg-[#1E2C38] hover:border-[#4CC3DB]/55 border border-[#4CC3DB]/32 text-white flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                    className={`isonil-enter isonil-delay-4 ${uniformStandardBtnClass}`}
                   >
-                    <MessageCircle className="isonil-btn-icon w-[18px] h-[18px] sm:w-5 sm:h-5 text-[#76D4E6] shrink-0" />
-                    <span className="text-[13px] sm:text-xs font-semibold whitespace-nowrap">
-                      {t.actions.whatsapp}
-                    </span>
+                    <MessageCircle className="isonil-btn-icon w-5 h-5 text-[#76D4E6] shrink-0" />
+                    <span className="whitespace-nowrap">{t.actions.whatsapp}</span>
                   </a>
 
+                  {/* 3. Email */}
                   <a
                     href={emailDirectHref}
                     aria-label={t.aria.emailAction}
-                    className="isonil-enter isonil-delay-5 isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                    className={`isonil-enter isonil-delay-5 ${uniformStandardBtnClass}`}
                   >
                     <Mail className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
-                      {t.actions.email}
-                    </span>
+                    <span className="whitespace-nowrap">{t.actions.email}</span>
                   </a>
 
+                  {/* 4. Website */}
                   <a
                     href={ISONIL_CONTACT.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.websiteAction}
-                    className="isonil-enter isonil-delay-6 isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                    className={`isonil-enter isonil-delay-6 ${uniformStandardBtnClass}`}
                   >
                     <Globe className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
-                      {t.actions.website}
-                    </span>
+                    <span className="whitespace-nowrap">{t.actions.website}</span>
                   </a>
 
+                  {/* 5. Company Profile (Directly after Website — Visually distinguished primary/secondary CTA) */}
+                  <a
+                    href={ISONIL_CONTACT.companyProfileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.companyProfileAction}
+                    className={`isonil-enter isonil-delay-7 ${companyProfileHighlightClass}`}
+                  >
+                    <FileText className="isonil-btn-icon w-5 h-5 text-[#5EC6DA] shrink-0" />
+                    <span className="whitespace-nowrap">{t.actions.companyProfile}</span>
+                  </a>
+
+                  {/* 6. Location on Map */}
                   <a
                     href={ISONIL_CONTACT.mapsHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.locationAction}
-                    className="isonil-enter isonil-delay-7 isonil-btn col-span-2 sm:col-span-1 min-h-[62px] px-1.5 py-3 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white flex flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                    className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
                   >
                     <MapPin className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="text-[11px] min-[375px]:text-xs font-semibold whitespace-nowrap">
-                      {t.actions.location}
-                    </span>
+                    <span className="whitespace-nowrap">{t.actions.location}</span>
                   </a>
+
+                  {/* 7. Save Contact (Downloads /contact.vcf — Visually distinguished primary CTA) */}
+                  <div ref={primaryCtaRef} className="no-print">
+                    <a
+                      href={ISONIL_CONTACT.vcardPublicPath}
+                      download={ISONIL_CONTACT.vcardFilename}
+                      onClick={triggerSaveContactFeedback}
+                      aria-label={t.aria.saveContactAction}
+                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/70 text-[#0C1217] text-sm font-semibold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                        contactSavedFeedback
+                          ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
+                          : 'bg-white hover:bg-[#ECF8FA] active:bg-[#D7F4FA]'
+                      }`}
+                    >
+                      {contactSavedFeedback ? (
+                        <>
+                          <Check className="isonil-check-pop w-5 h-5 text-[#0C1217] shrink-0" />
+                          <span className="whitespace-nowrap">{t.actions.contactReady}</span>
+                        </>
+                      ) : (
+                        <>
+                          <UserPlus className="isonil-btn-icon w-5 h-5 text-[#0C1217] shrink-0" />
+                          <span className="whitespace-nowrap">{t.actions.saveContact}</span>
+                        </>
+                      )}
+                    </a>
+                  </div>
                 </div>
               </section>
 
-              {/* Dominant Primary CTA (Save Contact VCF) + Share & Favorites */}
-              <div ref={primaryCtaRef} className={`mt-5 space-y-3 no-print ${langAnimClass}`}>
-                <button
-                  type="button"
-                  onClick={handleSaveContact}
-                  aria-label={t.aria.saveContactAction}
-                  className={`isonil-enter isonil-delay-8 isonil-btn-primary w-full min-h-[52px] px-5 py-3 rounded-xl text-[#0C1217] text-sm sm:text-[15px] font-semibold inline-flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                    contactSavedFeedback
-                      ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
-                      : 'bg-white hover:bg-[#ECF8FA]'
-                  }`}
-                >
-                  {contactSavedFeedback ? (
-                    <>
-                      <Check className="isonil-check-pop w-5 h-5 text-[#0C1217] shrink-0" />
-                      <span className="whitespace-nowrap">{t.actions.contactReady}</span>
-                    </>
-                  ) : (
-                    <>
-                      <UserPlus className="isonil-btn-icon w-5 h-5 text-[#0C1217] shrink-0" />
-                      <span className="whitespace-nowrap">{t.actions.saveContact}</span>
-                    </>
-                  )}
-                </button>
-
-                <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={handleShareCard}
-                    aria-label={t.aria.shareCardAction}
-                    className="isonil-enter isonil-delay-9 isonil-btn min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
-                  >
-                    <Share2 className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.shareCard}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleOpenFavorites}
-                    aria-label={t.aria.favoritesAction}
-                    aria-pressed={isFavorite}
-                    className={`isonil-enter isonil-delay-10 isonil-btn min-h-[48px] px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                      isFavorite
-                        ? 'border-[#E50914]/55 bg-[#E50914]/12 text-white hover:bg-[#E50914]/20'
-                        : 'border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white'
-                    }`}
-                  >
-                    <Bookmark
-                      className={`isonil-btn-icon w-4 h-4 shrink-0 ${
-                        isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#4CC3DB]'
-                      }`}
-                    />
-                    <span className="whitespace-nowrap">
-                      {isFavorite ? t.actions.savedInFavorites : t.actions.addToFavorites}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Official Contact Information (Hairline separated, zero nested card clutter) */}
+              {/* Social Media Row at the very end of the primary card ("تابعنا" + circular react-icons) */}
               <section
-                aria-labelledby="isonil-contact-details-heading"
-                className={`mt-6 sm:mt-7 pt-5 border-t border-[#D0D7DE]/14 isonil-enter isonil-delay-11 ${langAnimClass}`}
+                aria-labelledby="isonil-follow-us-heading"
+                className={`isonil-enter isonil-delay-10 mt-6 pt-5 border-t border-[#D0D7DE]/14 text-center no-print ${langAnimClass}`}
               >
                 <h2
-                  id="isonil-contact-details-heading"
-                  className="text-xs font-semibold text-[#9AA9B5] mb-2"
+                  id="isonil-follow-us-heading"
+                  className="text-xs font-semibold text-[#9AA9B5] mb-3.5"
                 >
-                  {t.sections.contactDetails}
+                  {t.sections.followUs}
                 </h2>
 
-                <dl className="divide-y divide-[#D0D7DE]/12">
-                  {/* Phone & WhatsApp with strict LTR directional isolation */}
-                  <div className="py-3.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-center justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <dt className="text-xs text-[#9AA9B5]">{t.fields.phoneAndWhatsapp}</dt>
-                      <dd className="mt-0.5">
-                        <a
-                          href={ISONIL_CONTACT.phoneHref}
-                          dir="ltr"
-                          className="ltr-isolate font-mono tabular-nums text-[15px] sm:text-base font-semibold text-white hover:text-[#76D4E6] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded"
-                        >
-                          {ISONIL_CONTACT.phoneDisplay}
-                        </a>
-                      </dd>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleCopyValue(
-                          'phone',
-                          ISONIL_CONTACT.phoneDisplay,
-                          t.toasts.phoneCopied
-                        )
-                      }
-                      aria-label={t.aria.copyPhone}
-                      className={`isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                        copiedField === 'phone'
-                          ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
-                          : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B]'
-                      }`}
-                    >
-                      {copiedField === 'phone' ? (
-                        <>
-                          <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
-                          <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
-                            {t.actions.copied}
-                          </span>
-                        </>
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </button>
-                  </div>
+                <div className="flex items-center justify-center gap-4">
+                  <a
+                    href={ISONIL_CONTACT.socialLinks.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.linkedinAction}
+                    className="isonil-icon-btn w-11 h-11 rounded-full bg-[#0C1217]/88 hover:bg-[#17222B] active:bg-[#17222B] border border-[#4CC3DB]/32 hover:border-[#4CC3DB]/75 text-[#D0D7DE] hover:text-[#76D4E6] flex items-center justify-center shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                  >
+                    <FaLinkedinIn className="w-[18px] h-[18px]" aria-hidden="true" />
+                  </a>
 
-                  {/* Official Email */}
-                  <div className="py-3.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-center justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <dt className="text-xs text-[#9AA9B5]">{t.fields.email}</dt>
-                      <dd className="mt-0.5">
-                        <a
-                          href={emailDirectHref}
-                          dir="ltr"
-                          className="ltr-isolate text-sm sm:text-[15px] font-medium text-white hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded"
-                        >
-                          {ISONIL_CONTACT.email}
-                        </a>
-                      </dd>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleCopyValue('email', ISONIL_CONTACT.email, t.toasts.emailCopied)
-                      }
-                      aria-label={t.aria.copyEmail}
-                      className={`isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                        copiedField === 'email'
-                          ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
-                          : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B]'
-                      }`}
-                    >
-                      {copiedField === 'email' ? (
-                        <>
-                          <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
-                          <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
-                            {t.actions.copied}
-                          </span>
-                        </>
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </button>
-                  </div>
+                  <a
+                    href={ISONIL_CONTACT.socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.facebookAction}
+                    className="isonil-icon-btn w-11 h-11 rounded-full bg-[#0C1217]/88 hover:bg-[#17222B] active:bg-[#17222B] border border-[#4CC3DB]/32 hover:border-[#4CC3DB]/75 text-[#D0D7DE] hover:text-[#76D4E6] flex items-center justify-center shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                  >
+                    <FaFacebookF className="w-[17px] h-[17px]" aria-hidden="true" />
+                  </a>
 
-                  {/* Official Website */}
-                  <div className="py-3.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-center justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <dt className="text-xs text-[#9AA9B5]">{t.fields.website}</dt>
-                      <dd className="mt-0.5">
-                        <a
-                          href={ISONIL_CONTACT.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          dir="ltr"
-                          className="ltr-isolate text-sm sm:text-[15px] font-medium text-[#5EC6DA] hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded"
-                        >
-                          {ISONIL_CONTACT.websiteUrl}
-                        </a>
-                      </dd>
-                    </div>
-                    <a
-                      href={ISONIL_CONTACT.websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={t.aria.websiteAction}
-                      className="isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9AA9B5] hover:text-white hover:bg-[#17222B] flex items-center justify-center shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
-
-                  {/* Official Address */}
-                  <div className="pt-3.5 pb-1 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <dt className="text-xs text-[#9AA9B5]">{t.fields.address}</dt>
-                      <dd className="mt-0.5 text-sm sm:text-[15px] font-medium text-white/95 leading-relaxed">
-                        <span dir="ltr" className="ltr-isolate text-start break-words max-w-full">
-                          {ISONIL_CONTACT.address}
-                        </span>
-                      </dd>
-                      <div className="mt-1.5 no-print">
-                        <a
-                          href={ISONIL_CONTACT.mapsHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 min-h-[44px] -ms-2 px-2 rounded-lg text-xs font-semibold text-[#5EC6DA] hover:text-[#76D4E6] hover:bg-[#17222B]/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
-                        >
-                          <MapPin className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
-                          <span>{t.actions.openMap}</span>
-                        </a>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleCopyValue(
-                          'address',
-                          ISONIL_CONTACT.address,
-                          t.toasts.addressCopied
-                        )
-                      }
-                      aria-label={t.aria.copyAddress}
-                      className={`isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
-                        copiedField === 'address'
-                          ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
-                          : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B]'
-                      }`}
-                    >
-                      {copiedField === 'address' ? (
-                        <>
-                          <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
-                          <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
-                            {t.actions.copied}
-                          </span>
-                        </>
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </button>
-                  </div>
-                </dl>
+                  <a
+                    href={ISONIL_CONTACT.socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.instagramAction}
+                    className="isonil-icon-btn w-11 h-11 rounded-full bg-[#0C1217]/88 hover:bg-[#17222B] active:bg-[#17222B] border border-[#4CC3DB]/32 hover:border-[#4CC3DB]/75 text-[#D0D7DE] hover:text-[#76D4E6] flex items-center justify-center shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                  >
+                    <FaInstagram className="w-[18px] h-[18px]" aria-hidden="true" />
+                  </a>
+                </div>
               </section>
             </div>
           </article>
 
-          {/* Secondary Column: Permanent Scannable QR Code */}
-          <aside className="isonil-enter isonil-delay-2 lg:col-span-5 min-w-0">
-            <QrCodePanel
-              t={t}
-              langAnimClass={langAnimClass}
-              onNotify={showToast}
-              onCopyUrl={() =>
-                handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
-              }
-              urlCopied={copiedField === 'url'}
-            />
+          {/* Secondary Column: Permanent Scannable QR Code (untouched) + Official Contact Details & Card Utilities */}
+          <aside className="lg:col-span-5 min-w-0 flex flex-col gap-4 sm:gap-5">
+            <div id="isonil-qr-section" className="isonil-enter isonil-delay-2 scroll-mt-4">
+              <QrCodePanel
+                t={t}
+                langAnimClass={langAnimClass}
+                onNotify={showToast}
+                onCopyUrl={() =>
+                  handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
+                }
+                urlCopied={copiedField === 'url'}
+              />
+            </div>
+
+            {/* Official Contact Details & Share / Bookmark Actions */}
+            <section
+              aria-labelledby="isonil-contact-details-heading"
+              className={`isonil-enter isonil-delay-11 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] p-4 min-[390px]:p-5 sm:p-6 ${langAnimClass}`}
+            >
+              <h2
+                id="isonil-contact-details-heading"
+                className="text-xs font-semibold text-[#9AA9B5] mb-2"
+              >
+                {t.sections.contactDetails}
+              </h2>
+
+              <dl className="divide-y divide-[#D0D7DE]/12">
+                {/* Phone & WhatsApp with strict LTR directional isolation */}
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
+                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
+                    <dt className="text-xs text-[#9AA9B5]">{t.fields.phoneAndWhatsapp}</dt>
+                    <dd className="mt-0.5">
+                      <a
+                        href={ISONIL_CONTACT.phoneHref}
+                        aria-label={t.aria.callAction}
+                        dir="ltr"
+                        className="ltr-isolate font-mono tabular-nums text-[15px] sm:text-base font-semibold text-white group-hover:text-[#76D4E6] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                      >
+                        {ISONIL_CONTACT.phoneDisplay}
+                      </a>
+                    </dd>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleCopyValue(
+                        'phone',
+                        ISONIL_CONTACT.phoneDisplay,
+                        t.toasts.phoneCopied
+                      )
+                    }
+                    aria-label={t.aria.copyPhone}
+                    className={`relative z-10 isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                      copiedField === 'phone'
+                        ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
+                        : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B] active:bg-[#17222B]'
+                    }`}
+                  >
+                    {copiedField === 'phone' ? (
+                      <>
+                        <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
+                        <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
+                          {t.actions.copied}
+                        </span>
+                      </>
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+
+                {/* Official Email */}
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
+                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
+                    <dt className="text-xs text-[#9AA9B5]">{t.fields.email}</dt>
+                    <dd className="mt-0.5">
+                      <a
+                        href={emailDirectHref}
+                        aria-label={t.aria.emailAction}
+                        dir="ltr"
+                        className="ltr-isolate text-sm sm:text-[15px] font-medium text-white group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                      >
+                        {ISONIL_CONTACT.email}
+                      </a>
+                    </dd>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleCopyValue('email', ISONIL_CONTACT.email, t.toasts.emailCopied)
+                    }
+                    aria-label={t.aria.copyEmail}
+                    className={`relative z-10 isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                      copiedField === 'email'
+                        ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
+                        : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B] active:bg-[#17222B]'
+                    }`}
+                  >
+                    {copiedField === 'email' ? (
+                      <>
+                        <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
+                        <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
+                          {t.actions.copied}
+                        </span>
+                      </>
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+
+                {/* Official Website */}
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
+                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
+                    <dt className="text-xs text-[#9AA9B5]">{t.fields.website}</dt>
+                    <dd className="mt-0.5">
+                      <a
+                        href={ISONIL_CONTACT.websiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={t.aria.websiteAction}
+                        dir="ltr"
+                        className="ltr-isolate text-sm sm:text-[15px] font-medium text-[#5EC6DA] group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                      >
+                        {ISONIL_CONTACT.websiteUrl}
+                      </a>
+                    </dd>
+                  </div>
+                  <a
+                    href={ISONIL_CONTACT.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.websiteAction}
+                    className="relative z-10 isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#9AA9B5] hover:text-white hover:bg-[#17222B] active:bg-[#17222B] flex items-center justify-center shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Official Address */}
+                <div className="pt-3.5 pb-1 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <dt className="text-xs text-[#9AA9B5]">{t.fields.address}</dt>
+                    <dd className="mt-0.5 text-sm sm:text-[15px] font-medium text-white/95 leading-relaxed">
+                      <span dir="ltr" className="ltr-isolate text-start break-words max-w-full">
+                        {ISONIL_CONTACT.address}
+                      </span>
+                    </dd>
+                    <div className="mt-1.5 no-print">
+                      <a
+                        href={ISONIL_CONTACT.mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={t.aria.locationAction}
+                        className="inline-flex items-center gap-1.5 min-h-[44px] -ms-2 px-2 rounded-lg text-xs font-semibold text-[#5EC6DA] hover:text-[#76D4E6] hover:bg-[#17222B]/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                      >
+                        <MapPin className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
+                        <span>{t.actions.openMap}</span>
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleCopyValue(
+                        'address',
+                        ISONIL_CONTACT.address,
+                        t.toasts.addressCopied
+                      )
+                    }
+                    aria-label={t.aria.copyAddress}
+                    className={`isonil-icon-btn min-h-[44px] min-w-[44px] px-2.5 rounded-xl flex items-center justify-center gap-1.5 shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                      copiedField === 'address'
+                        ? 'bg-[#4CC3DB]/16 text-[#76D4E6]'
+                        : 'text-[#9AA9B5] hover:text-white hover:bg-[#17222B]'
+                    }`}
+                  >
+                    {copiedField === 'address' ? (
+                      <>
+                        <Check className="isonil-check-pop w-4 h-4 text-[#76D4E6] shrink-0" />
+                        <span className="text-xs font-medium text-[#76D4E6] whitespace-nowrap">
+                          {t.actions.copied}
+                        </span>
+                      </>
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </dl>
+
+              {/* Share & Favorites — uniform full-width controls */}
+              <div className="mt-4 pt-4 border-t border-[#D0D7DE]/14 flex flex-col gap-3 no-print">
+                <button
+                  type="button"
+                  onClick={handleShareCard}
+                  aria-label={t.aria.shareCardAction}
+                  className={uniformStandardBtnClass}
+                >
+                  <Share2 className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
+                  <span className="truncate">{t.actions.shareCard}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleOpenFavorites}
+                  aria-label={t.aria.favoritesAction}
+                  aria-pressed={isFavorite}
+                  className={`isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                    isFavorite
+                      ? 'border-[#E50914]/55 bg-[#E50914]/12 text-white hover:bg-[#E50914]/20 active:bg-[#E50914]/24'
+                      : 'border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white'
+                  }`}
+                >
+                  <Bookmark
+                    className={`isonil-btn-icon w-4 h-4 shrink-0 ${
+                      isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#4CC3DB]'
+                    }`}
+                  />
+                  <span className="truncate">
+                    {isFavorite ? t.actions.savedInFavorites : t.actions.addToFavorites}
+                  </span>
+                </button>
+              </div>
+            </section>
           </aside>
         </div>
 
@@ -855,6 +951,7 @@ export function IsonilCardPage() {
               href={ISONIL_CONTACT.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={t.aria.websiteAction}
               dir="ltr"
               className="ltr-isolate font-medium text-[#D0D7DE] hover:text-[#76D4E6] transition-colors"
             >
@@ -876,11 +973,11 @@ export function IsonilCardPage() {
         </footer>
       </main>
 
-      {/* Scroll-triggered Mobile/Tablet Thumb-Zone Action Bar (strictly below 15% viewport height, hidden above the fold & during modals) */}
+      {/* Scroll-triggered Mobile/Tablet Thumb-Zone Action Bar */}
       {showMobileStickyBar && !favoritesModalOpen && !nfcModalOpen && (
         <nav
           aria-label={t.stickyBarAria}
-          className="isonil-sticky-enter lg:hidden no-print fixed bottom-0 inset-x-0 z-40 bg-[#0C1217]/92 backdrop-blur-md border-t border-[#4CC3DB]/25 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_-12px_rgba(3,6,9,0.9)]"
+          className="isonil-mobile-sticky-bar isonil-sticky-enter lg:hidden no-print fixed bottom-0 inset-x-0 z-40 bg-[#0C1217]/92 backdrop-blur-md border-t border-[#4CC3DB]/25 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_-12px_rgba(3,6,9,0.9)]"
         >
           <div className="max-w-lg mx-auto flex items-center gap-2">
             <a
@@ -903,9 +1000,10 @@ export function IsonilCardPage() {
               <span className="hidden min-[380px]:inline">{t.actions.whatsapp}</span>
             </a>
 
-            <button
-              type="button"
-              onClick={handleSaveContact}
+            <a
+              href={ISONIL_CONTACT.vcardPublicPath}
+              download={ISONIL_CONTACT.vcardFilename}
+              onClick={triggerSaveContactFeedback}
               aria-label={t.aria.saveContactAction}
               className={`isonil-btn-primary flex-1 min-w-0 min-h-[44px] px-3.5 rounded-xl text-[#0C1217] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                 contactSavedFeedback
@@ -924,7 +1022,7 @@ export function IsonilCardPage() {
                   <span className="truncate">{t.actions.saveContact}</span>
                 </>
               )}
-            </button>
+            </a>
           </div>
         </nav>
       )}
@@ -956,7 +1054,7 @@ export function IsonilCardPage() {
         onCopyNfcUrl={() =>
           handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.nfc.nfcLinkCopiedToast)
         }
-        onDownloadVCard={handleSaveContact}
+        onDownloadVCard={handleSaveContactFromModal}
         onNotify={showToast}
       />
 
