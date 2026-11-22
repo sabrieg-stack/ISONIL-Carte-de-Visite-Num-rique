@@ -741,6 +741,19 @@ export function IsonilCardPage() {
               />
             </div>
 
+            {/* Mobile Share Card Action (kept accessible while Official Contact Details stay hidden on mobile) */}
+            <div className={`lg:hidden isonil-enter isonil-delay-11 no-print ${langAnimClass}`}>
+              <button
+                type="button"
+                onClick={handleShareCard}
+                aria-label={t.aria.shareCardAction}
+                className="isonil-btn w-full min-h-[50px] px-4 py-3 rounded-2xl border border-[#4CC3DB]/30 hover:border-[#4CC3DB]/60 active:border-[#4CC3DB]/70 bg-[#11181F]/95 hover:bg-[#17222B] active:bg-[#17222B] backdrop-blur-md text-white text-sm font-semibold flex items-center justify-center gap-2.5 shadow-[0_16px_40px_-24px_rgba(3,6,9,0.88)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+              >
+                <Share2 className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
+                <span className="truncate">{t.actions.shareCard}</span>
+              </button>
+            </div>
+
             {/* Official Contact Details & Share / Bookmark Controls (Desktop only; hidden on mobile with lossless revert) */}
             <section
               aria-labelledby="isonil-contact-details-heading"
