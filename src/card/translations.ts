@@ -335,7 +335,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       step3: 'Approchez la carte vierge NTAG213 ou NTAG215 du téléphone ou du lecteur NFC pour enregistrer.',
     },
     footer: {
-      officialNotice: 'Fiche officielle ISONIL — El Jadida, Maroc',
+      officialNotice: 'Carte numérique officielle d’ISONIL — El Jadida, Maroc',
       rights: 'ISONIL',
     },
   },
@@ -508,7 +508,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       step3: 'Hold a blank NTAG213 or NTAG215 card against the NFC antenna to write and verify.',
     },
     footer: {
-      officialNotice: 'Official ISONIL Contact Card — El Jadida, Morocco',
+      officialNotice: 'Official Digital Card of ISONIL — El Jadida, Morocco',
       rights: 'ISONIL',
     },
   },

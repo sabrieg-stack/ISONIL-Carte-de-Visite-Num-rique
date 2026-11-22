@@ -5,20 +5,20 @@
   --font-arabic: "IBM Plex Sans Arabic", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-isonil-navy: #0C1217;
-  --color-isonil-navy-deep: #0B1116;
-  --color-isonil-surface: #11181F;
-  --color-isonil-surface-elevated: #17222B;
+  --color-isonil-navy: #10171D;
+  --color-isonil-navy-deep: #0D1318;
+  --color-isonil-surface: #121B22;
+  --color-isonil-surface-elevated: #162630;
   --color-isonil-red: #E50914;
-  --color-isonil-light-blue: #4CC3DB;
-  --color-isonil-sky-blue: #76D4E6;
-  --color-isonil-silver: #D0D7DE;
-  --color-isonil-gray: #9AA9B5;
+  --color-isonil-light-blue: #3DC4DC;
+  --color-isonil-sky-blue: #6AD8EB;
+  --color-isonil-silver: #D5DEE5;
+  --color-isonil-gray: #96A7B4;
 }
 
 html,
 body {
-  background-color: #0C1217;
+  background-color: #10171D;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -33,7 +33,7 @@ button {
 /* Portrait & landscape safe-area container padding for iPhone notch / Dynamic Island / Android gesture bar */
 .safe-area-main {
   padding-top: max(0.875rem, env(safe-area-inset-top));
-  padding-bottom: max(5.5rem, calc(4.75rem + env(safe-area-inset-bottom)));
+  padding-bottom: max(1.5rem, calc(1.25rem + env(safe-area-inset-bottom)));
   padding-left: max(0.875rem, env(safe-area-inset-left));
   padding-right: max(0.875rem, env(safe-area-inset-right));
 }
@@ -41,7 +41,7 @@ button {
 @media (min-width: 640px) {
   .safe-area-main {
     padding-top: max(2.25rem, env(safe-area-inset-top));
-    padding-bottom: max(5.5rem, calc(4.75rem + env(safe-area-inset-bottom)));
+    padding-bottom: max(2rem, calc(1.5rem + env(safe-area-inset-bottom)));
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
   }
