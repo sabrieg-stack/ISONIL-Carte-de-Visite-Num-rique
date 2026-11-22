@@ -26,8 +26,7 @@ export const ISONIL_CONTACT = {
   logoWebpSrc: '/assets/isonil-logo-transparent.webp',
   vcardFilename: 'ISONIL-Management.vcf',
   vcardPublicPath: '/contact.vcf',
-  // Replace with your direct Company Profile PDF/page URL if hosted at a dedicated path
-  companyProfileUrl: 'https://isonil.com/#profile',
+  companyProfileUrl: 'https://profile.isonil.com/',
   // Replace with exact company social page URLs
   socialLinks: {
     linkedin: 'https://www.linkedin.com/company/isonil',

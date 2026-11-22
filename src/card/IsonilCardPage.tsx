@@ -3,7 +3,6 @@ import {
   ArrowUpRight,
   Bookmark,
   Check,
-  ChevronRight,
   Copy,
   ExternalLink,
   FileText,
@@ -352,12 +351,12 @@ export function IsonilCardPage() {
     }
   };
 
-  // Uniform full-width button classes for clean equal heights, rounded corners & organized mobile scanning
+  // Compact 2-column tile classes: smaller footprint, balanced height, clean visual rhythm
   const uniformStandardBtnClass =
-    'isonil-btn group w-full min-h-[52px] px-3.5 py-2.5 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/84 hover:bg-[#17222B] active:bg-[#17222B] text-white text-sm font-semibold flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+    'isonil-btn group w-full min-h-[64px] sm:min-h-[68px] px-2.5 py-2.5 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/84 hover:bg-[#17222B] active:bg-[#17222B] text-white text-xs sm:text-[13px] font-semibold flex flex-col items-center justify-center gap-1.5 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
 
   const companyProfileHighlightClass =
-    'isonil-btn group w-full min-h-[52px] px-3.5 py-2.5 rounded-xl border border-[#4CC3DB]/60 hover:border-[#76D4E6] active:border-[#76D4E6] bg-[#16242E] hover:bg-[#1D2F3C] active:bg-[#1D2F3C] text-white text-sm font-semibold flex items-center justify-between gap-3 shadow-[0_10px_24px_-16px_rgba(76,195,219,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+    'isonil-btn group w-full min-h-[64px] sm:min-h-[68px] px-2.5 py-2.5 rounded-xl border border-[#4CC3DB]/60 hover:border-[#76D4E6] active:border-[#76D4E6] bg-[#16242E] hover:bg-[#1D2F3C] active:bg-[#1D2F3C] text-white text-xs sm:text-[13px] font-semibold flex flex-col items-center justify-center gap-1.5 text-center shadow-[0_10px_24px_-16px_rgba(76,195,219,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
 
   const utilityActionBtnClass =
     'isonil-btn w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
@@ -570,29 +569,18 @@ export function IsonilCardPage() {
                   )}
                 </div>
 
-                {/* Uniform Full-Width Organized Action Stack: Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact */}
-                <div className="flex flex-col gap-2.5 sm:gap-3">
+                {/* Compact 2-Column Side-by-Side Tile Grid: (Call | WhatsApp) -> (Email | Website) -> (Company Profile | Map) -> Save Contact */}
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                   {/* 1. Call */}
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
                     className={`isonil-enter isonil-delay-3 ${uniformStandardBtnClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
-                        <Phone className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
-                      </span>
-                      <span className="truncate">{t.actions.call}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#17222B] border border-[#4CC3DB]/22 flex items-center justify-center shrink-0">
+                      <Phone className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
                     </span>
-                    <span className="flex items-center gap-1.5 shrink-0">
-                      <span
-                        dir="ltr"
-                        className="ltr-isolate hidden min-[370px]:inline font-mono tabular-nums text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] transition-colors"
-                      >
-                        {ISONIL_CONTACT.phoneDisplay}
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:rotate-180 shrink-0 transition-colors" />
-                    </span>
+                    <span className="leading-tight text-balance">{t.actions.call}</span>
                   </a>
 
                   {/* 2. WhatsApp */}
@@ -603,13 +591,10 @@ export function IsonilCardPage() {
                     aria-label={t.aria.whatsappAction}
                     className={`isonil-enter isonil-delay-4 ${uniformStandardBtnClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
-                        <MessageCircle className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
-                      </span>
-                      <span className="truncate">{t.actions.whatsapp}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#17222B] border border-[#4CC3DB]/22 flex items-center justify-center shrink-0">
+                      <MessageCircle className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
                     </span>
-                    <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
+                    <span className="leading-tight text-balance">{t.actions.whatsapp}</span>
                   </a>
 
                   {/* 3. Email */}
@@ -618,21 +603,10 @@ export function IsonilCardPage() {
                     aria-label={t.aria.emailAction}
                     className={`isonil-enter isonil-delay-5 ${uniformStandardBtnClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
-                        <Mail className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
-                      </span>
-                      <span className="truncate">{t.actions.email}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#17222B] border border-[#4CC3DB]/22 flex items-center justify-center shrink-0">
+                      <Mail className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
                     </span>
-                    <span className="flex items-center gap-1.5 min-w-0 max-w-[54%] shrink-0">
-                      <span
-                        dir="ltr"
-                        className="ltr-isolate hidden min-[370px]:inline text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] truncate transition-colors"
-                      >
-                        {ISONIL_CONTACT.email}
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:rotate-180 shrink-0 transition-colors" />
-                    </span>
+                    <span className="leading-tight text-balance">{t.actions.email}</span>
                   </a>
 
                   {/* 4. Website */}
@@ -643,24 +617,13 @@ export function IsonilCardPage() {
                     aria-label={t.aria.websiteAction}
                     className={`isonil-enter isonil-delay-6 ${uniformStandardBtnClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
-                        <Globe className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
-                      </span>
-                      <span className="truncate">{t.actions.website}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#17222B] border border-[#4CC3DB]/22 flex items-center justify-center shrink-0">
+                      <Globe className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
                     </span>
-                    <span className="flex items-center gap-1.5 shrink-0">
-                      <span
-                        dir="ltr"
-                        className="ltr-isolate hidden min-[370px]:inline text-xs font-medium text-[#5EC6DA]"
-                      >
-                        {ISONIL_CONTACT.websiteDisplay}
-                      </span>
-                      <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
-                    </span>
+                    <span className="leading-tight text-balance">{t.actions.website}</span>
                   </a>
 
-                  {/* 5. Company Profile (Directly after Website — Highlighted Secondary Primary Action) */}
+                  {/* 5. Company Profile (Directly after Website — Highlighted tile) */}
                   <a
                     href={ISONIL_CONTACT.companyProfileUrl}
                     target="_blank"
@@ -668,13 +631,10 @@ export function IsonilCardPage() {
                     aria-label={t.aria.companyProfileAction}
                     className={`isonil-enter isonil-delay-7 ${companyProfileHighlightClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/40 flex items-center justify-center shrink-0">
-                        <FileText className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
-                      </span>
-                      <span className="truncate">{t.actions.companyProfile}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/45 flex items-center justify-center shrink-0">
+                      <FileText className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
                     </span>
-                    <ArrowUpRight className="w-4 h-4 text-[#76D4E6] rtl:-scale-x-100 shrink-0" />
+                    <span className="leading-tight text-balance">{t.actions.companyProfile}</span>
                   </a>
 
                   {/* 6. Location on Map */}
@@ -685,28 +645,20 @@ export function IsonilCardPage() {
                     aria-label={t.aria.locationAction}
                     className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
                   >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
-                        <MapPin className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
-                      </span>
-                      <span className="truncate">{t.actions.location}</span>
+                    <span className="w-8 h-8 rounded-lg bg-[#17222B] border border-[#4CC3DB]/22 flex items-center justify-center shrink-0">
+                      <MapPin className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
                     </span>
-                    <span className="flex items-center gap-1.5 shrink-0">
-                      <span className="hidden min-[400px]:inline text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] transition-colors">
-                        {t.cityCountry}
-                      </span>
-                      <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
-                    </span>
+                    <span className="leading-tight text-balance">{t.actions.location}</span>
                   </a>
 
-                  {/* 7. Save Contact (Downloads /contact.vcf — Visually distinguished primary CTA) */}
-                  <div ref={primaryCtaRef} className="no-print">
+                  {/* 7. Save Contact (Downloads /contact.vcf — Full-width primary CTA spanning 2 columns) */}
+                  <div ref={primaryCtaRef} className="col-span-2 no-print mt-0.5">
                     <a
                       href={ISONIL_CONTACT.vcardPublicPath}
                       download={ISONIL_CONTACT.vcardFilename}
                       onClick={triggerSaveContactFeedback}
                       aria-label={t.aria.saveContactAction}
-                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/75 text-[#0C1217] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-[#4CC3DB]/75 text-[#0C1217] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                         contactSavedFeedback
                           ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
                           : 'bg-white hover:bg-[#ECF8FA] active:bg-[#D7F4FA]'
