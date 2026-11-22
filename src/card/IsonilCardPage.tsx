@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  ArrowUpRight,
   Bookmark,
   Check,
+  ChevronRight,
   Copy,
   ExternalLink,
   FileText,
@@ -350,12 +352,15 @@ export function IsonilCardPage() {
     }
   };
 
-  // Uniform full-width button classes for clean equal heights, rounded corners & spacing
+  // Uniform full-width button classes for clean equal heights, rounded corners & organized mobile scanning
   const uniformStandardBtnClass =
-    'isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+    'isonil-btn group w-full min-h-[52px] px-3.5 py-2.5 rounded-xl border border-[#D0D7DE]/16 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/84 hover:bg-[#17222B] active:bg-[#17222B] text-white text-sm font-semibold flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
 
   const companyProfileHighlightClass =
-    'isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/60 hover:border-[#76D4E6] active:border-[#76D4E6] bg-[#17222B] hover:bg-[#1E2E3A] active:bg-[#1E2E3A] text-white text-sm font-semibold flex items-center justify-center gap-2.5 shadow-[0_10px_24px_-16px_rgba(76,195,219,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+    'isonil-btn group w-full min-h-[52px] px-3.5 py-2.5 rounded-xl border border-[#4CC3DB]/60 hover:border-[#76D4E6] active:border-[#76D4E6] bg-[#16242E] hover:bg-[#1D2F3C] active:bg-[#1D2F3C] text-white text-sm font-semibold flex items-center justify-between gap-3 shadow-[0_10px_24px_-16px_rgba(76,195,219,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
+
+  const utilityActionBtnClass =
+    'isonil-btn w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer';
 
   return (
     <div
@@ -394,12 +399,9 @@ export function IsonilCardPage() {
       </a>
 
       <main id="isonil-card-main" className="relative z-10 w-full max-w-5xl mx-auto safe-area-main">
-        {/* Compact Mobile-First top bar */}
-        <header className="isonil-fade flex items-center justify-between gap-2 sm:gap-4 mb-2.5 sm:mb-6 no-print">
-          <p className={`hidden sm:block text-sm font-medium text-[#D0D7DE] leading-snug ${langAnimClass}`}>
-            {t.cardKicker}
-          </p>
-          <p className={`sm:hidden text-[11px] font-medium text-[#9AA9B5] leading-tight truncate min-w-0 ${langAnimClass}`}>
+        {/* Clean Mobile-First Top Bar: Single-line responsive kicker + tactile language selector */}
+        <header className="isonil-fade flex items-center justify-between gap-2.5 sm:gap-4 mb-3 sm:mb-6 no-print">
+          <p className={`text-[11px] min-[390px]:text-xs sm:text-sm font-medium text-[#9AA9B5] sm:text-[#D0D7DE] leading-snug truncate min-w-0 ${langAnimClass}`}>
             {t.cardKicker}
           </p>
 
@@ -419,7 +421,7 @@ export function IsonilCardPage() {
                   aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
-                  className={`isonil-tab-btn min-h-[40px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[38px] sm:min-h-[42px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                     active
                       ? 'bg-white text-[#0C1217] shadow-xs'
                       : 'text-[#D0D7DE] hover:text-white hover:bg-[#17222B]'
@@ -432,12 +434,12 @@ export function IsonilCardPage() {
           </div>
         </header>
 
-        {/* Responsive Executive Two-Column Grid (Desktop) / Single-Column Mobile-First Flow */}
+        {/* Responsive Executive Two-Column Grid (Desktop) / Organized Single-Column Mobile Flow */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-start">
           {/* Primary Official Card: Logo & Info -> Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact (/contact.vcf) -> Follow Us & Socials */}
           <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] overflow-hidden flex flex-col min-w-0">
-            {/* Official obsidian slate header band with signature diagonal cyan sheen */}
-            <div className="relative bg-gradient-to-br from-[#0B1116] via-[#10181F] to-[#16222C] text-white px-4 min-[390px]:px-5 sm:px-8 pt-5 pb-5 sm:pt-7 sm:pb-6 border-b border-[#4CC3DB]/20 overflow-hidden">
+            {/* Official obsidian slate header band with compact mobile proportions */}
+            <div className="relative bg-gradient-to-br from-[#0B1116] via-[#10181F] to-[#16222C] text-white px-4 min-[390px]:px-5 sm:px-8 pt-5 pb-4 sm:pt-7 sm:pb-6 border-b border-[#4CC3DB]/20 overflow-hidden">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-12 -right-12 w-56 h-32 -rotate-[26deg] bg-gradient-to-b from-[#4CC3DB]/10 to-transparent border-b border-[#4CC3DB]/25"
@@ -474,7 +476,6 @@ export function IsonilCardPage() {
                   <h1 className="text-[22px] min-[390px]:text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
                     {ISONIL_CONTACT.company}
                   </h1>
-
                   <p className="mt-0.5 text-[15px] min-[390px]:text-base sm:text-lg font-semibold text-[#5EC6DA] leading-snug">
                     {t.displayName}
                   </p>
@@ -482,21 +483,21 @@ export function IsonilCardPage() {
                   {/* Signature cyan hairline bar inspired by print card */}
                   <div
                     aria-hidden="true"
-                    className="mt-1.5 mb-1.5 sm:mt-2 sm:mb-2 h-[2px] w-14 rounded-full bg-[#4CC3DB] mx-auto min-[520px]:mx-0"
+                    className="mt-2 mb-2 h-[2px] w-12 rounded-full bg-[#4CC3DB] mx-auto min-[520px]:mx-0"
                   />
 
                   <p className="text-[13px] min-[390px]:text-sm sm:text-[15px] text-white/90 leading-snug text-balance max-w-[34ch] mx-auto min-[520px]:mx-0 min-[520px]:max-w-none">
                     {t.businessActivity}
                   </p>
 
-                  <p className="mt-1 sm:mt-1.5 text-xs text-[#9AA9B5]">{t.cityCountry}</p>
+                  <p className="mt-1 text-xs text-[#9AA9B5]">{t.cityCountry}</p>
                 </div>
               </div>
             </div>
 
-            {/* Card Body: Uniform full-width buttons in exact requested order + Social row at card bottom */}
-            <div className="p-4 min-[390px]:p-5 sm:p-8 flex-1 flex flex-col">
-              {/* Top utilities bar inside card: Quick Actions title + Mobile QR jump + Visitor NFC Help */}
+            {/* Card Body: Structured mobile-first list rows + Social footer */}
+            <div className="p-4 min-[390px]:p-5 sm:p-7 flex-1 flex flex-col">
+              {/* Clean Card Sub-Header: Quick Actions title + aligned QR / NFC utilities */}
               <section
                 aria-labelledby="isonil-quick-actions-heading"
                 className={langAnimClass || undefined}
@@ -510,12 +511,12 @@ export function IsonilCardPage() {
                       {t.sections.quickActions}
                     </h2>
 
-                    <div className="no-print flex items-center gap-0.5 shrink-0 -my-2 -me-2">
+                    <div className="no-print flex items-center gap-1.5 shrink-0">
                       <button
                         type="button"
                         onClick={handleJumpToQr}
                         aria-label={t.aria.jumpToQrAction}
-                        className="isonil-icon-btn lg:hidden min-h-[44px] px-2.5 rounded-xl text-xs font-medium text-[#9AA9B5] hover:text-[#76D4E6] active:text-[#76D4E6] hover:bg-[#17222B]/70 active:bg-[#17222B] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+                        className="isonil-icon-btn lg:hidden min-h-[40px] px-2.5 rounded-lg bg-[#0C1217]/70 border border-[#D0D7DE]/14 text-xs font-medium text-[#D0D7DE] hover:text-[#76D4E6] hover:border-[#4CC3DB]/40 active:bg-[#17222B] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
                       >
                         <QrCode className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
                         <span>{t.actions.jumpToQr}</span>
@@ -527,10 +528,10 @@ export function IsonilCardPage() {
                         aria-expanded={nfcHelpOpen}
                         aria-controls="isonil-nfc-tap-guide"
                         aria-label={t.nfcTapHelp.triggerAria}
-                        className={`isonil-icon-btn min-h-[44px] px-2.5 rounded-xl text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                        className={`isonil-icon-btn min-h-[40px] px-2.5 rounded-lg border text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                           nfcHelpOpen
-                            ? 'text-[#76D4E6] bg-[#17222B]'
-                            : 'text-[#9AA9B5] hover:text-[#76D4E6] active:text-[#76D4E6] hover:bg-[#17222B]/70 active:bg-[#17222B]'
+                            ? 'text-[#76D4E6] bg-[#17222B] border-[#4CC3DB]/45'
+                            : 'bg-[#0C1217]/70 border-[#D0D7DE]/14 text-[#D0D7DE] hover:text-[#76D4E6] hover:border-[#4CC3DB]/40 active:bg-[#17222B]'
                         }`}
                       >
                         <HelpCircle className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
@@ -544,7 +545,7 @@ export function IsonilCardPage() {
                       id="isonil-nfc-tap-guide"
                       role="region"
                       aria-label={t.nfcTapHelp.title}
-                      className="isonil-popover-enter no-print mb-3.5 p-3.5 rounded-xl bg-[#0C1217]/92 border border-[#4CC3DB]/32 text-xs text-[#D0D7DE] leading-relaxed"
+                      className="isonil-popover-enter no-print mb-3 p-3.5 rounded-xl bg-[#0C1217]/92 border border-[#4CC3DB]/32 text-xs text-[#D0D7DE] leading-relaxed"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2 text-white font-semibold">
@@ -569,16 +570,29 @@ export function IsonilCardPage() {
                   )}
                 </div>
 
-                {/* Uniform Full-Width Button Stack: Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact */}
-                <div className="flex flex-col gap-3">
+                {/* Uniform Full-Width Organized Action Stack: Call -> WhatsApp -> Email -> Website -> Company Profile -> Map -> Save Contact */}
+                <div className="flex flex-col gap-2.5 sm:gap-3">
                   {/* 1. Call */}
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
                     className={`isonil-enter isonil-delay-3 ${uniformStandardBtnClass}`}
                   >
-                    <Phone className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.call}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
+                        <Phone className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
+                      </span>
+                      <span className="truncate">{t.actions.call}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 shrink-0">
+                      <span
+                        dir="ltr"
+                        className="ltr-isolate hidden min-[370px]:inline font-mono tabular-nums text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] transition-colors"
+                      >
+                        {ISONIL_CONTACT.phoneDisplay}
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:rotate-180 shrink-0 transition-colors" />
+                    </span>
                   </a>
 
                   {/* 2. WhatsApp */}
@@ -589,8 +603,13 @@ export function IsonilCardPage() {
                     aria-label={t.aria.whatsappAction}
                     className={`isonil-enter isonil-delay-4 ${uniformStandardBtnClass}`}
                   >
-                    <MessageCircle className="isonil-btn-icon w-5 h-5 text-[#76D4E6] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.whatsapp}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
+                        <MessageCircle className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
+                      </span>
+                      <span className="truncate">{t.actions.whatsapp}</span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
                   </a>
 
                   {/* 3. Email */}
@@ -599,8 +618,21 @@ export function IsonilCardPage() {
                     aria-label={t.aria.emailAction}
                     className={`isonil-enter isonil-delay-5 ${uniformStandardBtnClass}`}
                   >
-                    <Mail className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.email}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
+                        <Mail className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
+                      </span>
+                      <span className="truncate">{t.actions.email}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 min-w-0 max-w-[54%] shrink-0">
+                      <span
+                        dir="ltr"
+                        className="ltr-isolate hidden min-[370px]:inline text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] truncate transition-colors"
+                      >
+                        {ISONIL_CONTACT.email}
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:rotate-180 shrink-0 transition-colors" />
+                    </span>
                   </a>
 
                   {/* 4. Website */}
@@ -611,11 +643,24 @@ export function IsonilCardPage() {
                     aria-label={t.aria.websiteAction}
                     className={`isonil-enter isonil-delay-6 ${uniformStandardBtnClass}`}
                   >
-                    <Globe className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.website}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
+                        <Globe className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
+                      </span>
+                      <span className="truncate">{t.actions.website}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 shrink-0">
+                      <span
+                        dir="ltr"
+                        className="ltr-isolate hidden min-[370px]:inline text-xs font-medium text-[#5EC6DA]"
+                      >
+                        {ISONIL_CONTACT.websiteDisplay}
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
+                    </span>
                   </a>
 
-                  {/* 5. Company Profile (Directly after Website — Visually distinguished primary/secondary CTA) */}
+                  {/* 5. Company Profile (Directly after Website — Highlighted Secondary Primary Action) */}
                   <a
                     href={ISONIL_CONTACT.companyProfileUrl}
                     target="_blank"
@@ -623,8 +668,13 @@ export function IsonilCardPage() {
                     aria-label={t.aria.companyProfileAction}
                     className={`isonil-enter isonil-delay-7 ${companyProfileHighlightClass}`}
                   >
-                    <FileText className="isonil-btn-icon w-5 h-5 text-[#5EC6DA] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.companyProfile}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/40 flex items-center justify-center shrink-0">
+                        <FileText className="isonil-btn-icon w-4 h-4 text-[#76D4E6]" />
+                      </span>
+                      <span className="truncate">{t.actions.companyProfile}</span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-[#76D4E6] rtl:-scale-x-100 shrink-0" />
                   </a>
 
                   {/* 6. Location on Map */}
@@ -635,8 +685,18 @@ export function IsonilCardPage() {
                     aria-label={t.aria.locationAction}
                     className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
                   >
-                    <MapPin className="isonil-btn-icon w-5 h-5 text-[#4CC3DB] shrink-0" />
-                    <span className="whitespace-nowrap">{t.actions.location}</span>
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="w-9 h-9 rounded-lg bg-[#17222B] border border-[#4CC3DB]/20 flex items-center justify-center shrink-0">
+                        <MapPin className="isonil-btn-icon w-4 h-4 text-[#4CC3DB]" />
+                      </span>
+                      <span className="truncate">{t.actions.location}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 shrink-0">
+                      <span className="hidden min-[400px]:inline text-xs font-medium text-[#9AA9B5] group-hover:text-[#D0D7DE] transition-colors">
+                        {t.cityCountry}
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 text-[#9AA9B5] group-hover:text-[#76D4E6] rtl:-scale-x-100 shrink-0 transition-colors" />
+                    </span>
                   </a>
 
                   {/* 7. Save Contact (Downloads /contact.vcf — Visually distinguished primary CTA) */}
@@ -646,7 +706,7 @@ export function IsonilCardPage() {
                       download={ISONIL_CONTACT.vcardFilename}
                       onClick={triggerSaveContactFeedback}
                       aria-label={t.aria.saveContactAction}
-                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/70 text-[#0C1217] text-sm font-semibold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-3 rounded-xl border border-[#4CC3DB]/75 text-[#0C1217] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                         contactSavedFeedback
                           ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
                           : 'bg-white hover:bg-[#ECF8FA] active:bg-[#D7F4FA]'
@@ -671,11 +731,11 @@ export function IsonilCardPage() {
               {/* Social Media Row at the very end of the primary card ("تابعنا" + circular react-icons) */}
               <section
                 aria-labelledby="isonil-follow-us-heading"
-                className={`isonil-enter isonil-delay-10 mt-6 pt-5 border-t border-[#D0D7DE]/14 text-center no-print ${langAnimClass}`}
+                className={`isonil-enter isonil-delay-10 mt-5 pt-4 border-t border-[#D0D7DE]/14 text-center no-print ${langAnimClass}`}
               >
                 <h2
                   id="isonil-follow-us-heading"
-                  className="text-xs font-semibold text-[#9AA9B5] mb-3.5"
+                  className="text-xs font-semibold text-[#9AA9B5] mb-3"
                 >
                   {t.sections.followUs}
                 </h2>
@@ -715,7 +775,7 @@ export function IsonilCardPage() {
             </div>
           </article>
 
-          {/* Secondary Column: Permanent Scannable QR Code (untouched) + Official Contact Details & Card Utilities */}
+          {/* Secondary Column: Permanent Scannable QR Code (untouched) + Compact Organized Contact Directory */}
           <aside className="lg:col-span-5 min-w-0 flex flex-col gap-4 sm:gap-5">
             <div id="isonil-qr-section" className="isonil-enter isonil-delay-2 scroll-mt-4">
               <QrCodePanel
@@ -729,7 +789,7 @@ export function IsonilCardPage() {
               />
             </div>
 
-            {/* Official Contact Details & Share / Bookmark Actions */}
+            {/* Official Contact Details & Compact Mobile-Organized Share / Bookmark Controls */}
             <section
               aria-labelledby="isonil-contact-details-heading"
               className={`isonil-enter isonil-delay-11 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] p-4 min-[390px]:p-5 sm:p-6 ${langAnimClass}`}
@@ -742,20 +802,28 @@ export function IsonilCardPage() {
               </h2>
 
               <dl className="divide-y divide-[#D0D7DE]/12">
-                {/* Phone & WhatsApp with strict LTR directional isolation */}
-                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
-                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
-                    <dt className="text-xs text-[#9AA9B5]">{t.fields.phoneAndWhatsapp}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={ISONIL_CONTACT.phoneHref}
-                        aria-label={t.aria.callAction}
-                        dir="ltr"
-                        className="ltr-isolate font-mono tabular-nums text-[15px] sm:text-base font-semibold text-white group-hover:text-[#76D4E6] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
-                      >
-                        {ISONIL_CONTACT.phoneDisplay}
-                      </a>
-                    </dd>
+                {/* Phone & WhatsApp */}
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2.5">
+                  <div className="relative min-w-0 flex-1 min-h-[50px] py-1.5 flex items-center gap-3 group">
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/18 flex items-center justify-center shrink-0"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <dt className="text-[11px] text-[#9AA9B5]">{t.fields.phoneAndWhatsapp}</dt>
+                      <dd className="mt-0.5">
+                        <a
+                          href={ISONIL_CONTACT.phoneHref}
+                          aria-label={t.aria.callAction}
+                          dir="ltr"
+                          className="ltr-isolate font-mono tabular-nums text-sm sm:text-[15px] font-semibold text-white group-hover:text-[#76D4E6] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                        >
+                          {ISONIL_CONTACT.phoneDisplay}
+                        </a>
+                      </dd>
+                    </div>
                   </div>
                   <button
                     type="button"
@@ -787,19 +855,27 @@ export function IsonilCardPage() {
                 </div>
 
                 {/* Official Email */}
-                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
-                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
-                    <dt className="text-xs text-[#9AA9B5]">{t.fields.email}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={emailDirectHref}
-                        aria-label={t.aria.emailAction}
-                        dir="ltr"
-                        className="ltr-isolate text-sm sm:text-[15px] font-medium text-white group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
-                      >
-                        {ISONIL_CONTACT.email}
-                      </a>
-                    </dd>
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2.5">
+                  <div className="relative min-w-0 flex-1 min-h-[50px] py-1.5 flex items-center gap-3 group">
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/18 flex items-center justify-center shrink-0"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <dt className="text-[11px] text-[#9AA9B5]">{t.fields.email}</dt>
+                      <dd className="mt-0.5">
+                        <a
+                          href={emailDirectHref}
+                          aria-label={t.aria.emailAction}
+                          dir="ltr"
+                          className="ltr-isolate text-sm sm:text-[15px] font-medium text-white group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                        >
+                          {ISONIL_CONTACT.email}
+                        </a>
+                      </dd>
+                    </div>
                   </div>
                   <button
                     type="button"
@@ -827,21 +903,29 @@ export function IsonilCardPage() {
                 </div>
 
                 {/* Official Website */}
-                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2">
-                  <div className="relative min-w-0 flex-1 min-h-[52px] py-2 flex flex-col justify-center group">
-                    <dt className="text-xs text-[#9AA9B5]">{t.fields.website}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={ISONIL_CONTACT.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={t.aria.websiteAction}
-                        dir="ltr"
-                        className="ltr-isolate text-sm sm:text-[15px] font-medium text-[#5EC6DA] group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
-                      >
-                        {ISONIL_CONTACT.websiteUrl}
-                      </a>
-                    </dd>
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 active:bg-[#17222B]/55 flex items-center justify-between gap-2.5">
+                  <div className="relative min-w-0 flex-1 min-h-[50px] py-1.5 flex items-center gap-3 group">
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/18 flex items-center justify-center shrink-0"
+                    >
+                      <Globe className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <dt className="text-[11px] text-[#9AA9B5]">{t.fields.website}</dt>
+                      <dd className="mt-0.5">
+                        <a
+                          href={ISONIL_CONTACT.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={t.aria.websiteAction}
+                          dir="ltr"
+                          className="ltr-isolate text-sm sm:text-[15px] font-medium text-[#5EC6DA] group-hover:text-[#76D4E6] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] rounded after:content-[''] after:absolute after:inset-0"
+                        >
+                          {ISONIL_CONTACT.websiteUrl}
+                        </a>
+                      </dd>
+                    </div>
                   </div>
                   <a
                     href={ISONIL_CONTACT.websiteUrl}
@@ -855,25 +939,33 @@ export function IsonilCardPage() {
                 </div>
 
                 {/* Official Address */}
-                <div className="pt-3.5 pb-1 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <dt className="text-xs text-[#9AA9B5]">{t.fields.address}</dt>
-                    <dd className="mt-0.5 text-sm sm:text-[15px] font-medium text-white/95 leading-relaxed">
-                      <span dir="ltr" className="ltr-isolate text-start break-words max-w-full">
-                        {ISONIL_CONTACT.address}
-                      </span>
-                    </dd>
-                    <div className="mt-1.5 no-print">
-                      <a
-                        href={ISONIL_CONTACT.mapsHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={t.aria.locationAction}
-                        className="inline-flex items-center gap-1.5 min-h-[44px] -ms-2 px-2 rounded-lg text-xs font-semibold text-[#5EC6DA] hover:text-[#76D4E6] hover:bg-[#17222B]/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
-                      >
-                        <MapPin className="w-3.5 h-3.5 text-[#4CC3DB] shrink-0" />
-                        <span>{t.actions.openMap}</span>
-                      </a>
+                <div className="pt-3 pb-1 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#17222B]/40 flex items-start justify-between gap-2.5">
+                  <div className="min-w-0 flex-1 flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 mt-0.5 rounded-lg bg-[#0C1217]/80 border border-[#4CC3DB]/18 flex items-center justify-center shrink-0"
+                    >
+                      <MapPin className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <dt className="text-[11px] text-[#9AA9B5]">{t.fields.address}</dt>
+                      <dd className="mt-0.5 text-[13px] sm:text-sm font-medium text-white/95 leading-relaxed">
+                        <span dir="ltr" className="ltr-isolate text-start break-words max-w-full">
+                          {ISONIL_CONTACT.address}
+                        </span>
+                      </dd>
+                      <div className="mt-1 no-print">
+                        <a
+                          href={ISONIL_CONTACT.mapsHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={t.aria.locationAction}
+                          className="inline-flex items-center gap-1.5 min-h-[40px] -ms-2 px-2 rounded-lg text-xs font-semibold text-[#5EC6DA] hover:text-[#76D4E6] hover:bg-[#17222B]/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB]"
+                        >
+                          <span>{t.actions.openMap}</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-[#4CC3DB] rtl:-scale-x-100 shrink-0" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <button
@@ -906,13 +998,13 @@ export function IsonilCardPage() {
                 </div>
               </dl>
 
-              {/* Share & Favorites — uniform full-width controls */}
-              <div className="mt-4 pt-4 border-t border-[#D0D7DE]/14 flex flex-col gap-3 no-print">
+              {/* Compact 2-column Share & Favorites Utility Row */}
+              <div className="mt-4 pt-4 border-t border-[#D0D7DE]/14 grid grid-cols-1 min-[400px]:grid-cols-2 gap-2.5 no-print">
                 <button
                   type="button"
                   onClick={handleShareCard}
                   aria-label={t.aria.shareCardAction}
-                  className={uniformStandardBtnClass}
+                  className={utilityActionBtnClass}
                 >
                   <Share2 className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
                   <span className="truncate">{t.actions.shareCard}</span>
@@ -923,7 +1015,7 @@ export function IsonilCardPage() {
                   onClick={handleOpenFavorites}
                   aria-label={t.aria.favoritesAction}
                   aria-pressed={isFavorite}
-                  className={`isonil-btn w-full min-h-[52px] px-4 py-3 rounded-xl border text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
+                  className={`isonil-btn w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
                     isFavorite
                       ? 'border-[#E50914]/55 bg-[#E50914]/12 text-white hover:bg-[#E50914]/20 active:bg-[#E50914]/24'
                       : 'border-[#D0D7DE]/18 hover:border-[#4CC3DB]/55 active:border-[#4CC3DB]/65 bg-[#0C1217]/82 hover:bg-[#17222B] active:bg-[#17222B] text-white'
