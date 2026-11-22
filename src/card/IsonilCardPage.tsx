@@ -741,10 +741,10 @@ export function IsonilCardPage() {
               />
             </div>
 
-            {/* Official Contact Details & Compact Mobile-Organized Share / Bookmark Controls */}
+            {/* Official Contact Details & Share / Bookmark Controls (Desktop only; hidden on mobile with lossless revert) */}
             <section
               aria-labelledby="isonil-contact-details-heading"
-              className={`isonil-enter isonil-delay-11 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] p-4 min-[390px]:p-5 sm:p-6 ${langAnimClass}`}
+              className={`hidden lg:block isonil-enter isonil-delay-11 bg-[#11181F]/95 backdrop-blur-md rounded-2xl border border-[#4CC3DB]/22 shadow-[0_24px_60px_-28px_rgba(3,6,9,0.88)] p-4 min-[390px]:p-5 sm:p-6 ${langAnimClass}`}
             >
               <h2
                 id="isonil-contact-details-heading"
