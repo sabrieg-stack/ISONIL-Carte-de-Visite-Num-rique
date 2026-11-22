@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import QRCode from 'qrcode';
 import {
   AlertTriangle,
@@ -17,6 +17,7 @@ import { ISONIL_CONTACT } from './constants';
 import { evaluateNfcReadiness } from './nfc';
 import { buildPermanentQrMatrix } from './QrCodePanel';
 import type { CardTranslation } from './translations';
+import { useModalSheet } from './useModalSheet';
 
 interface NfcSettingsModalProps {
   isOpen: boolean;
@@ -38,20 +39,18 @@ export function NfcSettingsModal({
   onNotify,
 }: NfcSettingsModalProps) {
   const [isDownloadingQr, setIsDownloadingQr] = useState(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const readiness = useMemo(() => evaluateNfcReadiness(), []);
   const qrMatrix = useMemo(() => buildPermanentQrMatrix(), []);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  const { sheetTouchHandlers } = useModalSheet({
+    isOpen,
+    onClose,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   if (!isOpen) return null;
 
@@ -96,7 +95,9 @@ export function NfcSettingsModal({
       onClick={onClose}
     >
       <div
-        className="isonil-sheet-enter w-full sm:max-w-xl bg-[#11181F] text-white rounded-t-3xl sm:rounded-2xl border border-[#4CC3DB]/28 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
+        ref={dialogRef}
+        {...sheetTouchHandlers}
+        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-xl bg-[#11181F] text-white rounded-t-3xl sm:rounded-2xl border border-[#4CC3DB]/28 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -125,6 +126,7 @@ export function NfcSettingsModal({
           </div>
 
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
@@ -191,7 +193,7 @@ export function NfcSettingsModal({
             <button
               type="button"
               onClick={onCopyNfcUrl}
-              className="isonil-btn-primary min-h-[44px] px-4 py-2 rounded-xl bg-white hover:bg-[#ECF8FA] text-[#0C1217] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
+              className="isonil-btn-primary min-h-[44px] px-4 py-2 rounded-xl bg-white hover:bg-[#ECF8FA] text-[#0C1217] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
             >
               {urlCopied ? (
                 <>
@@ -290,7 +292,7 @@ export function NfcSettingsModal({
               <button
                 type="button"
                 onClick={onDownloadVCard}
-                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
+                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
               >
                 <UserPlus className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
                 <span>{t.nfc.downloadVcard}</span>
@@ -300,7 +302,7 @@ export function NfcSettingsModal({
                 type="button"
                 onClick={handleDownloadQrPng}
                 disabled={isDownloadingQr}
-                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 cursor-pointer"
+                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
               >
                 <Download className="isonil-btn-icon w-4 h-4 text-[#4CC3DB] shrink-0" />
                 <span>{t.actions.downloadQr}</span>

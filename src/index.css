@@ -21,6 +21,7 @@ body {
   background-color: #0C1217;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 a,
@@ -32,7 +33,7 @@ button {
 /* Portrait & landscape safe-area container padding for iPhone notch / Dynamic Island / Android gesture bar */
 .safe-area-main {
   padding-top: max(0.875rem, env(safe-area-inset-top));
-  padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+  padding-bottom: max(5.5rem, calc(4.75rem + env(safe-area-inset-bottom)));
   padding-left: max(0.875rem, env(safe-area-inset-left));
   padding-right: max(0.875rem, env(safe-area-inset-right));
 }
@@ -40,7 +41,7 @@ button {
 @media (min-width: 640px) {
   .safe-area-main {
     padding-top: max(2.25rem, env(safe-area-inset-top));
-    padding-bottom: max(2.75rem, env(safe-area-inset-bottom));
+    padding-bottom: max(5.5rem, calc(4.75rem + env(safe-area-inset-bottom)));
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
   }
@@ -234,6 +235,28 @@ button {
   }
 }
 
+@keyframes isonil-popover-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes isonil-sticky-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* One-shot subtle atmospheric navy glow settle — rests at 0% GPU/battery after load */
 .isonil-bg-atmosphere {
   animation: isonil-bg-settle var(--isonil-dur-bg) var(--isonil-ease-out) 1 both;
@@ -268,6 +291,34 @@ button {
   animation-delay: calc(var(--isonil-stagger) * 5);
 }
 
+.isonil-delay-6 {
+  animation-delay: calc(var(--isonil-stagger) * 6);
+}
+
+.isonil-delay-7 {
+  animation-delay: calc(var(--isonil-stagger) * 7);
+}
+
+.isonil-delay-8 {
+  animation-delay: calc(var(--isonil-stagger) * 8);
+}
+
+.isonil-delay-9 {
+  animation-delay: calc(var(--isonil-stagger) * 9);
+}
+
+.isonil-delay-10 {
+  animation-delay: calc(var(--isonil-stagger) * 10);
+}
+
+.isonil-delay-11 {
+  animation-delay: calc(var(--isonil-stagger) * 11);
+}
+
+.isonil-delay-12 {
+  animation-delay: calc(var(--isonil-stagger) * 12);
+}
+
 /* Approach-from-distance reveal for the original transparent logo without altering its final shape */
 .isonil-logo-reveal {
   animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-approach) 40ms backwards;
@@ -299,6 +350,13 @@ button {
 
 .isonil-sheet-enter {
   animation: isonil-sheet-in 260ms var(--isonil-ease-out) backwards;
+  transition: transform 200ms var(--isonil-ease-out);
+}
+
+.isonil-sheet-dragging {
+  animation: none !important;
+  transition: none !important;
+  transform: translate3d(0, var(--isonil-sheet-drag-y, 0px), 0);
 }
 
 @media (min-width: 640px) {
@@ -317,6 +375,14 @@ button {
 
 .isonil-check-pop {
   animation: isonil-check-pop 190ms var(--isonil-ease-out) backwards;
+}
+
+.isonil-popover-enter {
+  animation: isonil-popover-in 200ms var(--isonil-ease-out) backwards;
+}
+
+.isonil-sticky-enter {
+  animation: isonil-sticky-in 220ms var(--isonil-ease-out) backwards;
 }
 
 /* Tactile button & control interactions — touch-first active response, desktop hover lift */
@@ -398,6 +464,11 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
@@ -416,7 +487,9 @@ button {
   .isonil-sheet-enter,
   .isonil-dialog-enter,
   .isonil-toast-enter,
-  .isonil-check-pop {
+  .isonil-check-pop,
+  .isonil-popover-enter,
+  .isonil-sticky-enter {
     animation: none !important;
   }
 
@@ -436,8 +509,12 @@ button {
 }
 
 @media print {
+  html,
   body {
-    background: #ffffff !important;
+    background: #0C1217 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   .no-print {
     display: none !important;

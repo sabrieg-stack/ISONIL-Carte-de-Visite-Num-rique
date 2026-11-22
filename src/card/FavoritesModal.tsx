@@ -1,7 +1,27 @@
-import { useEffect } from 'react';
+import { useMemo, useRef } from 'react';
 import { Bookmark, Check, Copy, Monitor, Smartphone, X } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
 import type { CardTranslation } from './translations';
+import { useModalSheet } from './useModalSheet';
+
+type DevicePlatform = 'ios' | 'android' | 'desktop';
+
+function detectDevicePlatform(): DevicePlatform {
+  if (typeof navigator === 'undefined') return 'desktop';
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    return 'ios';
+  }
+  if (/Android/i.test(ua)) {
+    return 'android';
+  }
+  return 'desktop';
+}
+
+function isMacDesktop(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return /Mac/i.test(navigator.platform || navigator.userAgent || '');
+}
 
 interface FavoritesModalProps {
   isOpen: boolean;
@@ -22,18 +42,55 @@ export function FavoritesModal({
   onToggleFavorite,
   onCopyUrl,
 }: FavoritesModalProps) {
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const currentPlatform = useMemo<DevicePlatform>(() => detectDevicePlatform(), []);
+  const desktopOnMac = useMemo<boolean>(() => isMacDesktop(), []);
+
+  const { sheetTouchHandlers } = useModalSheet({
+    isOpen,
+    onClose,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   if (!isOpen) return null;
+
+  const desktopGuideSteps =
+    currentPlatform === 'desktop'
+      ? desktopOnMac
+        ? t.favoritesModal.desktopStepsMac
+        : t.favoritesModal.desktopStepsWin
+      : t.favoritesModal.desktopSteps;
+
+  const rawGuides: Array<{
+    id: DevicePlatform;
+    title: string;
+    steps: string;
+    icon: typeof Smartphone;
+  }> = [
+    {
+      id: 'ios',
+      title: t.favoritesModal.iosTitle,
+      steps: t.favoritesModal.iosSteps,
+      icon: Smartphone,
+    },
+    {
+      id: 'android',
+      title: t.favoritesModal.androidTitle,
+      steps: t.favoritesModal.androidSteps,
+      icon: Smartphone,
+    },
+    {
+      id: 'desktop',
+      title: t.favoritesModal.desktopTitle,
+      steps: desktopGuideSteps,
+      icon: Monitor,
+    },
+  ];
+  const platformGuides = [...rawGuides].sort((a, b) =>
+    a.id === currentPlatform ? -1 : b.id === currentPlatform ? 1 : 0
+  );
 
   return (
     <div
@@ -44,7 +101,9 @@ export function FavoritesModal({
       onClick={onClose}
     >
       <div
-        className="isonil-sheet-enter w-full sm:max-w-md bg-[#11181F] text-white rounded-t-3xl sm:rounded-2xl border border-[#4CC3DB]/28 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
+        ref={dialogRef}
+        {...sheetTouchHandlers}
+        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-md bg-[#11181F] text-white rounded-t-3xl sm:rounded-2xl border border-[#4CC3DB]/28 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -60,6 +119,7 @@ export function FavoritesModal({
             <p className="mt-1 text-sm text-[#D0D7DE]">{t.favoritesModal.subtitle}</p>
           </div>
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
@@ -84,7 +144,7 @@ export function FavoritesModal({
           <button
             type="button"
             onClick={onToggleFavorite}
-            className={`isonil-btn min-h-[42px] px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`isonil-btn min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer ${
               isFavorite
                 ? 'bg-[#0C1217]/85 hover:bg-[#17222B] border border-[#D0D7DE]/18 text-white'
                 : 'bg-white hover:bg-[#ECF8FA] text-[#0C1217]'
@@ -100,35 +160,28 @@ export function FavoritesModal({
         </p>
 
         <div className="mt-4 divide-y divide-[#D0D7DE]/14">
-          <div className="py-3 flex items-start gap-3">
-            <Smartphone className="w-4 h-4 text-[#4CC3DB] mt-0.5 shrink-0" />
-            <div>
-              <p className="text-sm font-semibold text-white">{t.favoritesModal.iosTitle}</p>
-              <p className="mt-0.5 text-xs sm:text-sm text-[#D0D7DE] leading-relaxed">
-                {t.favoritesModal.iosSteps}
-              </p>
-            </div>
-          </div>
-
-          <div className="py-3 flex items-start gap-3">
-            <Smartphone className="w-4 h-4 text-[#4CC3DB] mt-0.5 shrink-0" />
-            <div>
-              <p className="text-sm font-semibold text-white">{t.favoritesModal.androidTitle}</p>
-              <p className="mt-0.5 text-xs sm:text-sm text-[#D0D7DE] leading-relaxed">
-                {t.favoritesModal.androidSteps}
-              </p>
-            </div>
-          </div>
-
-          <div className="py-3 flex items-start gap-3">
-            <Monitor className="w-4 h-4 text-[#4CC3DB] mt-0.5 shrink-0" />
-            <div>
-              <p className="text-sm font-semibold text-white">{t.favoritesModal.desktopTitle}</p>
-              <p className="mt-0.5 text-xs sm:text-sm text-[#D0D7DE] leading-relaxed">
-                {t.favoritesModal.desktopSteps}
-              </p>
-            </div>
-          </div>
+          {platformGuides.map((guide) => {
+            const Icon = guide.icon;
+            const isCurrent = guide.id === currentPlatform;
+            return (
+              <div key={guide.id} className="py-3 flex items-start gap-3">
+                <Icon className="w-4 h-4 text-[#4CC3DB] mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-white flex flex-wrap items-center gap-x-2">
+                    <span>{guide.title}</span>
+                    {isCurrent && (
+                      <span className="text-xs font-medium text-[#5EC6DA]">
+                        · {t.favoritesModal.currentDeviceLabel}
+                      </span>
+                    )}
+                  </p>
+                  <p className="mt-0.5 text-xs sm:text-sm text-[#D0D7DE] leading-relaxed">
+                    {guide.steps}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Copy canonical link for quick saving */}
@@ -142,7 +195,7 @@ export function FavoritesModal({
           <button
             type="button"
             onClick={onCopyUrl}
-            className="isonil-btn min-h-[44px] px-4 py-2 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
+            className="isonil-btn min-h-[44px] px-4 py-2 rounded-xl border border-[#D0D7DE]/18 hover:border-[#4CC3DB]/48 bg-[#0C1217]/82 hover:bg-[#17222B] text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
           >
             {urlCopied ? (
               <>

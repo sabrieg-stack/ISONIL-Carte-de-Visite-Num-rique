@@ -11,6 +11,9 @@ export interface CardTranslation {
   businessActivity: string;
   cityCountry: string;
   languageSelectorAria: string;
+  skipToContent: string;
+  stickyBarAria: string;
+  dismissToast: string;
   actions: {
     call: string;
     whatsapp: string;
@@ -18,6 +21,7 @@ export interface CardTranslation {
     website: string;
     location: string;
     saveContact: string;
+    contactReady: string;
     shareCard: string;
     addToFavorites: string;
     savedInFavorites: string;
@@ -61,6 +65,10 @@ export interface CardTranslation {
     title: string;
     text: string;
   };
+  prefill: {
+    whatsappMessage: string;
+    emailSubject: string;
+  };
   toasts: {
     vcfDownloaded: string;
     linkCopied: string;
@@ -89,9 +97,20 @@ export interface CardTranslation {
     androidSteps: string;
     desktopTitle: string;
     desktopSteps: string;
+    desktopStepsMac: string;
+    desktopStepsWin: string;
     savedStatusLabel: string;
     toggleSave: string;
     toggleRemove: string;
+    currentDeviceLabel: string;
+  };
+  nfcTapHelp: {
+    triggerLabel: string;
+    triggerAria: string;
+    title: string;
+    summary: string;
+    iphoneTip: string;
+    androidTip: string;
   };
   nfc: {
     triggerLabel: string;
@@ -152,6 +171,9 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     businessActivity: "Solutions d'Isolation Thermique et Industrielle",
     cityCountry: 'El Jadida, Maroc',
     languageSelectorAria: 'Choisir la langue de la carte',
+    skipToContent: 'Aller directement à la carte de contact',
+    stickyBarAria: 'Actions rapides de contact',
+    dismissToast: 'Fermer la notification',
     actions: {
       call: 'Appeler',
       whatsapp: 'WhatsApp',
@@ -159,6 +181,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       website: 'Site web',
       location: 'Localisation',
       saveContact: 'Enregistrer le contact',
+      contactReady: 'Fiche prête',
       shareCard: 'Partager la carte',
       addToFavorites: 'Ajouter aux favoris',
       savedInFavorites: 'Dans vos favoris',
@@ -202,6 +225,10 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       title: 'ISONIL — La Direction d’ISONIL',
       text: "Carte de visite numérique officielle de La Direction d’ISONIL (Solutions d'Isolation Thermique et Industrielle).",
     },
+    prefill: {
+      whatsappMessage: 'Bonjour, je vous contacte via la carte de visite numérique officielle d’ISONIL.',
+      emailSubject: 'Contact — Carte Numérique ISONIL',
+    },
     toasts: {
       vcfDownloaded: 'Fiche contact ISONIL (.vcf) prête à être enregistrée.',
       linkCopied: 'Lien officiel copié dans le presse-papiers.',
@@ -231,9 +258,20 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       androidSteps: "Appuyez sur le menu (⋮) en haut à droite, puis sélectionnez « Ajouter à l'écran d'accueil » ou l'étoile Favoris.",
       desktopTitle: 'Ordinateur',
       desktopSteps: 'Utilisez le raccourci Ctrl + D (Windows/Linux) ou ⌘ + D (Mac) pour enregistrer cette page.',
+      desktopStepsMac: 'Appuyez sur ⌘ + D dans votre navigateur pour enregistrer immédiatement cette carte.',
+      desktopStepsWin: 'Appuyez sur Ctrl + D dans votre navigateur pour enregistrer immédiatement cette carte.',
       savedStatusLabel: 'Rappel local sur cet appareil',
       toggleSave: 'Marquer comme favori ici',
       toggleRemove: 'Retirer le marquage local',
+      currentDeviceLabel: 'Cet appareil',
+    },
+    nfcTapHelp: {
+      triggerLabel: 'Aide NFC',
+      triggerAria: 'Comment utiliser une carte NFC ISONIL sur téléphone',
+      title: 'Comment ouvrir la carte via NFC',
+      summary: 'Approchez votre téléphone déverrouillé de la carte physique ISONIL pendant 1 seconde — aucune application n’est requise.',
+      iphoneTip: 'iPhone : placez le haut du téléphone (près de la caméra avant) contre la carte.',
+      androidTip: 'Android : activez NFC dans les réglages et placez le centre du dos du téléphone sur la carte.',
     },
     nfc: {
       triggerLabel: 'Paramètres NFC',
@@ -298,6 +336,9 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     businessActivity: 'Thermal & Industrial Insulation Solutions',
     cityCountry: 'El Jadida, Morocco',
     languageSelectorAria: 'Choose card language',
+    skipToContent: 'Skip to contact card',
+    stickyBarAria: 'Quick contact bar',
+    dismissToast: 'Dismiss notification',
     actions: {
       call: 'Call',
       whatsapp: 'WhatsApp',
@@ -305,6 +346,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       website: 'Website',
       location: 'Location',
       saveContact: 'Save Contact',
+      contactReady: 'Contact ready',
       shareCard: 'Share Card',
       addToFavorites: 'Add to Favorites',
       savedInFavorites: 'Saved in Favorites',
@@ -348,6 +390,10 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       title: 'ISONIL — ISONIL Management',
       text: 'Official digital business card of ISONIL Management (Thermal & Industrial Insulation Solutions).',
     },
+    prefill: {
+      whatsappMessage: 'Hello, I am reaching out via the official ISONIL digital business card.',
+      emailSubject: 'Contact — ISONIL Digital Business Card',
+    },
     toasts: {
       vcfDownloaded: 'ISONIL contact file (.vcf) ready to save.',
       linkCopied: 'Official card link copied to clipboard.',
@@ -377,9 +423,20 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       androidSteps: 'Tap the menu (⋮) in the top right, then choose "Add to Home screen" or tap the Bookmark star.',
       desktopTitle: 'Desktop Browser',
       desktopSteps: 'Press Ctrl + D (Windows/Linux) or ⌘ + D (Mac) to bookmark this page.',
+      desktopStepsMac: 'Press ⌘ + D in your browser to bookmark this card right away.',
+      desktopStepsWin: 'Press Ctrl + D in your browser to bookmark this card right away.',
       savedStatusLabel: 'Local bookmark state on this device',
       toggleSave: 'Mark as favorite here',
       toggleRemove: 'Remove local favorite mark',
+      currentDeviceLabel: 'This device',
+    },
+    nfcTapHelp: {
+      triggerLabel: 'NFC Guide',
+      triggerAria: 'How to tap a phone against an ISONIL NFC card',
+      title: 'How to tap with NFC',
+      summary: 'Hold your unlocked phone against the physical ISONIL smart card for 1 second — no app required.',
+      iphoneTip: 'iPhone: tap the top edge of the phone near the front camera against the card.',
+      androidTip: 'Android: make sure NFC is enabled and hold the back center of the phone against the card.',
     },
     nfc: {
       triggerLabel: 'NFC Settings',
@@ -444,6 +501,9 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     businessActivity: 'حلول العزل الحراري والصناعي',
     cityCountry: 'الجديدة، المغرب',
     languageSelectorAria: 'اختيار لغة البطاقة',
+    skipToContent: 'الانتقال مباشرة إلى بطاقة التواصل',
+    stickyBarAria: 'شريط التواصل السريع',
+    dismissToast: 'إغلاق الإشعار',
     actions: {
       call: 'اتصال',
       whatsapp: 'واتساب',
@@ -451,6 +511,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       website: 'الموقع',
       location: 'الخريطة',
       saveContact: 'حفظ جهة الاتصال',
+      contactReady: 'تم تجهيز الملف',
       shareCard: 'مشاركة البطاقة',
       addToFavorites: 'إضافة للمفضلة',
       savedInFavorites: 'محفوظة في المفضلة',
@@ -494,6 +555,10 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       title: 'ISONIL — إدارة ISONIL',
       text: 'بطاقة التعريف الرقمية الرسمية لإدارة ISONIL — حلول العزل الحراري والصناعي.',
     },
+    prefill: {
+      whatsappMessage: 'السلام عليكم، أتواصل معكم عبر بطاقة التعريف الرقمية الرسمية لشركة ISONIL.',
+      emailSubject: 'تواصل عبر البطاقة الرقمية — ISONIL',
+    },
     toasts: {
       vcfDownloaded: 'تم تجهيز ملف جهة الاتصال (.vcf) للحفظ على جهازك.',
       linkCopied: 'تم نسخ رابط البطاقة الرسمي.',
@@ -523,9 +588,20 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       androidSteps: 'اضغط على القائمة (⋮) أعلى الشاشة، ثم اختر «الإضافة إلى الشاشة الرئيسية» أو اضغط على أيقونة النجمة.',
       desktopTitle: 'الكمبيوتر',
       desktopSteps: 'اضغط على الاختصار Ctrl + D (ويندوز/لينكس) أو ⌘ + D (ماك) لحفظ الصفحة في المفضلة.',
+      desktopStepsMac: 'اضغط على الاختصار ⌘ + D في متصفحك لحفظ البطاقة فوراً في المفضلة.',
+      desktopStepsWin: 'اضغط على الاختصار Ctrl + D في متصفحك لحفظ البطاقة فوراً في المفضلة.',
       savedStatusLabel: 'حالة الحفظ المحلية على هذا المتصفح',
       toggleSave: 'تمييز كمفضلة هنا',
       toggleRemove: 'إزالة التمييز المحلي',
+      currentDeviceLabel: 'جهازك الحالي',
+    },
+    nfcTapHelp: {
+      triggerLabel: 'دليل NFC',
+      triggerAria: 'كيفية لمس الهاتف ببطاقة ISONIL الذكية بتقنية NFC',
+      title: 'طريقة فتح البطاقة بلمسة NFC',
+      summary: 'قرّب هاتفك المفتوح من بطاقة ISONIL الذكية لمدة ثانية واحدة لفتح البطاقة تلقائياً دون أي تطبيق.',
+      iphoneTip: 'آيفون: قرّب الحافة العلوية للهاتف (بجانب الكاميرا الأمامية) من البطاقة.',
+      androidTip: 'أندرويد: فعّل NFC من الإعدادات وقرّب منتصف ظهر الهاتف من البطاقة.',
     },
     nfc: {
       triggerLabel: 'إعدادات NFC',
