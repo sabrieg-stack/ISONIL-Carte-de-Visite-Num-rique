@@ -20,8 +20,7 @@ export const ISONIL_CONTACT = {
   addressCity: 'El Jadida',
   addressPostalCode: '24000',
   addressCountry: 'Maroc',
-  mapsHref:
-    "https://www.google.com/maps/search/?api=1&query=3%C3%A8me%20%C3%A9tage%2C%20Bureau%20N%C2%B0%2024%2C%20Centre%20Andalousie%20(Pr%C3%A8s%20D'Acidal)%2C%20El%20Jadida%2024000%2C%20Maroc",
+  mapsHref: 'https://www.google.com/maps/search/?api=1&query=33.2374681%2C-8.5084362',
   logoSrc: '/assets/isonil-logo-transparent.png',
   logoWebpSrc: '/assets/isonil-logo-transparent.webp',
   vcardFilename: 'ISONIL-Management.vcf',
