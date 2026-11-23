@@ -95,8 +95,6 @@ button {
   --isonil-ease-tactile: cubic-bezier(0.2, 0, 0, 1);
   --isonil-rise-y: 6px;
   --isonil-dur-enter: 260ms;
-  --isonil-dur-logo: 420ms;
-  --isonil-logo-scale-from: 0.94;
   --isonil-dur-bg: 900ms;
   --isonil-dur-lang: 165ms;
   --isonil-stagger: 22ms;
@@ -107,8 +105,6 @@ button {
   :root {
     --isonil-rise-y: 8px;
     --isonil-dur-enter: 320ms;
-    --isonil-dur-logo: 480ms;
-    --isonil-logo-scale-from: 0.94;
     --isonil-dur-bg: 1100ms;
     --isonil-dur-lang: 185ms;
     --isonil-stagger: 28ms;
@@ -142,17 +138,6 @@ button {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes isonil-logo-in {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 4px, 0) scale(var(--isonil-logo-scale-from));
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -372,11 +357,6 @@ button {
   animation-delay: calc(var(--isonil-stagger) * 12);
 }
 
-/* Approach-from-distance reveal for the original transparent logo without altering its final shape */
-.isonil-logo-reveal {
-  animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-approach) 40ms backwards;
-}
-
 /* Quiet Luxury 3.6s one-shot header choreography */
 .isonil-intro-frame {
   animation: isonil-intro-frame-in 820ms var(--isonil-ease-luxury) 80ms backwards;
@@ -386,7 +366,7 @@ button {
   animation: isonil-intro-mark-ltr 1050ms var(--isonil-ease-luxury) 680ms backwards;
 }
 
-[dir="rtl"] .isonil-intro-mark {
+[data-intro-dir="rtl"] .isonil-intro-mark {
   animation-name: isonil-intro-mark-rtl;
 }
 
@@ -394,7 +374,7 @@ button {
   animation: isonil-intro-brand-ltr 850ms var(--isonil-ease-luxury) 1550ms backwards;
 }
 
-[dir="rtl"] .isonil-intro-brand {
+[data-intro-dir="rtl"] .isonil-intro-brand {
   animation-name: isonil-intro-brand-rtl;
 }
 
@@ -404,6 +384,15 @@ button {
 
 .isonil-intro-role {
   animation: isonil-intro-slogan-in 780ms var(--isonil-ease-luxury) 2820ms backwards;
+}
+
+.isonil-intro-settled .isonil-intro-frame,
+.isonil-intro-settled .isonil-intro-mark,
+.isonil-intro-settled .isonil-intro-brand,
+.isonil-intro-settled .isonil-intro-slogan,
+.isonil-intro-settled .isonil-intro-role,
+.isonil-intro-settled .isonil-accent-line {
+  animation: none;
 }
 
 /* Quiet top brand stripe reveal respecting LTR/RTL reading direction */
@@ -558,7 +547,6 @@ button {
   .isonil-bg-atmosphere,
   .isonil-fade,
   .isonil-enter,
-  .isonil-logo-reveal,
   .isonil-intro-frame,
   .isonil-intro-mark,
   .isonil-intro-brand,
@@ -602,8 +590,19 @@ button {
   *,
   *::before,
   *::after {
+    animation: none !important;
+    transition: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+  }
+  .isonil-intro-frame,
+  .isonil-intro-mark,
+  .isonil-intro-brand,
+  .isonil-intro-slogan,
+  .isonil-intro-role,
+  .isonil-accent-line {
+    opacity: 1 !important;
+    transform: none !important;
   }
   .no-print {
     display: none !important;

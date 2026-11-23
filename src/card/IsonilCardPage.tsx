@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   Bookmark,
@@ -28,8 +28,13 @@ import {
 import { CARD_TRANSLATIONS } from './translations';
 import { downloadIsonilVCard } from './vcard';
 import { QrCodePanel } from './QrCodePanel';
-import { FavoritesModal } from './FavoritesModal';
-import { NfcSettingsModal } from './NfcSettingsModal';
+
+const FavoritesModal = lazy(() =>
+  import('./FavoritesModal').then((mod) => ({ default: mod.FavoritesModal }))
+);
+const NfcSettingsModal = lazy(() =>
+  import('./NfcSettingsModal').then((mod) => ({ default: mod.NfcSettingsModal }))
+);
 
 const LANGUAGE_ORDER: CardLanguage[] = ['fr', 'en', 'ar'];
 
@@ -119,6 +124,8 @@ async function copyTextToClipboard(text: string): Promise<boolean> {
 
 export function IsonilCardPage() {
   const [lang, setLang] = useState<CardLanguage>(getInitialLanguage);
+  const [initialIntroDir] = useState<'ltr' | 'rtl'>(() => CARD_TRANSLATIONS[lang].dir);
+  const [introSettled, setIntroSettled] = useState(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(getSavedFavorite);
   const [favoritesModalOpen, setFavoritesModalOpen] = useState(false);
   const [nfcModalOpen, setNfcModalOpen] = useState<boolean>(() => {
@@ -149,10 +156,11 @@ export function IsonilCardPage() {
     t.prefill.emailSubject
   )}`;
 
-  // Persist card-only language preference without altering any main-site language state
+  // Persist card-only language preference without altering any main-site language state or replaying the opening intro
   const handleSelectLanguage = (nextLang: CardLanguage) => {
     if (nextLang === lang) return;
     triggerSubtleHaptic();
+    setIntroSettled(true);
     setLang(nextLang);
     setLangAnimPhase((prev) => (prev === 'a' ? 'b' : 'a'));
     try {
@@ -162,20 +170,31 @@ export function IsonilCardPage() {
     }
   };
 
-  // Sync page metadata, html lang, and html dir for screen readers & native browser ergonomics
+  // Sync page metadata, OpenGraph/Twitter tags, html lang, and html dir for screen readers & native browser ergonomics
   useEffect(() => {
     const previousTitle = document.title;
     const previousLang = document.documentElement.lang;
     const previousDir = document.documentElement.dir;
     const descriptionMeta = document.querySelector('meta[name="description"]');
+    const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    const ogDescMeta = document.querySelector('meta[property="og:description"]');
+    const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+    const twitterDescMeta = document.querySelector('meta[name="twitter:description"]');
+
     const previousDescription = descriptionMeta?.getAttribute('content') ?? null;
+    const previousOgTitle = ogTitleMeta?.getAttribute('content') ?? null;
+    const previousOgDesc = ogDescMeta?.getAttribute('content') ?? null;
+    const previousTwitterTitle = twitterTitleMeta?.getAttribute('content') ?? null;
+    const previousTwitterDesc = twitterDescMeta?.getAttribute('content') ?? null;
 
     document.title = t.metaTitle;
     document.documentElement.lang = lang;
     document.documentElement.dir = t.dir;
-    if (descriptionMeta) {
-      descriptionMeta.setAttribute('content', t.metaDescription);
-    }
+    descriptionMeta?.setAttribute('content', t.metaDescription);
+    ogTitleMeta?.setAttribute('content', t.metaTitle);
+    ogDescMeta?.setAttribute('content', t.metaDescription);
+    twitterTitleMeta?.setAttribute('content', t.share.title);
+    twitterDescMeta?.setAttribute('content', t.share.text);
 
     return () => {
       document.title = previousTitle;
@@ -184,17 +203,35 @@ export function IsonilCardPage() {
       if (descriptionMeta && previousDescription !== null) {
         descriptionMeta.setAttribute('content', previousDescription);
       }
+      if (ogTitleMeta && previousOgTitle !== null) {
+        ogTitleMeta.setAttribute('content', previousOgTitle);
+      }
+      if (ogDescMeta && previousOgDesc !== null) {
+        ogDescMeta.setAttribute('content', previousOgDesc);
+      }
+      if (twitterTitleMeta && previousTwitterTitle !== null) {
+        twitterTitleMeta.setAttribute('content', previousTwitterTitle);
+      }
+      if (twitterDescMeta && previousTwitterDesc !== null) {
+        twitterDescMeta.setAttribute('content', previousTwitterDesc);
+      }
     };
-  }, [lang, t.dir, t.metaTitle, t.metaDescription]);
+  }, [lang, t.dir, t.metaTitle, t.metaDescription, t.share.title, t.share.text]);
 
   useEffect(() => {
+    const introDoneTimer = window.setTimeout(() => {
+      setIntroSettled(true);
+    }, 3750);
+
     const handleHashChange = () => {
-      if (window.location.hash === '#nfc-settings') {
-        setNfcModalOpen(true);
-      }
+      const params = new URLSearchParams(window.location.search);
+      setNfcModalOpen(
+        window.location.hash === '#nfc-settings' || params.get('admin') === 'nfc'
+      );
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => {
+      window.clearTimeout(introDoneTimer);
       window.removeEventListener('hashchange', handleHashChange);
       if (toastTimerRef.current !== null) window.clearTimeout(toastTimerRef.current);
       if (copyTimerRef.current !== null) window.clearTimeout(copyTimerRef.current);
@@ -286,14 +323,7 @@ export function IsonilCardPage() {
   };
 
   const handleOpenFavorites = () => {
-    if (!isFavorite) {
-      setIsFavorite(true);
-      try {
-        window.localStorage.setItem(STORAGE_FAVORITE_KEY, 'true');
-      } catch {
-        // Ignore storage errors
-      }
-    }
+    triggerSubtleHaptic();
     setFavoritesModalOpen(true);
   };
 
@@ -391,7 +421,7 @@ export function IsonilCardPage() {
                   aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
-                  className={`isonil-tab-btn min-h-[38px] sm:min-h-[44px] min-w-[66px] sm:min-w-[44px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[40px] sm:min-h-[44px] min-w-[68px] sm:min-w-[44px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     active
                       ? 'bg-gradient-to-b from-[#45C4DC]/20 via-white/[0.08] to-white/[0.03] backdrop-blur-md border border-[#7ADAE9]/34 text-[#F8FAFC] shadow-[0_6px_16px_-8px_rgba(69,196,220,0.35),inset_0_1px_0_rgba(255,255,255,0.22)]'
                       : 'border border-transparent text-[#96AAB9] hover:text-white hover:bg-white/[0.05]'
@@ -450,9 +480,12 @@ export function IsonilCardPage() {
                 <path d="M202 72C162 122 120 162 72 190" stroke="url(#isonil-hdr-br)" strokeWidth="1" strokeOpacity="0.48" strokeLinecap="round" />
               </svg>
 
-              <div className="relative z-10">
+              <div
+                data-intro-dir={initialIntroDir}
+                className={`relative z-10 ${introSettled ? 'isonil-intro-settled' : ''}`}
+              >
                 {/* Unified Header Unit: Silver-Framed Box -> Red 'i' Entry -> Fixed Latin ISONIL -> Localized Two-Line Slogan */}
-                <div className="flex items-center gap-3 min-[390px]:gap-3.5 sm:gap-5">
+                <div className="flex items-center gap-2.5 min-[360px]:gap-3 min-[390px]:gap-3.5 sm:gap-5">
                   <div className="isonil-intro-frame w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center">
                     {!logoFailed ? (
                       <picture className="isonil-intro-mark w-full h-full flex items-center justify-center">
@@ -462,7 +495,7 @@ export function IsonilCardPage() {
                           alt={t.aria.logoAlt}
                           width={94}
                           height={94}
-                          decoding="async"
+                          decoding="sync"
                           fetchPriority="high"
                           referrerPolicy="no-referrer"
                           onError={() => setLogoFailed(true)}
@@ -482,7 +515,7 @@ export function IsonilCardPage() {
                     </h1>
                     <p
                       dir={t.dir}
-                      className="isonil-intro-slogan mt-1.5 text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
+                      className="isonil-intro-slogan mt-1.5 text-[9.75px] min-[350px]:text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
                     >
                       <span className={`block ${langAnimClass}`.trim()}>
                         {t.businessActivity.split('\n').map((line) => (
@@ -613,7 +646,9 @@ export function IsonilCardPage() {
                       download={ISONIL_CONTACT.vcardFilename}
                       onClick={triggerSaveContactFeedback}
                       aria-label={t.aria.saveContactAction}
-                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-2.5 rounded-[14px] backdrop-blur-md text-[#F8FAFC] text-sm font-semibold tracking-[0.015em] flex items-center justify-center gap-2.5 shadow-[0_12px_28px_-14px_rgba(69,196,220,0.32),inset_0_1px_0_rgba(255,255,255,0.22),inset_0_-1px_0_rgba(69,196,220,0.10)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-2.5 rounded-[14px] backdrop-blur-md text-[#F8FAFC] text-sm font-semibold ${
+                        isRtl ? '' : 'tracking-[0.015em]'
+                      } flex items-center justify-center gap-2.5 shadow-[0_12px_28px_-14px_rgba(69,196,220,0.32),inset_0_1px_0_rgba(255,255,255,0.22),inset_0_-1px_0_rgba(69,196,220,0.10)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                         contactSavedFeedback
                           ? 'border border-[#7ADAE9]/60 bg-gradient-to-b from-[#45C4DC]/[0.28] via-[#7ADAE9]/[0.12] to-[#45C4DC]/[0.10]'
                           : 'border border-[#7ADAE9]/32 hover:border-[#7ADAE9]/55 active:border-[#7ADAE9]/70 bg-gradient-to-b from-[#45C4DC]/[0.16] via-white/[0.07] to-[#45C4DC]/[0.05] hover:from-[#45C4DC]/[0.24] hover:via-white/[0.11] hover:to-[#45C4DC]/[0.08]'
@@ -942,7 +977,6 @@ export function IsonilCardPage() {
                   onClick={handleOpenFavorites}
                   aria-haspopup="dialog"
                   aria-label={t.aria.favoritesAction}
-                  aria-pressed={isFavorite}
                   className={`isonil-btn group w-full min-h-[48px] px-3.5 py-2.5 rounded-[14px] border text-xs sm:text-sm font-medium flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     isFavorite
                       ? 'border-[#E50914]/40 bg-[#E50914]/10 text-[#F8FAFC] hover:bg-[#E50914]/16 active:bg-[#E50914]/20'
@@ -964,18 +998,40 @@ export function IsonilCardPage() {
           </aside>
         </div>
 
-        {/* Bottom Footer Information: City & Country only */}
-        <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#CBD8E6]/8 flex flex-col lg:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
+        {/* Bottom Footer Information: City & Country + Mobile Favorites Guide / Desktop NFC Management */}
+        <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#CBD8E6]/8 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
           <a
             href={ISONIL_CONTACT.mapsHref}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t.aria.locationAction}
-            className="min-h-[36px] px-2 py-1 inline-flex items-center justify-center lg:justify-start gap-1.5 text-[#AEBECC] hover:text-[#7ADAE9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg"
+            className="min-h-[40px] px-2.5 py-1 inline-flex items-center justify-center lg:justify-start gap-1.5 text-[#AEBECC] hover:text-[#7ADAE9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg"
           >
             <MapPin aria-hidden="true" strokeWidth={1.65} className="w-3.5 h-3.5 text-[#45C4DC] shrink-0" />
             <span>{t.cityCountry}</span>
           </a>
+
+          <div className="flex lg:hidden items-center justify-center shrink-0 no-print">
+            <button
+              type="button"
+              onClick={handleOpenFavorites}
+              aria-haspopup="dialog"
+              aria-label={t.aria.favoritesAction}
+              className={`isonil-icon-btn min-h-[40px] inline-flex items-center gap-1.5 font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg px-2.5 cursor-pointer ${
+                isFavorite ? 'text-[#F1F5F9] hover:text-white' : 'text-[#96AAB9] hover:text-[#7ADAE9]'
+              }`}
+            >
+              <Bookmark
+                strokeWidth={1.65}
+                className={`w-3.5 h-3.5 shrink-0 ${
+                  isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#45C4DC]'
+                }`}
+              />
+              <span className="whitespace-nowrap">
+                {isFavorite ? t.actions.savedInFavorites : t.actions.addToFavorites}
+              </span>
+            </button>
+          </div>
 
           <div className="hidden lg:flex items-center justify-center shrink-0">
             <button
@@ -993,42 +1049,50 @@ export function IsonilCardPage() {
       </main>
 
       {/* Favorites & Browser Bookmarking Modal */}
-      <FavoritesModal
-        isOpen={favoritesModalOpen}
-        isFavorite={isFavorite}
-        t={t}
-        urlCopied={copiedField === 'url'}
-        onClose={() => setFavoritesModalOpen(false)}
-        onToggleFavorite={handleToggleFavorite}
-        onCopyUrl={() =>
-          handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
-        }
-      />
+      {favoritesModalOpen && (
+        <Suspense fallback={null}>
+          <FavoritesModal
+            isOpen={favoritesModalOpen}
+            isFavorite={isFavorite}
+            t={t}
+            urlCopied={copiedField === 'url'}
+            onClose={() => setFavoritesModalOpen(false)}
+            onToggleFavorite={handleToggleFavorite}
+            onCopyUrl={() =>
+              handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
+            }
+          />
+        </Suspense>
+      )}
 
       {/* NFC Setup & Preparation Management Modal */}
-      <NfcSettingsModal
-        isOpen={nfcModalOpen}
-        t={t}
-        urlCopied={copiedField === 'url'}
-        onClose={() => {
-          setNfcModalOpen(false);
-          if (window.location.hash === '#nfc-settings') {
-            window.history.replaceState(null, '', window.location.pathname + window.location.search);
-          }
-        }}
-        onCopyNfcUrl={() =>
-          handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.nfc.nfcLinkCopiedToast)
-        }
-        onDownloadVCard={handleSaveContactFromModal}
-        onNotify={showToast}
-      />
+      {nfcModalOpen && (
+        <Suspense fallback={null}>
+          <NfcSettingsModal
+            isOpen={nfcModalOpen}
+            t={t}
+            urlCopied={copiedField === 'url'}
+            onClose={() => {
+              setNfcModalOpen(false);
+              if (window.location.hash === '#nfc-settings') {
+                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+              }
+            }}
+            onCopyNfcUrl={() =>
+              handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.nfc.nfcLinkCopiedToast)
+            }
+            onDownloadVCard={handleSaveContactFromModal}
+            onNotify={showToast}
+          />
+        </Suspense>
+      )}
 
       {/* Accessible Non-Intrusive Feedback Toast */}
       <div
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className="pointer-events-none fixed inset-x-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] lg:bottom-5 z-50 flex justify-center no-print transition-transform duration-200"
+        className="pointer-events-none fixed inset-x-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] lg:bottom-5 z-[60] flex justify-center no-print transition-transform duration-200"
       >
         {toastMessage && (
           <div

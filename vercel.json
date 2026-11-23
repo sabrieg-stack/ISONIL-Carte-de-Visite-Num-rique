@@ -1,4 +1,15 @@
 {
+  "headers": [
+    {
+      "source": "/contact.vcf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/vcard; charset=utf-8"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/card",

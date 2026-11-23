@@ -571,7 +571,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       companyProfileAction: 'فتح بروفايل شركة ISONIL في تبويب جديد',
       clientPortalAction: 'فتح بوابة العملاء الرسمية لشركة ISONIL في تبويب جديد',
       locationAction: 'فتح عنوان ISONIL على خرائط جوجل',
-      saveContactAction: 'تنزيل ملف جهة الاتصال /contact.vcf لهواتف أندرويد وآيفون',
+      saveContactAction: 'تنزيل بطاقة جهة الاتصال (vCard) لهواتف آيفون وأندرويد',
       shareCardAction: 'مشاركة الرابط الدائم لبطاقة ISONIL',
       favoritesAction: 'حفظ البطاقة في مفضلة المتصفح',
       linkedinAction: 'متابعة ISONIL على LinkedIn',
