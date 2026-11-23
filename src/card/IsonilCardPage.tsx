@@ -405,7 +405,7 @@ export function IsonilCardPage() {
           {/* Primary Official Card: Elevated Slate-Graphite surface with Paper-Card Header */}
           <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#131C24] rounded-2xl border border-[#CBD8E6]/11 ring-1 ring-white/[0.025] shadow-[0_28px_64px_-20px_rgba(2,6,10,0.88),inset_0_1px_0_rgba(248,250,252,0.08)] overflow-hidden flex flex-col min-w-0">
             {/* Paper-card inspired header band with proportional corner cyan light-arcs, silver-framed logo, crisp wordmark & cyan rule */}
-            <div className="relative overflow-hidden bg-gradient-to-b from-[#0E151B] via-[#0F161C] to-[#111922] text-[#F8FAFC] px-4 min-[390px]:px-5 sm:px-8 pt-5 pb-5 sm:pt-8 sm:pb-7 border-b border-[#CBD8E6]/8">
+            <div className="relative overflow-hidden bg-gradient-to-b from-[#0E151B] via-[#0F161C] to-[#111922] text-[#F8FAFC] px-5 sm:px-6.5 pt-5 pb-5 sm:pt-7 sm:pb-6.5 border-b border-[#CBD8E6]/8">
               <svg
                 aria-hidden="true"
                 className="pointer-events-none absolute top-0 left-0 w-40 h-40 sm:w-52 sm:h-52 opacity-75"
@@ -474,7 +474,7 @@ export function IsonilCardPage() {
                     </h1>
                     <p
                       dir={t.dir}
-                      className="mt-1.5 text-[11px] min-[360px]:text-[12px] min-[390px]:text-[13px] min-[430px]:text-[14px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
+                      className="mt-1.5 text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
                     >
                       {t.businessActivity.split('\n').map((line) => (
                         <span key={line} className="block whitespace-nowrap">
