@@ -91,6 +91,7 @@ button {
 :root {
   --isonil-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --isonil-ease-approach: cubic-bezier(0.16, 1, 0.3, 1);
+  --isonil-ease-luxury: cubic-bezier(0.22, 0.85, 0.32, 1);
   --isonil-ease-tactile: cubic-bezier(0.2, 0, 0, 1);
   --isonil-rise-y: 6px;
   --isonil-dur-enter: 260ms;
@@ -99,7 +100,7 @@ button {
   --isonil-dur-bg: 900ms;
   --isonil-dur-lang: 165ms;
   --isonil-stagger: 22ms;
-  --isonil-mark-shift: 36px;
+  --isonil-mark-shift: 30px;
 }
 
 @media (min-width: 640px) {
@@ -111,7 +112,7 @@ button {
     --isonil-dur-bg: 1100ms;
     --isonil-dur-lang: 185ms;
     --isonil-stagger: 28ms;
-    --isonil-mark-shift: 48px;
+    --isonil-mark-shift: 38px;
   }
 }
 
@@ -158,7 +159,7 @@ button {
 @keyframes isonil-intro-frame-in {
   0% {
     opacity: 0;
-    transform: scale(0.965);
+    transform: scale(0.985);
   }
   100% {
     opacity: 1;
@@ -191,7 +192,7 @@ button {
 @keyframes isonil-intro-brand-ltr {
   0% {
     opacity: 0;
-    transform: translate3d(-6px, 0, 0);
+    transform: translate3d(-4px, 0, 0);
   }
   100% {
     opacity: 1;
@@ -202,7 +203,7 @@ button {
 @keyframes isonil-intro-brand-rtl {
   0% {
     opacity: 0;
-    transform: translate3d(6px, 0, 0);
+    transform: translate3d(4px, 0, 0);
   }
   100% {
     opacity: 1;
@@ -213,7 +214,7 @@ button {
 @keyframes isonil-intro-slogan-in {
   0% {
     opacity: 0;
-    transform: translate3d(0, 4px, 0);
+    transform: translate3d(0, 3px, 0);
   }
   100% {
     opacity: 1;
@@ -376,13 +377,13 @@ button {
   animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-approach) 40ms backwards;
 }
 
-/* Quiet Luxury 1.9s one-shot header choreography */
+/* Quiet Luxury 3.6s one-shot header choreography */
 .isonil-intro-frame {
-  animation: isonil-intro-frame-in 430ms var(--isonil-ease-out) 50ms backwards;
+  animation: isonil-intro-frame-in 820ms var(--isonil-ease-luxury) 80ms backwards;
 }
 
 .isonil-intro-mark {
-  animation: isonil-intro-mark-ltr 660ms var(--isonil-ease-approach) 360ms backwards;
+  animation: isonil-intro-mark-ltr 1050ms var(--isonil-ease-luxury) 680ms backwards;
 }
 
 [dir="rtl"] .isonil-intro-mark {
@@ -390,7 +391,7 @@ button {
 }
 
 .isonil-intro-brand {
-  animation: isonil-intro-brand-ltr 480ms var(--isonil-ease-out) 900ms backwards;
+  animation: isonil-intro-brand-ltr 850ms var(--isonil-ease-luxury) 1550ms backwards;
 }
 
 [dir="rtl"] .isonil-intro-brand {
@@ -398,17 +399,17 @@ button {
 }
 
 .isonil-intro-slogan {
-  animation: isonil-intro-slogan-in 600ms var(--isonil-ease-out) 1220ms backwards;
+  animation: isonil-intro-slogan-in 980ms var(--isonil-ease-luxury) 2180ms backwards;
 }
 
 .isonil-intro-role {
-  animation: isonil-intro-slogan-in 460ms var(--isonil-ease-out) 1460ms backwards;
+  animation: isonil-intro-slogan-in 780ms var(--isonil-ease-luxury) 2820ms backwards;
 }
 
 /* Quiet top brand stripe reveal respecting LTR/RTL reading direction */
 .isonil-accent-line {
   transform-origin: left center;
-  animation: isonil-accent-draw 440ms var(--isonil-ease-out) 1480ms backwards;
+  animation: isonil-accent-draw 700ms var(--isonil-ease-luxury) 2900ms backwards;
 }
 
 [dir="rtl"] .isonil-accent-line {
