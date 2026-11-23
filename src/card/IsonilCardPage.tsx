@@ -340,9 +340,6 @@ export function IsonilCardPage() {
   const uniformStandardBtnClass =
     'isonil-btn group w-full min-h-[64px] sm:min-h-[68px] px-3 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 active:border-[#3DC4DC]/65 bg-[#0D141A] hover:bg-[#14222B] active:bg-[#162732] text-[#F1F5F9] text-xs sm:text-[13px] font-semibold flex flex-col items-center justify-center gap-1.5 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer';
 
-  const companyProfileHighlightClass =
-    'isonil-btn group w-full min-h-[64px] sm:min-h-[68px] px-3 py-2.5 rounded-xl border border-[#3DC4DC]/42 hover:border-[#6AD8EB]/70 active:border-[#6AD8EB] bg-[#142630] hover:bg-[#182E3A] active:bg-[#1B3442] text-white text-xs sm:text-[13px] font-semibold flex flex-col items-center justify-center gap-1.5 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer';
-
   const utilityActionBtnClass =
     'isonil-btn w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 active:border-[#3DC4DC]/65 bg-[#0D141A] hover:bg-[#14222B] active:bg-[#162732] text-[#F1F5F9] text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer';
 
@@ -647,15 +644,15 @@ export function IsonilCardPage() {
                     <span className="leading-tight text-balance">{t.actions.website}</span>
                   </a>
 
-                  {/* 5. Company Profile (Directly after Website — Calm highlighted tile) */}
+                  {/* 5. Company Profile (Directly after Website — Unified tile lighting & shape) */}
                   <a
                     href={ISONIL_CONTACT.companyProfileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.companyProfileAction}
-                    className={`isonil-enter isonil-delay-7 ${companyProfileHighlightClass}`}
+                    className={`isonil-enter isonil-delay-7 ${uniformStandardBtnClass}`}
                   >
-                    <FileText className="isonil-btn-icon w-[18px] h-[18px] text-[#6AD8EB] shrink-0" />
+                    <FileText className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.companyProfile}</span>
                   </a>
 
@@ -671,18 +668,17 @@ export function IsonilCardPage() {
                     <span className="leading-tight text-balance">{t.actions.location}</span>
                   </a>
 
-                  {/* 7. Client Portal (Full-width featured bar — zero orphan cell in 2-column grid) */}
+                  {/* 7. Client Portal (Full-width size preserved, unified tile lighting & shape) */}
                   <div className="col-span-2">
                     <a
                       href={ISONIL_CONTACT.clientPortalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={t.aria.clientPortalAction}
-                      className="isonil-enter isonil-delay-9 isonil-btn group w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-[#3DC4DC]/42 hover:border-[#6AD8EB]/70 active:border-[#6AD8EB] bg-[#142630] hover:bg-[#182E3A] active:bg-[#1B3442] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+                      className={`isonil-enter isonil-delay-9 ${uniformStandardBtnClass}`}
                     >
-                      <LayoutDashboard className="isonil-btn-icon w-[18px] h-[18px] text-[#6AD8EB] shrink-0" />
-                      <span className="leading-tight whitespace-nowrap">{t.actions.clientPortal}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#3DC4DC] rtl:-scale-x-100 shrink-0 opacity-85" />
+                      <LayoutDashboard className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
+                      <span className="leading-tight text-balance">{t.actions.clientPortal}</span>
                     </a>
                   </div>
 
