@@ -7,16 +7,13 @@ import {
   ExternalLink,
   FileText,
   Globe,
-  HelpCircle,
   LayoutDashboard,
   Mail,
   MapPin,
   MessageCircle,
   Nfc,
   Phone,
-  QrCode,
   Share2,
-  Smartphone,
   UserPlus,
   X,
 } from 'lucide-react';
@@ -134,12 +131,10 @@ export function IsonilCardPage() {
   const [contactSavedFeedback, setContactSavedFeedback] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
   const [langAnimPhase, setLangAnimPhase] = useState<'idle' | 'a' | 'b'>('idle');
-  const [nfcHelpOpen, setNfcHelpOpen] = useState(false);
 
   const toastTimerRef = useRef<number | null>(null);
   const copyTimerRef = useRef<number | null>(null);
   const vcardTimerRef = useRef<number | null>(null);
-  const nfcHelpContainerRef = useRef<HTMLDivElement | null>(null);
 
   const t = CARD_TRANSLATIONS[lang];
   const isRtl = t.dir === 'rtl';
@@ -191,32 +186,6 @@ export function IsonilCardPage() {
       }
     };
   }, [lang, t.dir, t.metaTitle, t.metaDescription]);
-
-  // Dismiss visitor NFC tap guide on outside click or Escape key
-  useEffect(() => {
-    if (!nfcHelpOpen) return;
-    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
-      if (
-        nfcHelpContainerRef.current &&
-        !nfcHelpContainerRef.current.contains(event.target as Node)
-      ) {
-        setNfcHelpOpen(false);
-      }
-    };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setNfcHelpOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handlePointerDown);
-    document.addEventListener('touchstart', handlePointerDown, { passive: true });
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handlePointerDown);
-      document.removeEventListener('touchstart', handlePointerDown);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [nfcHelpOpen]);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -326,14 +295,6 @@ export function IsonilCardPage() {
       }
     }
     setFavoritesModalOpen(true);
-  };
-
-  const handleJumpToQr = () => {
-    triggerSubtleHaptic();
-    const qrSection = document.getElementById('isonil-qr-section');
-    if (qrSection) {
-      qrSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   // Paper-card inspired matte charcoal, petrol-teal, cyan & metallic silver surfaces
@@ -523,88 +484,19 @@ export function IsonilCardPage() {
               </div>
             </div>
 
-            {/* Card Body: Structured mobile-first list rows + Social footer */}
-            <div className="p-4 min-[390px]:p-5 sm:p-7 flex-1 flex flex-col">
-              {/* Clean Card Sub-Header: Quick Actions title + aligned QR / NFC utilities */}
+            {/* Card Body: Structured mobile-first action tiles + Social footer */}
+            <div className="p-4 min-[390px]:p-5 sm:p-6 flex-1 flex flex-col">
               <section
-                aria-labelledby="isonil-quick-actions-heading"
+                aria-label={t.sections.quickActions}
                 className={langAnimClass || undefined}
               >
-                <div ref={nfcHelpContainerRef}>
-                  <div className="isonil-enter isonil-delay-2 flex items-center justify-between gap-2 mb-3">
-                    <h2
-                      id="isonil-quick-actions-heading"
-                      className="text-xs font-semibold text-[#96A7B4] truncate"
-                    >
-                      {t.sections.quickActions}
-                    </h2>
-
-                    <div className="no-print flex items-center gap-1 shrink-0">
-                      <button
-                        type="button"
-                        onClick={handleJumpToQr}
-                        aria-label={t.aria.jumpToQrAction}
-                        className="isonil-icon-btn lg:hidden min-h-[44px] px-2.5 rounded-lg text-xs font-medium text-[#96A7B4] hover:text-[#6AD8EB] active:bg-[#162630] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
-                      >
-                        <QrCode className="w-3.5 h-3.5 text-[#3DC4DC] shrink-0" />
-                        <span>{t.actions.jumpToQr}</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setNfcHelpOpen((prev) => !prev)}
-                        aria-expanded={nfcHelpOpen}
-                        aria-controls="isonil-nfc-tap-guide"
-                        aria-label={t.nfcTapHelp.triggerAria}
-                        className={`isonil-icon-btn min-h-[44px] px-2.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer ${
-                          nfcHelpOpen
-                            ? 'text-[#6AD8EB] bg-[#162630]'
-                            : 'text-[#96A7B4] hover:text-[#6AD8EB] active:bg-[#162630]'
-                        }`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5 text-[#3DC4DC] shrink-0" />
-                        <span>{t.nfcTapHelp.triggerLabel}</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {nfcHelpOpen && (
-                    <div
-                      id="isonil-nfc-tap-guide"
-                      role="region"
-                      aria-label={t.nfcTapHelp.title}
-                      className="isonil-popover-enter no-print mb-3 p-3.5 rounded-xl bg-[#0D141A] border border-[#CBD5E1]/14 text-xs text-[#D5DEE5] leading-relaxed"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-2 text-white font-semibold">
-                          <Smartphone className="w-4 h-4 text-[#3DC4DC] shrink-0" />
-                          <span>{t.nfcTapHelp.title}</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setNfcHelpOpen(false)}
-                          aria-label={t.actions.close}
-                          className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-2 rounded-lg text-[#96A7B4] hover:text-white hover:bg-[#162630] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                      <p className="mt-1 text-[#D5DEE5]">{t.nfcTapHelp.summary}</p>
-                      <ul className="mt-2 space-y-1 text-[#96A7B4]">
-                        <li>{t.nfcTapHelp.iphoneTip}</li>
-                        <li>{t.nfcTapHelp.androidTip}</li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                {/* Calm 2-Column Action Tiles: (Call | WhatsApp) -> (Email | Website) -> (Company Profile | Map) -> Save Contact */}
+                {/* Calm 2-Column Action Tiles: (Call | WhatsApp) -> (Email | Website) -> (Company Profile | Map) -> Client Portal -> Save Contact */}
                 <div className="grid grid-cols-2 gap-3">
                   {/* 1. Call */}
                   <a
                     href={ISONIL_CONTACT.phoneHref}
                     aria-label={t.aria.callAction}
-                    className={`isonil-enter isonil-delay-3 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-2 ${uniformStandardBtnClass}`}
                   >
                     <Phone className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.call}</span>
@@ -616,7 +508,7 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.whatsappAction}
-                    className={`isonil-enter isonil-delay-4 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-3 ${uniformStandardBtnClass}`}
                   >
                     <MessageCircle className="isonil-btn-icon w-[18px] h-[18px] text-[#6AD8EB] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.whatsapp}</span>
@@ -626,7 +518,7 @@ export function IsonilCardPage() {
                   <a
                     href={emailDirectHref}
                     aria-label={t.aria.emailAction}
-                    className={`isonil-enter isonil-delay-5 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-4 ${uniformStandardBtnClass}`}
                   >
                     <Mail className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.email}</span>
@@ -638,7 +530,7 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.websiteAction}
-                    className={`isonil-enter isonil-delay-6 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-5 ${uniformStandardBtnClass}`}
                   >
                     <Globe className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.website}</span>
@@ -650,7 +542,7 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.companyProfileAction}
-                    className={`isonil-enter isonil-delay-7 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-6 ${uniformStandardBtnClass}`}
                   >
                     <FileText className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.companyProfile}</span>
@@ -662,7 +554,7 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.locationAction}
-                    className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
+                    className={`isonil-enter isonil-delay-7 ${uniformStandardBtnClass}`}
                   >
                     <MapPin className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                     <span className="leading-tight text-balance">{t.actions.location}</span>
@@ -675,7 +567,7 @@ export function IsonilCardPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={t.aria.clientPortalAction}
-                      className={`isonil-enter isonil-delay-9 ${uniformStandardBtnClass}`}
+                      className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
                     >
                       <LayoutDashboard className="isonil-btn-icon w-[18px] h-[18px] text-[#3DC4DC] shrink-0" />
                       <span className="leading-tight text-balance">{t.actions.clientPortal}</span>
@@ -689,7 +581,7 @@ export function IsonilCardPage() {
                       download={ISONIL_CONTACT.vcardFilename}
                       onClick={triggerSaveContactFeedback}
                       aria-label={t.aria.saveContactAction}
-                      className={`isonil-enter isonil-delay-10 isonil-btn-primary w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-white/50 text-[#0E1419] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer ${
+                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-white/50 text-[#0E1419] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer ${
                         contactSavedFeedback
                           ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
                           : 'bg-gradient-to-b from-white via-[#F3F7FA] to-[#DFE7ED] hover:from-white hover:to-[#E9EFF4] active:bg-[#D7F4FA]'
