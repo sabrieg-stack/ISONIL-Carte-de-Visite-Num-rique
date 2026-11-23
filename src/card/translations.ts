@@ -86,6 +86,7 @@ export interface CardTranslation {
     shareCompleted: string;
     shareFallbackCopied: string;
     qrDownloaded: string;
+    qrDownloadError: string;
     favoriteSaved: string;
     favoriteRemoved: string;
     copyError: string;
@@ -254,6 +255,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       shareCompleted: 'Carte partagée avec succès.',
       shareFallbackCopied: 'Partage indisponible — le lien a été copié.',
       qrDownloaded: 'Image QR Code haute définition téléchargée.',
+      qrDownloadError: 'Impossible de télécharger le QR Code sur ce navigateur.',
       favoriteSaved: 'Carte marquée comme favorite sur cet appareil.',
       favoriteRemoved: 'Carte retirée des favoris locaux.',
       copyError: 'Impossible de copier automatiquement. Sélectionnez le lien manuellement.',
@@ -427,6 +429,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       shareCompleted: 'Card shared successfully.',
       shareFallbackCopied: 'Native share unavailable — link copied instead.',
       qrDownloaded: 'High-resolution QR Code PNG downloaded.',
+      qrDownloadError: 'Unable to download the QR Code PNG in this browser.',
       favoriteSaved: 'Card marked as favorite on this device.',
       favoriteRemoved: 'Card removed from local favorites.',
       copyError: 'Unable to copy automatically. Please copy the link manually.',
@@ -600,6 +603,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       shareCompleted: 'تمت مشاركة البطاقة بنجاح.',
       shareFallbackCopied: 'المشاركة المباشرة غير متوفرة — تم نسخ الرابط.',
       qrDownloaded: 'تم تنزيل صورة رمز QR بدقة عالية.',
+      qrDownloadError: 'تعذر تنزيل صورة رمز QR على هذا المتصفح.',
       favoriteSaved: 'تم تمييز البطاقة كمفضلة على هذا الجهاز.',
       favoriteRemoved: 'تمت إزالة التمييز المحلي للبطاقة.',
       copyError: 'تعذر النسخ التلقائي. يمكنك نسخ الرابط يدوياً.',

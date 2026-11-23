@@ -74,6 +74,8 @@ export function NfcSettingsModal({
       link.click();
       document.body.removeChild(link);
       onNotify(t.toasts.qrDownloaded);
+    } catch {
+      onNotify(t.toasts.qrDownloadError);
     } finally {
       setIsDownloadingQr(false);
     }

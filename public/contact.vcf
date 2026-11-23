@@ -8,7 +8,8 @@ TEL;TYPE=WORK,VOICE:+212710738409
 TEL;TYPE=CELL,VOICE:+212710738409
 EMAIL;CHARSET=UTF-8;TYPE=INTERNET,WORK:contact@isonil.com
 URL:https://isonil.com/
-URL;TYPE=WORK:https://carte.isonil.com/
+URL;TYPE=WORK:https://profile.isonil.com/
+URL;TYPE=HOME:https://carte.isonil.com/
 ADR;TYPE=WORK;CHARSET=UTF-8:;;3ème étage\, Bureau N° 24\, Centre Andalousie (Près D'Acidal);El Jadida;;24000;Maroc
-NOTE;CHARSET=UTF-8:ISONIL - Solutions d'Isolation Thermique et Industrielle | https://carte.isonil.com/
+NOTE;CHARSET=UTF-8:ISONIL - Solutions d'Isolation Thermique et Industrielle | Profil: https://profile.isonil.com/ | Carte: https://carte.isonil.com/
 END:VCARD

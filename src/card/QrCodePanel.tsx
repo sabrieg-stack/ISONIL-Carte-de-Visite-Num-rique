@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import QRCode from 'qrcode';
 import { Check, Copy, Download, Maximize2, Share2, X } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
 import type { CardTranslation } from './translations';
+import { useModalSheet } from './useModalSheet';
 
 interface QrCodePanelProps {
   t: CardTranslation;
@@ -58,20 +59,22 @@ export function QrCodePanel({
 }: QrCodePanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // Permanent QR code matrix — never mutates when language changes
   const qrMatrix = useMemo(() => buildPermanentQrMatrix(), []);
 
-  useEffect(() => {
-    if (!isExpanded) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsExpanded(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isExpanded]);
+  const handleCloseExpanded = useCallback(() => {
+    setIsExpanded(false);
+  }, []);
+
+  const { sheetTouchHandlers } = useModalSheet({
+    isOpen: isExpanded,
+    onClose: handleCloseExpanded,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   const handleDownloadPng = async () => {
     if (isDownloading) return;
@@ -93,6 +96,8 @@ export function QrCodePanel({
       link.click();
       document.body.removeChild(link);
       onNotify(t.toasts.qrDownloaded);
+    } catch {
+      onNotify(t.toasts.qrDownloadError);
     } finally {
       setIsDownloading(false);
     }
@@ -122,8 +127,9 @@ export function QrCodePanel({
             <button
               type="button"
               onClick={() => setIsExpanded(true)}
+              aria-haspopup="dialog"
               aria-label={`${t.actions.enlargeQr} — ${t.aria.qrCodeImage}`}
-              className="isonil-qr-frame group relative w-full max-w-[208px] min-[390px]:max-w-[224px] sm:max-w-[244px] rounded-xl bg-white p-3 sm:p-3.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+              className="isonil-qr-frame group relative w-full max-w-[208px] min-[390px]:max-w-[224px] sm:max-w-[244px] rounded-xl bg-white p-3 sm:p-3.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
             >
               <div className="w-full aspect-square">
                 <div className="qr-svg-container w-full h-full">
@@ -183,8 +189,9 @@ export function QrCodePanel({
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
+            aria-haspopup="dialog"
             aria-label={t.actions.enlargeQr}
-            className="isonil-btn min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 bg-[#0D141A] hover:bg-[#14222B] text-white/95 text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+            className="isonil-btn min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 bg-[#0D141A] hover:bg-[#14222B] text-[#F1F5F9] text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
           >
             <Maximize2 className="isonil-btn-icon w-4 h-4 text-[#3DC4DC] shrink-0" />
             <span className="truncate">{t.actions.enlargeQr}</span>
@@ -215,19 +222,26 @@ export function QrCodePanel({
         </div>
       </section>
 
-      {/* Fullscreen High-Contrast Scan Modal */}
+      {/* Fullscreen High-Contrast Scan Modal (Accessible bottom sheet on mobile, dialog on desktop) */}
       {isExpanded && (
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="isonil-qr-modal-title"
-          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-center justify-center bg-[#060A0D]/86 backdrop-blur-sm p-4"
-          onClick={() => setIsExpanded(false)}
+          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060A0D]/86 backdrop-blur-sm p-0 sm:p-4"
+          onClick={handleCloseExpanded}
         >
           <div
-            className="isonil-dialog-enter w-full max-w-sm max-h-[92dvh] overflow-y-auto bg-[#111920] rounded-2xl border border-[#CBD5E1]/16 shadow-2xl p-5 sm:p-6 text-center text-white"
+            ref={dialogRef}
+            {...sheetTouchHandlers}
+            className="isonil-sheet-enter overscroll-contain w-full sm:max-w-sm max-h-[92dvh] overflow-y-auto bg-[#111920] rounded-t-3xl sm:rounded-2xl border border-[#CBD5E1]/16 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center text-white"
             onClick={(event) => event.stopPropagation()}
           >
+            <div
+              className="sm:hidden w-10 h-1.5 bg-[#D5DEE5]/35 rounded-full mx-auto mb-4"
+              aria-hidden="true"
+            />
+
             <div className="flex items-center justify-between gap-3">
               <h3
                 id="isonil-qr-modal-title"
@@ -236,16 +250,17 @@ export function QrCodePanel({
                 {t.qrModal.title}
               </h3>
               <button
+                ref={closeButtonRef}
                 type="button"
-                onClick={() => setIsExpanded(false)}
+                onClick={handleCloseExpanded}
                 aria-label={t.actions.close}
-                className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#D0D7DE] hover:bg-[#17222B] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+                className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#D5DEE5] hover:bg-[#162630] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="mt-1 text-sm text-[#D0D7DE] text-start">{t.qrModal.subtitle}</p>
+            <p className="mt-1 text-sm text-[#D5DEE5] text-start">{t.qrModal.subtitle}</p>
 
             <div className="mt-4 sm:mt-5 mx-auto w-full max-w-[268px] sm:max-w-[292px] rounded-xl bg-white p-3 sm:p-3.5 shadow-sm">
               <div className="w-full aspect-square">

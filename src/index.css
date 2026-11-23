@@ -58,12 +58,8 @@ button {
 
 /* Preserve full vertical reading area on short landscape mobile screens */
 @media (max-height: 480px) and (orientation: landscape) {
-  .isonil-mobile-sticky-bar {
-    display: none !important;
-  }
-
   .safe-area-main {
-    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
   }
 }
 
@@ -96,39 +92,33 @@ button {
   --isonil-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --isonil-ease-approach: cubic-bezier(0.16, 1, 0.3, 1);
   --isonil-ease-tactile: cubic-bezier(0.2, 0, 0, 1);
-  --isonil-rise-y: 7px;
-  --isonil-dur-enter: 380ms;
-  --isonil-dur-logo: 780ms;
-  --isonil-logo-scale-from: 0.62;
-  --isonil-logo-z-from: -120px;
-  --isonil-logo-blur-from: 2px;
-  --isonil-dur-bg: 1500ms;
-  --isonil-dur-lang: 185ms;
-  --isonil-stagger: 45ms;
+  --isonil-rise-y: 6px;
+  --isonil-dur-enter: 260ms;
+  --isonil-dur-logo: 420ms;
+  --isonil-logo-scale-from: 0.94;
+  --isonil-dur-bg: 900ms;
+  --isonil-dur-lang: 165ms;
+  --isonil-stagger: 22ms;
 }
 
 @media (min-width: 640px) {
   :root {
-    --isonil-rise-y: 12px;
-    --isonil-dur-enter: 500ms;
-    --isonil-dur-logo: 940ms;
-    --isonil-logo-scale-from: 0.52;
-    --isonil-logo-z-from: -180px;
-    --isonil-logo-blur-from: 2.5px;
-    --isonil-dur-bg: 2100ms;
-    --isonil-dur-lang: 220ms;
-    --isonil-stagger: 60ms;
+    --isonil-rise-y: 8px;
+    --isonil-dur-enter: 320ms;
+    --isonil-dur-logo: 480ms;
+    --isonil-logo-scale-from: 0.94;
+    --isonil-dur-bg: 1100ms;
+    --isonil-dur-lang: 185ms;
+    --isonil-stagger: 28ms;
   }
 }
 
 @keyframes isonil-bg-settle {
   0% {
-    opacity: 0.55;
-    transform: translate3d(0, -1.25%, 0) scale(1.025);
+    opacity: 0.7;
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -155,17 +145,11 @@ button {
 @keyframes isonil-logo-in {
   0% {
     opacity: 0;
-    transform: perspective(760px) translate3d(0, 5px, var(--isonil-logo-z-from)) scale(var(--isonil-logo-scale-from));
-    filter: blur(var(--isonil-logo-blur-from));
-  }
-  58% {
-    opacity: 1;
-    filter: blur(0px);
+    transform: translate3d(0, 4px, 0) scale(var(--isonil-logo-scale-from));
   }
   100% {
     opacity: 1;
-    transform: perspective(760px) translate3d(0, 0, 0) scale(1);
-    filter: blur(0px);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -254,17 +238,6 @@ button {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes isonil-sticky-in {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -389,11 +362,7 @@ button {
 }
 
 .isonil-popover-enter {
-  animation: isonil-popover-in 200ms var(--isonil-ease-out) backwards;
-}
-
-.isonil-sticky-enter {
-  animation: isonil-sticky-in 220ms var(--isonil-ease-out) backwards;
+  animation: isonil-popover-in 190ms var(--isonil-ease-out) backwards;
 }
 
 /* Tactile button & control interactions — touch-first active response, desktop hover lift */
@@ -499,8 +468,7 @@ button {
   .isonil-dialog-enter,
   .isonil-toast-enter,
   .isonil-check-pop,
-  .isonil-popover-enter,
-  .isonil-sticky-enter {
+  .isonil-popover-enter {
     animation: none !important;
   }
 
@@ -522,7 +490,7 @@ button {
 @media print {
   html,
   body {
-    background: #0C1217 !important;
+    background: #10171D !important;
     color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
