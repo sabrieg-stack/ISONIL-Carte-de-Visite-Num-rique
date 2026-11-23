@@ -99,6 +99,7 @@ button {
   --isonil-dur-bg: 900ms;
   --isonil-dur-lang: 165ms;
   --isonil-stagger: 22ms;
+  --isonil-mark-shift: 36px;
 }
 
 @media (min-width: 640px) {
@@ -110,6 +111,7 @@ button {
     --isonil-dur-bg: 1100ms;
     --isonil-dur-lang: 185ms;
     --isonil-stagger: 28ms;
+    --isonil-mark-shift: 48px;
   }
 }
 
@@ -150,6 +152,72 @@ button {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes isonil-intro-frame-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes isonil-intro-mark-ltr {
+  0% {
+    opacity: 0;
+    transform: translate3d(calc(var(--isonil-mark-shift) * -1), 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-intro-mark-rtl {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--isonil-mark-shift), 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-intro-brand-ltr {
+  0% {
+    opacity: 0;
+    transform: translate3d(-6px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-intro-brand-rtl {
+  0% {
+    opacity: 0;
+    transform: translate3d(6px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes isonil-intro-slogan-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -308,10 +376,39 @@ button {
   animation: isonil-logo-in var(--isonil-dur-logo) var(--isonil-ease-approach) 40ms backwards;
 }
 
+/* Quiet Luxury 1.9s one-shot header choreography */
+.isonil-intro-frame {
+  animation: isonil-intro-frame-in 430ms var(--isonil-ease-out) 50ms backwards;
+}
+
+.isonil-intro-mark {
+  animation: isonil-intro-mark-ltr 660ms var(--isonil-ease-approach) 360ms backwards;
+}
+
+[dir="rtl"] .isonil-intro-mark {
+  animation-name: isonil-intro-mark-rtl;
+}
+
+.isonil-intro-brand {
+  animation: isonil-intro-brand-ltr 480ms var(--isonil-ease-out) 900ms backwards;
+}
+
+[dir="rtl"] .isonil-intro-brand {
+  animation-name: isonil-intro-brand-rtl;
+}
+
+.isonil-intro-slogan {
+  animation: isonil-intro-slogan-in 600ms var(--isonil-ease-out) 1220ms backwards;
+}
+
+.isonil-intro-role {
+  animation: isonil-intro-slogan-in 460ms var(--isonil-ease-out) 1460ms backwards;
+}
+
 /* Quiet top brand stripe reveal respecting LTR/RTL reading direction */
 .isonil-accent-line {
   transform-origin: left center;
-  animation: isonil-accent-draw 560ms var(--isonil-ease-out) 90ms backwards;
+  animation: isonil-accent-draw 440ms var(--isonil-ease-out) 1480ms backwards;
 }
 
 [dir="rtl"] .isonil-accent-line {
@@ -461,6 +558,11 @@ button {
   .isonil-fade,
   .isonil-enter,
   .isonil-logo-reveal,
+  .isonil-intro-frame,
+  .isonil-intro-mark,
+  .isonil-intro-brand,
+  .isonil-intro-slogan,
+  .isonil-intro-role,
   .isonil-accent-line,
   .isonil-lang-a,
   .isonil-lang-b,

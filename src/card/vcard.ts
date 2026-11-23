@@ -30,6 +30,7 @@ export function buildIsonilVCard(): string {
     `URL;TYPE=WORK:${ISONIL_CONTACT.companyProfileUrl}`,
     `URL;TYPE=WORK:${ISONIL_CONTACT.clientPortalUrl}`,
     `URL;TYPE=HOME:${ISONIL_CONTACT.cardCanonicalUrl}`,
+    `X-SOCIALPROFILE;TYPE=linkedin:${ISONIL_CONTACT.socialLinks.linkedin}`,
     `ADR;TYPE=WORK;CHARSET=UTF-8:;;${escapeVCardText(ISONIL_CONTACT.addressStreet)};${escapeVCardText(ISONIL_CONTACT.addressCity)};;${escapeVCardText(ISONIL_CONTACT.addressPostalCode)};${escapeVCardText(ISONIL_CONTACT.addressCountry)}`,
     `NOTE;CHARSET=UTF-8:${escapeVCardText(`${ISONIL_CONTACT.company} - ${ISONIL_CONTACT.officialActivityFr} | Profil: ${ISONIL_CONTACT.companyProfileUrl} | Portail Clients: ${ISONIL_CONTACT.clientPortalUrl} | Carte: ${ISONIL_CONTACT.cardCanonicalUrl}`)}`,
     'END:VCARD',

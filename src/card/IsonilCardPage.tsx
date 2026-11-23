@@ -450,12 +450,12 @@ export function IsonilCardPage() {
                 <path d="M202 72C162 122 120 162 72 190" stroke="url(#isonil-hdr-br)" strokeWidth="1" strokeOpacity="0.48" strokeLinecap="round" />
               </svg>
 
-              <div className={`relative z-10 ${langAnimClass}`}>
-                {/* Unified Header Unit: Clean Thin-Framed Logo + Fixed Latin ISONIL & Localized Two-Line Activity */}
+              <div className="relative z-10">
+                {/* Unified Header Unit: Silver-Framed Box -> Red 'i' Entry -> Fixed Latin ISONIL -> Localized Two-Line Slogan */}
                 <div className="flex items-center gap-3 min-[390px]:gap-3.5 sm:gap-5">
-                  <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 overflow-hidden rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center">
+                  <div className="isonil-intro-frame w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center">
                     {!logoFailed ? (
-                      <picture className="w-full h-full flex items-center justify-center">
+                      <picture className="isonil-intro-mark w-full h-full flex items-center justify-center">
                         <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
                         <img
                           src={ISONIL_CONTACT.logoSrc}
@@ -466,29 +466,31 @@ export function IsonilCardPage() {
                           fetchPriority="high"
                           referrerPolicy="no-referrer"
                           onError={() => setLogoFailed(true)}
-                          className="w-full h-full object-contain scale-[1.13] bg-transparent"
+                          className="w-full h-full object-contain scale-[1.13] [clip-path:inset(5.5%)] bg-transparent"
                         />
                       </picture>
                     ) : (
-                      <span className="text-3xl font-bold text-[#E50914] tracking-tight">i</span>
+                      <span className="isonil-intro-mark text-3xl font-bold text-[#E50914] tracking-tight">i</span>
                     )}
                   </div>
 
-                  <div className="min-w-0 flex-1 text-start isonil-enter isonil-delay-2">
-                    <h1 className="text-[21px] min-[390px]:text-[24px] sm:text-[28px] font-bold tracking-[0.08em] text-[#F8FAFC] leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">
+                  <div className="min-w-0 flex-1 text-start">
+                    <h1 className="isonil-intro-brand text-[21px] min-[390px]:text-[24px] sm:text-[28px] font-bold tracking-[0.08em] text-[#F8FAFC] leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">
                       <span dir="ltr" className="ltr-isolate">
                         {ISONIL_CONTACT.company}
                       </span>
                     </h1>
                     <p
                       dir={t.dir}
-                      className="mt-1.5 text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
+                      className="isonil-intro-slogan mt-1.5 text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
                     >
-                      {t.businessActivity.split('\n').map((line) => (
-                        <span key={line} className="block whitespace-nowrap">
-                          {line}
-                        </span>
-                      ))}
+                      <span className={`block ${langAnimClass}`.trim()}>
+                        {t.businessActivity.split('\n').map((line) => (
+                          <span key={line} className="block whitespace-nowrap">
+                            {line}
+                          </span>
+                        ))}
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -498,12 +500,12 @@ export function IsonilCardPage() {
                   aria-hidden="true"
                   className="mt-4 h-px w-full bg-gradient-to-r from-transparent via-[#CBD8E6]/14 to-transparent"
                 />
-                <div className="isonil-enter isonil-delay-2 pt-3 flex items-center justify-center gap-2.5 text-center">
+                <div className="isonil-intro-role pt-3 flex items-center justify-center gap-2.5 text-center">
                   <span
                     aria-hidden="true"
                     className="isonil-accent-line h-[1.5px] w-6 rounded-full bg-gradient-to-r from-transparent via-[#7ADAE9]/85 to-[#45C4DC]/45 shadow-[0_0_10px_rgba(122,218,233,0.25)] shrink-0"
                   />
-                  <p className={`text-xs sm:text-[13px] font-medium text-[#6ECFE2] ${isRtl ? '' : 'tracking-[0.02em]'}`}>
+                  <p className={`text-xs sm:text-[13px] font-medium text-[#6ECFE2] ${isRtl ? '' : 'tracking-[0.02em]'} ${langAnimClass}`}>
                     {t.displayName}
                   </p>
                   <span
@@ -941,10 +943,10 @@ export function IsonilCardPage() {
                   aria-haspopup="dialog"
                   aria-label={t.aria.favoritesAction}
                   aria-pressed={isFavorite}
-                  className={`isonil-btn group w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                  className={`isonil-btn group w-full min-h-[48px] px-3.5 py-2.5 rounded-[14px] border text-xs sm:text-sm font-medium flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     isFavorite
                       ? 'border-[#E50914]/40 bg-[#E50914]/10 text-[#F8FAFC] hover:bg-[#E50914]/16 active:bg-[#E50914]/20'
-                      : 'border-[#CBD8E6]/14 hover:border-[#45C4DC]/50 active:border-[#45C4DC]/70 bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] active:from-[#223240] active:to-[#1B2935] shadow-[0_4px_12px_-6px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] text-[#F1F5F9] hover:text-white'
+                      : 'border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 active:border-[#45C4DC]/60 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white'
                   }`}
                 >
                   <Bookmark
@@ -969,7 +971,7 @@ export function IsonilCardPage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t.aria.locationAction}
-            className="inline-flex items-center justify-center lg:justify-start gap-1.5 text-[#AEBECC] hover:text-[#7ADAE9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded"
+            className="min-h-[36px] px-2 py-1 inline-flex items-center justify-center lg:justify-start gap-1.5 text-[#AEBECC] hover:text-[#7ADAE9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg"
           >
             <MapPin aria-hidden="true" strokeWidth={1.65} className="w-3.5 h-3.5 text-[#45C4DC] shrink-0" />
             <span>{t.cityCountry}</span>

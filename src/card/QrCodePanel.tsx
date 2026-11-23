@@ -134,8 +134,7 @@ export function QrCodePanel({
               <div className="w-full aspect-square">
                 <div className="qr-svg-container w-full h-full">
                   <svg
-                    role="img"
-                    aria-label={t.aria.qrCodeImage}
+                    aria-hidden="true"
                     viewBox={`0 0 ${qrMatrix.viewBoxSize} ${qrMatrix.viewBoxSize}`}
                     xmlns="http://www.w3.org/2000/svg"
                     shapeRendering="crispEdges"
