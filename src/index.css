@@ -383,13 +383,13 @@ button {
 }
 
 .isonil-btn:active {
-  transform: scale(0.975);
-  transition-duration: 90ms;
+  transform: scale(0.982);
+  transition-duration: 95ms;
 }
 
 .isonil-btn-primary:active {
-  transform: scale(0.985);
-  transition-duration: 90ms;
+  transform: scale(0.988);
+  transition-duration: 95ms;
 }
 
 .isonil-icon-btn:active {
@@ -404,17 +404,17 @@ button {
 
 @media (hover: hover) and (pointer: fine) {
   .isonil-btn:hover {
-    transform: translateY(-1.5px);
-    box-shadow: 0 10px 22px -14px rgba(4, 12, 24, 0.8);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px -14px rgba(4, 12, 24, 0.8);
   }
 
   .isonil-btn:hover .isonil-btn-icon {
-    transform: scale(1.06);
+    transform: scale(1.05);
   }
 
   .isonil-btn-primary:hover {
-    transform: translateY(-1.5px);
-    box-shadow: 0 12px 26px -12px rgba(69, 196, 220, 0.28);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -14px rgba(69, 196, 220, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
 
   .isonil-btn-primary:hover .isonil-btn-icon {
@@ -434,6 +434,7 @@ button {
 .isonil-tab-btn {
   transition:
     background-color 200ms ease,
+    border-color 200ms ease,
     color 200ms ease,
     box-shadow 200ms ease,
     transform 120ms var(--isonil-ease-tactile);
@@ -494,6 +495,12 @@ button {
     color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  *,
+  *::before,
+  *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   .no-print {
     display: none !important;
