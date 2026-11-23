@@ -63,7 +63,7 @@ export function NfcSettingsModal({
         margin: 4,
         errorCorrectionLevel: 'H',
         color: {
-          dark: '#0C1217',
+          dark: '#0E151B',
           light: '#FFFFFF',
         },
       });
@@ -99,11 +99,11 @@ export function NfcSettingsModal({
       <div
         ref={dialogRef}
         {...sheetTouchHandlers}
-        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-xl bg-[#111920] text-white rounded-t-3xl sm:rounded-2xl border border-[#CBD5E1]/16 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
+        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-xl bg-[#131C24] text-[#F8FAFC] rounded-t-3xl sm:rounded-2xl border border-[#CBD8E6]/13 shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
-          className="sm:hidden w-10 h-1.5 bg-[#D5DEE5]/35 rounded-full mx-auto mb-4"
+          className="sm:hidden w-10 h-1.5 bg-[#C8D4DF]/35 rounded-full mx-auto mb-4"
           aria-hidden="true"
         />
 
@@ -112,18 +112,18 @@ export function NfcSettingsModal({
           <div className="flex items-start gap-3 min-w-0">
             <div
               aria-hidden="true"
-              className="w-10 h-10 rounded-xl bg-[#142630] border border-[#3DC4DC]/32 text-[#3DC4DC] flex items-center justify-center shrink-0 mt-0.5"
+              className="w-10 h-10 rounded-xl bg-[#17222C] border border-[#45C4DC]/30 text-[#45C4DC] flex items-center justify-center shrink-0 mt-0.5"
             >
               <Nfc className="w-5 h-5" />
             </div>
             <div className="min-w-0">
-              <h3 id="isonil-nfc-modal-title" className="text-lg font-semibold text-white leading-snug">
+              <h3 id="isonil-nfc-modal-title" className="text-lg font-semibold text-[#F8FAFC] leading-snug">
                 {t.nfc.modalTitle}
               </h3>
-              <p className="mt-1 text-xs sm:text-sm text-[#D5DEE5] leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#C8D4DF] leading-relaxed">
                 {t.nfc.modalSubtitle}
               </p>
-              <p className="mt-1 text-xs text-[#96A7B4]">{t.nfc.managementScopeNote}</p>
+              <p className="mt-1 text-xs text-[#8B9EAD]">{t.nfc.managementScopeNote}</p>
             </div>
           </div>
 
@@ -132,21 +132,21 @@ export function NfcSettingsModal({
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
-            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#D0D7DE] hover:bg-[#17222B] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4CC3DB] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C8D4DF] hover:bg-[#1C2A36] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Readiness Status Summary (Icon + Text Label — never color-only) */}
-        <section className="mt-5 pt-4 border-t border-[#CBD5E1]/12">
-          <div className="flex flex-wrap items-center justify-between gap-3 py-3 px-4 rounded-xl bg-[#0D141A] border border-[#CBD5E1]/14">
+        <section className="mt-5 pt-4 border-t border-[#CBD8E6]/10">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3 px-4 rounded-xl bg-[#17222C] border border-[#CBD8E6]/13">
             <div>
-              <p className="text-xs text-[#96A7B4]">{t.nfc.statusLabel}</p>
-              <p className="mt-0.5 text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+              <p className="text-xs text-[#8B9EAD]">{t.nfc.statusLabel}</p>
+              <p className="mt-0.5 text-sm sm:text-base font-semibold text-[#F8FAFC] flex items-center gap-2">
                 {readiness.isReady ? (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-[#3DC4DC] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#45C4DC] shrink-0" />
                     <span>{t.nfc.statusReady}</span>
                   </>
                 ) : (
@@ -158,7 +158,7 @@ export function NfcSettingsModal({
               </p>
             </div>
 
-            <div className="text-xs font-mono tabular-nums text-[#6AD8EB]">
+            <div className="text-xs font-mono tabular-nums text-[#7ADAE9]">
               {readiness.metrics.totalTlvBytes} {t.nfc.bytesUnit}
             </div>
           </div>
@@ -168,7 +168,7 @@ export function NfcSettingsModal({
             {checklistItems.map((item) => (
               <li key={item.key} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#E2EBF4]">
                 {item.ok ? (
-                  <CheckCircle2 className="w-4 h-4 text-[#3DC4DC] mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#45C4DC] mt-0.5 shrink-0" />
                 ) : (
                   <AlertTriangle className="w-4 h-4 text-[#E50914] mt-0.5 shrink-0" />
                 )}
@@ -179,32 +179,32 @@ export function NfcSettingsModal({
         </section>
 
         {/* Fixed Permanent NFC URL + Copy Button */}
-        <section className="mt-5 pt-5 border-t border-[#CBD5E1]/12">
-          <h4 className="text-xs font-semibold text-[#96A7B4]">{t.nfc.permanentUrlTitle}</h4>
-          <p className="mt-1 text-xs sm:text-sm text-[#D5DEE5] leading-relaxed">
+        <section className="mt-5 pt-5 border-t border-[#CBD8E6]/10">
+          <h4 className="text-xs font-semibold text-[#8B9EAD]">{t.nfc.permanentUrlTitle}</h4>
+          <p className="mt-1 text-xs sm:text-sm text-[#C8D4DF] leading-relaxed">
             {t.nfc.permanentUrlHint}
           </p>
 
-          <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#0D141A] border border-[#CBD5E1]/14">
+          <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#17222C] border border-[#CBD8E6]/13">
             <span
               dir="ltr"
-              className="ltr-isolate font-mono text-xs sm:text-sm font-semibold text-[#5AD4EA] break-all"
+              className="ltr-isolate font-mono text-xs sm:text-sm font-semibold text-[#66D1E6] break-all"
             >
               {ISONIL_CONTACT.cardCanonicalUrl}
             </span>
             <button
               type="button"
               onClick={onCopyNfcUrl}
-              className="isonil-btn-primary min-h-[44px] px-4 py-2 rounded-xl border border-white/45 bg-gradient-to-b from-white via-[#F3F7FA] to-[#DFE7ED] hover:from-white hover:to-[#E9EFF4] text-[#0E1419] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+              className="isonil-btn-primary min-h-[44px] px-4 py-2 rounded-xl border border-white/55 bg-gradient-to-b from-[#F8FAFC] via-[#EEF3F7] to-[#DCE4EC] hover:from-white hover:to-[#E4ECF2] text-[#0D141A] text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
             >
               {urlCopied ? (
                 <>
-                  <Check className="isonil-check-pop w-4 h-4 text-[#0E1419] shrink-0" />
+                  <Check className="isonil-check-pop w-4 h-4 text-[#0D141A] shrink-0" />
                   <span>{t.actions.copied}</span>
                 </>
               ) : (
                 <>
-                  <Copy className="isonil-btn-icon w-4 h-4 text-[#0E1419] shrink-0" />
+                  <Copy className="isonil-btn-icon w-4 h-4 text-[#0D141A] shrink-0" />
                   <span>{t.nfc.copyNfcLink}</span>
                 </>
               )}
@@ -213,29 +213,29 @@ export function NfcSettingsModal({
         </section>
 
         {/* NTAG213 / NTAG215 Technical Compatibility */}
-        <section className="mt-5 pt-5 border-t border-[#D0D7DE]/14">
+        <section className="mt-5 pt-5 border-t border-[#CBD8E6]/10">
           <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-[#4CC3DB] shrink-0" />
-            <h4 className="text-xs font-semibold text-[#9AA9B5]">{t.nfc.chipCompatibilityTitle}</h4>
+            <Cpu className="w-4 h-4 text-[#45C4DC] shrink-0" />
+            <h4 className="text-xs font-semibold text-[#8B9EAD]">{t.nfc.chipCompatibilityTitle}</h4>
           </div>
 
-          <dl className="mt-3 divide-y divide-[#D0D7DE]/12 text-xs sm:text-sm">
+          <dl className="mt-3 divide-y divide-[#CBD8E6]/10 text-xs sm:text-sm">
             <div className="py-2.5 flex items-center justify-between gap-3">
-              <dt className="text-[#D0D7DE]">{t.nfc.recordTypeLabel}</dt>
-              <dd className="font-medium text-white text-end">{t.nfc.recordTypeValue}</dd>
+              <dt className="text-[#C8D4DF]">{t.nfc.recordTypeLabel}</dt>
+              <dd className="font-medium text-[#F8FAFC] text-end">{t.nfc.recordTypeValue}</dd>
             </div>
             <div className="py-2.5 flex items-center justify-between gap-3">
-              <dt className="text-[#D0D7DE]">{t.nfc.payloadSizeLabel}</dt>
-              <dd className="font-mono tabular-nums text-[#76D4E6] font-medium">
+              <dt className="text-[#C8D4DF]">{t.nfc.payloadSizeLabel}</dt>
+              <dd className="font-mono tabular-nums text-[#7ADAE9] font-medium">
                 {readiness.metrics.totalTlvBytes} {t.nfc.bytesUnit}
               </dd>
             </div>
             <div className="py-2.5 flex items-center justify-between gap-3">
-              <dt className="text-[#D0D7DE]">{t.nfc.ntag213Label}</dt>
-              <dd className="font-medium text-white inline-flex items-center gap-1.5">
+              <dt className="text-[#C8D4DF]">{t.nfc.ntag213Label}</dt>
+              <dd className="font-medium text-[#F8FAFC] inline-flex items-center gap-1.5">
                 {readiness.metrics.fitsNtag213 ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    <Check className="w-3.5 h-3.5 text-[#45C4DC]" />
                     <span>{t.nfc.compatibleLabel}</span>
                   </>
                 ) : (
@@ -247,11 +247,11 @@ export function NfcSettingsModal({
               </dd>
             </div>
             <div className="py-2.5 flex items-center justify-between gap-3">
-              <dt className="text-[#D0D7DE]">{t.nfc.ntag215Label}</dt>
-              <dd className="font-medium text-white inline-flex items-center gap-1.5">
+              <dt className="text-[#C8D4DF]">{t.nfc.ntag215Label}</dt>
+              <dd className="font-medium text-[#F8FAFC] inline-flex items-center gap-1.5">
                 {readiness.metrics.fitsNtag215 ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#4CC3DB]" />
+                    <Check className="w-3.5 h-3.5 text-[#45C4DC]" />
                     <span>{t.nfc.compatibleLabel}</span>
                   </>
                 ) : (
@@ -266,14 +266,14 @@ export function NfcSettingsModal({
         </section>
 
         {/* Synced QR Code & vCard Contact Export */}
-        <section className="mt-5 pt-5 border-t border-[#CBD5E1]/12">
-          <h4 className="text-xs font-semibold text-[#96A7B4]">{t.nfc.qrAndVcardTitle}</h4>
-          <p className="mt-1 text-xs sm:text-sm text-[#D5DEE5] leading-relaxed">
+        <section className="mt-5 pt-5 border-t border-[#CBD8E6]/10">
+          <h4 className="text-xs font-semibold text-[#8B9EAD]">{t.nfc.qrAndVcardTitle}</h4>
+          <p className="mt-1 text-xs sm:text-sm text-[#C8D4DF] leading-relaxed">
             {t.nfc.qrAndVcardSubtitle}
           </p>
 
           <div className="mt-4 flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-28 h-28 bg-white rounded-xl p-2 shrink-0 shadow-sm">
+            <div className="w-28 h-28 bg-[#F8FAFC] rounded-xl p-2 shrink-0 ring-1 ring-white/25 shadow-sm">
               <div className="qr-svg-container w-full h-full">
                 <svg
                   role="img"
@@ -283,7 +283,7 @@ export function NfcSettingsModal({
                   shapeRendering="crispEdges"
                 >
                   <rect width={qrMatrix.viewBoxSize} height={qrMatrix.viewBoxSize} fill="#FFFFFF" />
-                  <path d={qrMatrix.pathData} fill="#0C1217" />
+                  <path d={qrMatrix.pathData} fill="#0E151B" />
                 </svg>
               </div>
             </div>
@@ -292,9 +292,9 @@ export function NfcSettingsModal({
               <button
                 type="button"
                 onClick={onDownloadVCard}
-                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 bg-[#0D141A] hover:bg-[#14222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+                className="isonil-btn group w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD8E6]/13 hover:border-[#45C4DC]/45 bg-[#17222C] hover:bg-[#1C2A36] text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
-                <UserPlus className="isonil-btn-icon w-4 h-4 text-[#3DC4DC] shrink-0" />
+                <UserPlus className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
                 <span>{t.nfc.downloadVcard}</span>
               </button>
 
@@ -302,9 +302,9 @@ export function NfcSettingsModal({
                 type="button"
                 onClick={handleDownloadQrPng}
                 disabled={isDownloadingQr}
-                className="isonil-btn w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD5E1]/14 hover:border-[#3DC4DC]/50 bg-[#0D141A] hover:bg-[#14222B] text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+                className="isonil-btn group w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD8E6]/13 hover:border-[#45C4DC]/45 bg-[#17222C] hover:bg-[#1C2A36] text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
-                <Download className="isonil-btn-icon w-4 h-4 text-[#3DC4DC] shrink-0" />
+                <Download className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
                 <span>{t.actions.downloadQr}</span>
               </button>
             </div>
@@ -312,34 +312,34 @@ export function NfcSettingsModal({
         </section>
 
         {/* Dynamic Updates + No External Service + Honest Hardware Writer Disclosure */}
-        <section className="mt-5 pt-5 border-t border-[#D0D7DE]/14 space-y-4">
+        <section className="mt-5 pt-5 border-t border-[#CBD8E6]/10 space-y-4">
           <div className="flex items-start gap-2.5">
-            <RefreshCw className="w-4 h-4 text-[#4CC3DB] mt-0.5 shrink-0" />
+            <RefreshCw className="w-4 h-4 text-[#45C4DC] mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-sm font-semibold text-white">{t.nfc.dynamicUpdateTitle}</h4>
-              <p className="mt-1 text-xs sm:text-sm text-[#D0D7DE] leading-relaxed">
+              <h4 className="text-sm font-semibold text-[#F8FAFC]">{t.nfc.dynamicUpdateTitle}</h4>
+              <p className="mt-1 text-xs sm:text-sm text-[#C8D4DF] leading-relaxed">
                 {t.nfc.dynamicUpdateText}
               </p>
-              <p className="mt-1.5 text-xs text-[#76D4E6] leading-relaxed">
+              <p className="mt-1.5 text-xs text-[#7ADAE9] leading-relaxed">
                 {t.nfc.noDependencyNote}
               </p>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#0C1217]/88 border border-[#D0D7DE]/16 flex items-start gap-2.5">
+          <div className="p-3.5 rounded-xl bg-[#0F161C]/90 border border-[#CBD8E6]/13 flex items-start gap-2.5">
             <Info className="w-4 h-4 text-[#E50914] mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs sm:text-sm font-semibold text-white">
+              <h4 className="text-xs sm:text-sm font-semibold text-[#F8FAFC]">
                 {t.nfc.hardwareNoticeTitle}
               </h4>
-              <p className="mt-1 text-xs text-[#D0D7DE] leading-relaxed">
+              <p className="mt-1 text-xs text-[#C8D4DF] leading-relaxed">
                 {t.nfc.hardwareNoticeText}
               </p>
             </div>
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-[#9AA9B5]">{t.nfc.stepsTitle}</h4>
+            <h4 className="text-xs font-semibold text-[#8B9EAD]">{t.nfc.stepsTitle}</h4>
             <ol className="mt-2 space-y-1.5 text-xs sm:text-sm text-[#E2EBF4] list-decimal list-inside">
               <li>{t.nfc.step1}</li>
               <li>{t.nfc.step2}</li>
