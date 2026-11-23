@@ -26,6 +26,8 @@ export const ISONIL_CONTACT = {
   vcardFilename: 'ISONIL-Management.vcf',
   vcardPublicPath: '/contact.vcf',
   companyProfileUrl: 'https://profile.isonil.com/',
+  clientPortalUrl: 'https://portal.isonil.com/',
+  clientPortalDisplay: 'portal.isonil.com',
   // Replace with exact company social page URLs
   socialLinks: {
     linkedin: 'https://www.linkedin.com/company/isonil',

@@ -8,6 +8,7 @@ import {
   FileText,
   Globe,
   HelpCircle,
+  LayoutDashboard,
   Mail,
   MapPin,
   MessageCircle,
@@ -670,14 +671,29 @@ export function IsonilCardPage() {
                     <span className="leading-tight text-balance">{t.actions.location}</span>
                   </a>
 
-                  {/* 7. Save Contact (Downloads /contact.vcf — Brushed metallic silver-white primary CTA) */}
+                  {/* 7. Client Portal (Full-width featured bar — zero orphan cell in 2-column grid) */}
+                  <div className="col-span-2">
+                    <a
+                      href={ISONIL_CONTACT.clientPortalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={t.aria.clientPortalAction}
+                      className="isonil-enter isonil-delay-9 isonil-btn group w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-[#3DC4DC]/42 hover:border-[#6AD8EB]/70 active:border-[#6AD8EB] bg-[#142630] hover:bg-[#182E3A] active:bg-[#1B3442] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer"
+                    >
+                      <LayoutDashboard className="isonil-btn-icon w-[18px] h-[18px] text-[#6AD8EB] shrink-0" />
+                      <span className="leading-tight whitespace-nowrap">{t.actions.clientPortal}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#3DC4DC] rtl:-scale-x-100 shrink-0 opacity-85" />
+                    </a>
+                  </div>
+
+                  {/* 8. Save Contact (Downloads /contact.vcf — Brushed metallic silver-white primary CTA) */}
                   <div className="col-span-2 no-print mt-0.5">
                     <a
                       href={ISONIL_CONTACT.vcardPublicPath}
                       download={ISONIL_CONTACT.vcardFilename}
                       onClick={triggerSaveContactFeedback}
                       aria-label={t.aria.saveContactAction}
-                      className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-white/50 text-[#0E1419] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer ${
+                      className={`isonil-enter isonil-delay-10 isonil-btn-primary w-full min-h-[48px] sm:min-h-[50px] px-4 py-2.5 rounded-xl border border-white/50 text-[#0E1419] text-sm font-bold flex items-center justify-center gap-2.5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] cursor-pointer ${
                         contactSavedFeedback
                           ? 'bg-[#D7F4FA] hover:bg-[#D7F4FA]'
                           : 'bg-gradient-to-b from-white via-[#F3F7FA] to-[#DFE7ED] hover:from-white hover:to-[#E9EFF4] active:bg-[#D7F4FA]'
@@ -889,6 +905,37 @@ export function IsonilCardPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t.aria.websiteAction}
+                    className="relative z-10 isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#96A7B4] hover:text-white hover:bg-[#162630] active:bg-[#162630] flex items-center justify-center shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC]"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Official Client Portal */}
+                <div className="py-1.5 -mx-2 px-2 rounded-xl transition-colors hover:bg-[#14222B] flex items-center justify-between gap-2.5">
+                  <div className="relative min-w-0 flex-1 min-h-[50px] py-1.5 flex items-center gap-3 group">
+                    <LayoutDashboard aria-hidden="true" className="w-4 h-4 text-[#3DC4DC]/85 shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <dt className="text-[11px] text-[#96A7B4]">{t.fields.clientPortal}</dt>
+                      <dd className="mt-0.5">
+                        <a
+                          href={ISONIL_CONTACT.clientPortalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={t.aria.clientPortalAction}
+                          dir="ltr"
+                          className="ltr-isolate text-sm sm:text-[15px] font-medium text-[#5AD4EA] group-hover:text-[#6AD8EB] transition-colors break-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC] rounded after:content-[''] after:absolute after:inset-0"
+                        >
+                          {ISONIL_CONTACT.clientPortalUrl}
+                        </a>
+                      </dd>
+                    </div>
+                  </div>
+                  <a
+                    href={ISONIL_CONTACT.clientPortalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.aria.clientPortalAction}
                     className="relative z-10 isonil-icon-btn min-h-[44px] min-w-[44px] rounded-xl text-[#96A7B4] hover:text-white hover:bg-[#162630] active:bg-[#162630] flex items-center justify-center shrink-0 no-print focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DC4DC]"
                   >
                     <ExternalLink className="w-4 h-4" />

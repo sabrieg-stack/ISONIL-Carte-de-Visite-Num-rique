@@ -20,6 +20,7 @@ export interface CardTranslation {
     email: string;
     website: string;
     companyProfile: string;
+    clientPortal: string;
     location: string;
     saveContact: string;
     contactReady: string;
@@ -40,6 +41,7 @@ export interface CardTranslation {
     emailAction: string;
     websiteAction: string;
     companyProfileAction: string;
+    clientPortalAction: string;
     locationAction: string;
     saveContactAction: string;
     shareCardAction: string;
@@ -67,6 +69,7 @@ export interface CardTranslation {
     phoneAndWhatsapp: string;
     email: string;
     website: string;
+    clientPortal: string;
     address: string;
   };
   share: {
@@ -189,6 +192,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       email: 'E-mail',
       website: 'Site web',
       companyProfile: 'Profil de l’entreprise',
+      clientPortal: 'Portail Clients',
       location: 'Localisation sur la carte',
       saveContact: 'Enregistrer le contact',
       contactReady: 'Fiche prête',
@@ -209,6 +213,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       emailAction: 'Envoyer un e-mail à contact@isonil.com',
       websiteAction: 'Ouvrir le site officiel isonil.com',
       companyProfileAction: 'Ouvrir le profil de l’entreprise ISONIL dans un nouvel onglet',
+      clientPortalAction: 'Ouvrir le portail clients officiel d’ISONIL dans un nouvel onglet',
       locationAction: "Ouvrir l'adresse ISONIL sur Google Maps",
       saveContactAction: 'Télécharger la fiche contact VCF pour iPhone et Android',
       shareCardAction: 'Partager le lien permanent de la carte ISONIL',
@@ -236,6 +241,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       phoneAndWhatsapp: 'Téléphone & WhatsApp',
       email: 'E-mail',
       website: 'Site officiel',
+      clientPortal: 'Portail Clients',
       address: 'Adresse',
     },
     share: {
@@ -363,6 +369,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       email: 'Email',
       website: 'Website',
       companyProfile: 'Company Profile',
+      clientPortal: 'Client Portal',
       location: 'Location on Map',
       saveContact: 'Save Contact',
       contactReady: 'Contact ready',
@@ -383,6 +390,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       emailAction: 'Send an email to contact@isonil.com',
       websiteAction: 'Visit official website isonil.com',
       companyProfileAction: 'Open the ISONIL Company Profile in a new tab',
+      clientPortalAction: 'Open the official ISONIL Client Portal in a new tab',
       locationAction: 'Open ISONIL address in Google Maps',
       saveContactAction: 'Download VCF contact card for iPhone and Android',
       shareCardAction: 'Share the permanent ISONIL card link',
@@ -410,6 +418,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       phoneAndWhatsapp: 'Phone & WhatsApp',
       email: 'Email',
       website: 'Official Website',
+      clientPortal: 'Client Portal',
       address: 'Address',
     },
     share: {
@@ -537,6 +546,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       email: 'إيميل',
       website: 'الموقع الإلكتروني',
       companyProfile: 'بروفايل الشركة',
+      clientPortal: 'بوابة العملاء',
       location: 'الموقع على الخريطة',
       saveContact: 'حفظ جهة الاتصال',
       contactReady: 'تم تجهيز الملف',
@@ -557,6 +567,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       emailAction: 'إرسال بريد إلكتروني إلى contact@isonil.com',
       websiteAction: 'فتح الموقع الرسمي isonil.com',
       companyProfileAction: 'فتح بروفايل شركة ISONIL في تبويب جديد',
+      clientPortalAction: 'فتح بوابة العملاء الرسمية لشركة ISONIL في تبويب جديد',
       locationAction: 'فتح عنوان ISONIL على خرائط جوجل',
       saveContactAction: 'تنزيل ملف جهة الاتصال /contact.vcf لهواتف أندرويد وآيفون',
       shareCardAction: 'مشاركة الرابط الدائم لبطاقة ISONIL',
@@ -584,6 +595,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       phoneAndWhatsapp: 'الهاتف وواتساب',
       email: 'البريد الإلكتروني',
       website: 'الموقع الإلكتروني',
+      clientPortal: 'بوابة العملاء',
       address: 'العنوان',
     },
     share: {
