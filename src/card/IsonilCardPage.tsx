@@ -299,7 +299,7 @@ export function IsonilCardPage() {
 
   // Refined Architectural Slate-Graphite, Satin Obsidian & Restful Petrol-Cyan system
   const uniformStandardBtnClass =
-    'isonil-btn group w-full min-h-[68px] sm:min-h-[72px] px-3.5 py-3 rounded-[14px] border border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 active:border-[#45C4DC]/60 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white text-xs sm:text-[13px] font-medium flex flex-col items-center justify-center gap-2 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer';
+    'isonil-btn group w-full min-w-0 min-h-[62px] min-[390px]:min-h-[66px] sm:min-h-[72px] px-2.5 sm:px-3.5 py-2.5 sm:py-3 rounded-[13px] sm:rounded-[14px] border border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 active:border-[#45C4DC]/60 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white text-xs sm:text-[13px] font-medium flex flex-col items-center justify-center gap-1.5 sm:gap-2 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer';
 
   const utilityActionBtnClass =
     'isonil-btn group w-full min-h-[48px] px-3.5 py-2.5 rounded-[14px] border border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 active:border-[#45C4DC]/60 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white text-xs sm:text-sm font-medium flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer';
@@ -361,20 +361,24 @@ export function IsonilCardPage() {
       </a>
 
       <main id="isonil-card-main" className="relative z-10 w-full max-w-5xl mx-auto safe-area-main">
-        {/* Clean Mobile-First Top Bar: Single-line responsive kicker + tranquil frosted-glass language selector */}
-        <header className="isonil-fade flex items-center justify-between gap-2.5 sm:gap-4 mb-5 sm:mb-7 no-print">
+        {/* Clean Mobile-First Top Bar: Uncapped official label + sleek centered pill switcher on mobile */}
+        <header className="isonil-fade flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4 mb-4 sm:mb-7 no-print">
           <p
-            className={`text-[11px] min-[390px]:text-xs sm:text-[13px] font-medium text-[#92A6B6] sm:text-[#AEBECC] leading-snug truncate min-w-0 ${
-              isRtl ? '' : 'tracking-[0.025em]'
+            className={`inline-flex items-center justify-center sm:justify-start gap-2 text-[11.5px] min-[390px]:text-xs sm:text-[13px] font-medium text-[#A4B6C4] sm:text-[#AEBECC] leading-snug text-center sm:text-start ${
+              isRtl ? '' : 'tracking-[0.02em]'
             } ${langAnimClass}`}
           >
-            {t.cardKicker}
+            <span
+              aria-hidden="true"
+              className="w-1.5 h-1.5 rounded-full bg-[#45C4DC]/85 shadow-[0_0_8px_rgba(69,196,220,0.55)] shrink-0"
+            />
+            <span>{t.cardKicker}</span>
           </p>
 
           <div
             role="group"
             aria-label={t.languageSelectorAria}
-            className="inline-flex items-center p-1 rounded-xl bg-[#121B22]/55 backdrop-blur-md border border-[#CBD8E6]/11 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_20px_-10px_rgba(0,0,0,0.55)] shrink-0"
+            className="inline-flex items-center p-1 rounded-xl bg-[#121B22]/70 backdrop-blur-md border border-[#CBD8E6]/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_20px_-10px_rgba(0,0,0,0.55)] max-w-full shrink-0"
           >
             {LANGUAGE_ORDER.map((code) => {
               const active = lang === code;
@@ -387,9 +391,9 @@ export function IsonilCardPage() {
                   aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
-                  className={`isonil-tab-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[38px] sm:min-h-[44px] min-w-[66px] sm:min-w-[44px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     active
-                      ? 'bg-gradient-to-b from-[#45C4DC]/18 via-white/[0.08] to-white/[0.03] backdrop-blur-md border border-[#7ADAE9]/32 text-[#F8FAFC] shadow-[0_6px_16px_-8px_rgba(69,196,220,0.35),inset_0_1px_0_rgba(255,255,255,0.22)]'
+                      ? 'bg-gradient-to-b from-[#45C4DC]/20 via-white/[0.08] to-white/[0.03] backdrop-blur-md border border-[#7ADAE9]/34 text-[#F8FAFC] shadow-[0_6px_16px_-8px_rgba(69,196,220,0.35),inset_0_1px_0_rgba(255,255,255,0.22)]'
                       : 'border border-transparent text-[#96AAB9] hover:text-white hover:bg-white/[0.05]'
                   }`}
                 >
@@ -401,14 +405,18 @@ export function IsonilCardPage() {
         </header>
 
         {/* Responsive Executive Two-Column Grid (Desktop) / Organized Single-Column Mobile Flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-7 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-7 items-start">
           {/* Primary Official Card: Elevated Slate-Graphite surface with Paper-Card Header */}
-          <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#131C24] rounded-2xl border border-[#CBD8E6]/11 ring-1 ring-white/[0.025] shadow-[0_28px_64px_-20px_rgba(2,6,10,0.88),inset_0_1px_0_rgba(248,250,252,0.08)] overflow-hidden flex flex-col min-w-0">
+          <article className="isonil-enter isonil-delay-1 lg:col-span-7 bg-[#131C24] rounded-2xl border border-[#CBD8E6]/12 ring-1 ring-white/[0.025] shadow-[0_24px_56px_-18px_rgba(2,6,10,0.9),inset_0_1px_0_rgba(248,250,252,0.09)] overflow-hidden flex flex-col min-w-0">
             {/* Paper-card inspired header band with proportional corner cyan light-arcs, silver-framed logo, crisp wordmark & cyan rule */}
-            <div className="relative overflow-hidden bg-gradient-to-b from-[#0E151B] via-[#0F161C] to-[#111922] text-[#F8FAFC] px-5 sm:px-6.5 pt-5 pb-5 sm:pt-7 sm:pb-6.5 border-b border-[#CBD8E6]/8">
+            <div className="relative overflow-hidden bg-gradient-to-b from-[#0E151B] via-[#0F161C] to-[#111922] text-[#F8FAFC] px-4 min-[390px]:px-5 sm:px-6.5 pt-5 pb-4.5 sm:pt-7 sm:pb-6.5 border-b border-[#CBD8E6]/8">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 -top-10 h-24 bg-[radial-gradient(ellipse_at_top,rgba(69,196,220,0.08),transparent_70%)]"
+              />
               <svg
                 aria-hidden="true"
-                className="pointer-events-none absolute top-0 left-0 w-40 h-40 sm:w-52 sm:h-52 opacity-75"
+                className="pointer-events-none absolute top-0 left-0 w-28 h-28 sm:w-52 sm:h-52 opacity-60 sm:opacity-75"
                 viewBox="0 0 200 200"
                 fill="none"
               >
@@ -426,7 +434,7 @@ export function IsonilCardPage() {
 
               <svg
                 aria-hidden="true"
-                className="pointer-events-none absolute bottom-0 right-0 w-40 h-40 sm:w-52 sm:h-52 opacity-75"
+                className="pointer-events-none absolute bottom-0 right-0 w-28 h-28 sm:w-52 sm:h-52 opacity-60 sm:opacity-75"
                 viewBox="0 0 200 200"
                 fill="none"
               >
@@ -445,7 +453,7 @@ export function IsonilCardPage() {
               <div className={`relative z-10 ${langAnimClass}`}>
                 {/* Unified Header Unit: Clean Thin-Framed Logo + Fixed Latin ISONIL & Localized Two-Line Activity */}
                 <div className="flex items-center gap-3 min-[390px]:gap-3.5 sm:gap-5">
-                  <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 overflow-hidden rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center">
+                  <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 overflow-hidden rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center">
                     {!logoFailed ? (
                       <picture className="w-full h-full flex items-center justify-center">
                         <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
@@ -467,7 +475,7 @@ export function IsonilCardPage() {
                   </div>
 
                   <div className="min-w-0 flex-1 text-start isonil-enter isonil-delay-2">
-                    <h1 className="text-[21px] min-[390px]:text-[24px] sm:text-[28px] font-bold tracking-[0.08em] text-[#F8FAFC] leading-none">
+                    <h1 className="text-[21px] min-[390px]:text-[24px] sm:text-[28px] font-bold tracking-[0.08em] text-[#F8FAFC] leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">
                       <span dir="ltr" className="ltr-isolate">
                         {ISONIL_CONTACT.company}
                       </span>
@@ -485,8 +493,12 @@ export function IsonilCardPage() {
                   </div>
                 </div>
 
-                {/* Secondary Informative Designation centered beneath Logo + Company + Activity */}
-                <div className="isonil-enter isonil-delay-2 mt-3.5 pt-3 border-t border-[#CBD8E6]/8 flex items-center justify-center gap-2.5 text-center">
+                {/* Editorial faded hairline + Secondary Informative Designation centered beneath */}
+                <div
+                  aria-hidden="true"
+                  className="mt-4 h-px w-full bg-gradient-to-r from-transparent via-[#CBD8E6]/14 to-transparent"
+                />
+                <div className="isonil-enter isonil-delay-2 pt-3 flex items-center justify-center gap-2.5 text-center">
                   <span
                     aria-hidden="true"
                     className="isonil-accent-line h-[1.5px] w-6 rounded-full bg-gradient-to-r from-transparent via-[#7ADAE9]/85 to-[#45C4DC]/45 shadow-[0_0_10px_rgba(122,218,233,0.25)] shrink-0"
@@ -503,13 +515,13 @@ export function IsonilCardPage() {
             </div>
 
             {/* Card Body: Structured mobile-first action tiles + Social footer */}
-            <div className="p-5 sm:p-6.5 flex-1 flex flex-col">
+            <div className="p-4 min-[390px]:p-5 sm:p-6.5 flex-1 flex flex-col">
               <section
                 aria-label={t.sections.quickActions}
                 className={langAnimClass || undefined}
               >
                 {/* Calm 2-Column Action Tiles: (Call | WhatsApp) -> (Email | Website) -> (Company Profile | Map) -> Client Portal -> Save Contact */}
-                <div className="grid grid-cols-2 gap-3 sm:gap-3.5">
+                <div className="grid grid-cols-2 gap-2.5 min-[390px]:gap-3 sm:gap-3.5">
                   {/* 1. Call */}
                   <a
                     href={ISONIL_CONTACT.phoneHref}
@@ -622,9 +634,13 @@ export function IsonilCardPage() {
               </section>
 
               {/* Social Media Row at the very end of the primary card ("تابعنا" + calm satin medallions) */}
+              <div
+                aria-hidden="true"
+                className="mt-5 sm:mt-6 h-px w-full bg-gradient-to-r from-transparent via-[#CBD8E6]/14 to-transparent no-print"
+              />
               <section
                 aria-labelledby="isonil-follow-us-heading"
-                className={`isonil-enter isonil-delay-10 mt-6 pt-5 border-t border-[#CBD8E6]/8 text-center no-print ${langAnimClass}`}
+                className={`isonil-enter isonil-delay-10 pt-4 sm:pt-5 text-center no-print ${langAnimClass}`}
               >
                 <h2
                   id="isonil-follow-us-heading"
@@ -947,7 +963,7 @@ export function IsonilCardPage() {
         </div>
 
         {/* Bottom Footer Information: City & Country only */}
-        <footer className={`isonil-enter isonil-delay-12 mt-8 sm:mt-10 pt-5 border-t border-[#CBD8E6]/8 flex flex-col lg:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
+        <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#CBD8E6]/8 flex flex-col lg:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
           <a
             href={ISONIL_CONTACT.mapsHref}
             target="_blank"

@@ -107,10 +107,10 @@ export function QrCodePanel({
     <>
       <section
         aria-labelledby="isonil-qr-heading"
-        className="flex flex-col justify-between bg-[#131C24] rounded-2xl border border-[#CBD8E6]/11 ring-1 ring-white/[0.025] shadow-[0_28px_64px_-20px_rgba(2,6,10,0.88),inset_0_1px_0_rgba(248,250,252,0.08)] p-5 min-[390px]:p-5.5 sm:p-7 h-full min-w-0"
+        className="flex flex-col justify-between bg-[#131C24] rounded-2xl border border-[#CBD8E6]/12 ring-1 ring-white/[0.025] shadow-[0_24px_56px_-18px_rgba(2,6,10,0.9),inset_0_1px_0_rgba(248,250,252,0.09)] p-4 min-[390px]:p-5 sm:p-6.5 h-full min-w-0"
       >
         <div>
-          <div className={`min-w-0 ${langAnimClass}`}>
+          <div className={`min-w-0 text-center lg:text-start ${langAnimClass}`}>
             <h2
               id="isonil-qr-heading"
               className="text-base sm:text-lg font-semibold text-[#F8FAFC] tracking-tight"
@@ -155,15 +155,15 @@ export function QrCodePanel({
             </p>
 
             {/* Structured permanent canonical link bar */}
-            <div className={`mt-4 w-full rounded-xl bg-[#0F161C]/75 border border-[#CBD8E6]/8 px-3.5 py-2.5 ${langAnimClass}`}>
+            <div className={`mt-4 w-full rounded-xl bg-[#0F161C]/75 border border-[#CBD8E6]/8 px-3 sm:px-3.5 py-2.5 ${langAnimClass}`}>
               <p className="text-[11px] font-medium text-[#8B9EAD]">{t.sections.permanentLinkLabel}</p>
-              <div className="mt-0.5 flex flex-wrap items-center justify-between gap-2">
+              <div className="mt-0.5 flex flex-wrap min-[360px]:flex-nowrap items-center justify-between gap-2">
                 <a
                   href={ISONIL_CONTACT.cardCanonicalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   dir="ltr"
-                  className="ltr-isolate font-mono text-xs sm:text-[13px] font-medium text-[#66D1E6] hover:text-[#7ADAE9] transition-colors break-all"
+                  className="ltr-isolate font-mono text-[11px] min-[390px]:text-xs sm:text-[13px] font-medium text-[#66D1E6] hover:text-[#7ADAE9] transition-colors truncate min-w-0"
                 >
                   {ISONIL_CONTACT.cardCanonicalUrl}
                 </a>
@@ -171,7 +171,7 @@ export function QrCodePanel({
                   type="button"
                   onClick={onCopyUrl}
                   aria-label={t.aria.copyCardUrl}
-                  className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-1.5 px-2.5 rounded-lg text-xs font-medium text-[#66D1E6] hover:bg-[#1C2A36] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                  className="isonil-icon-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] -me-1 px-2.5 rounded-lg text-[11.5px] sm:text-xs font-medium text-[#66D1E6] hover:bg-[#1C2A36] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                 >
                   {urlCopied ? (
                     <>
