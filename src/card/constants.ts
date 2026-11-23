@@ -6,7 +6,7 @@ export const STORAGE_FAVORITE_KEY = 'isonil_card_favorite';
 
 export const ISONIL_CONTACT = {
   company: 'ISONIL',
-  officialActivityFr: "Solutions d'Isolation Thermique et Industrielle",
+  officialActivityFr: "Solutions d'Isolation Thermique Industrielle au Maroc",
   phoneDisplay: '+212 710 738 409',
   phoneHref: 'tel:+212710738409',
   whatsappHref: 'https://wa.me/212710738409',

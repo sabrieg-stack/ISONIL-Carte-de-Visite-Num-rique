@@ -387,7 +387,7 @@ export function IsonilCardPage() {
                   aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
-                  className={`isonil-tab-btn min-h-[44px] min-w-[44px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     active
                       ? 'bg-gradient-to-b from-[#45C4DC]/18 via-white/[0.08] to-white/[0.03] backdrop-blur-md border border-[#7ADAE9]/32 text-[#F8FAFC] shadow-[0_6px_16px_-8px_rgba(69,196,220,0.35),inset_0_1px_0_rgba(255,255,255,0.22)]'
                       : 'border border-transparent text-[#96AAB9] hover:text-white hover:bg-white/[0.05]'
@@ -445,7 +445,7 @@ export function IsonilCardPage() {
               <div className={`relative z-10 ${langAnimClass}`}>
                 {/* Unified Header Unit: Clean Thin-Framed Logo + Fixed Latin ISONIL & Localized Two-Line Activity */}
                 <div className="flex items-center gap-3 min-[390px]:gap-3.5 sm:gap-5">
-                  <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 overflow-hidden rounded-[12px] border border-[#D8E1E8]/28 bg-white/[0.015] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center">
+                  <div className="isonil-logo-reveal w-[72px] h-[72px] min-[390px]:w-[78px] min-[390px]:h-[78px] sm:w-[94px] sm:h-[94px] shrink-0 overflow-hidden rounded-[12px] border border-[#D8E1E8]/28 bg-[#162029]/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center">
                     {!logoFailed ? (
                       <picture className="w-full h-full flex items-center justify-center">
                         <source srcSet={ISONIL_CONTACT.logoWebpSrc} type="image/webp" />
@@ -474,7 +474,7 @@ export function IsonilCardPage() {
                     </h1>
                     <p
                       dir={t.dir}
-                      className="mt-1.5 text-[10.5px] min-[360px]:text-[11.5px] min-[390px]:text-[12.5px] min-[430px]:text-[13.5px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
+                      className="mt-1.5 text-[11px] min-[360px]:text-[12px] min-[390px]:text-[13px] min-[430px]:text-[14px] sm:text-[15px] font-normal text-[#C8D4DF] leading-[1.45]"
                     >
                       {t.businessActivity.split('\n').map((line) => (
                         <span key={line} className="block whitespace-nowrap">

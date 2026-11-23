@@ -177,7 +177,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     switcherLabel: 'FR',
     metaTitle: 'ISONIL — Direction Générale | Carte de Visite Numérique',
     metaDescription:
-      "Carte de visite numérique officielle d’ISONIL — Solutions d'Isolation Thermique et Industrielle, Direction Générale à El Jadida, Maroc.",
+      "Carte de visite numérique officielle d’ISONIL — Solutions d'Isolation Thermique Industrielle au Maroc, Direction Générale à El Jadida.",
     cardKicker: 'Carte de Visite Numérique Officielle',
     displayName: 'Direction Générale',
     businessActivity: "Solutions d'Isolation Thermique\nIndustrielle au Maroc",
@@ -246,7 +246,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     },
     share: {
       title: 'ISONIL — Direction Générale',
-      text: "Carte de visite numérique officielle d’ISONIL (Solutions d'Isolation Thermique et Industrielle).",
+      text: "Carte de visite numérique officielle d’ISONIL — Solutions d'Isolation Thermique Industrielle au Maroc.",
     },
     prefill: {
       whatsappMessage:
@@ -355,7 +355,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     switcherLabel: 'EN',
     metaTitle: 'ISONIL — General Management | Digital Business Card',
     metaDescription:
-      'Official digital business card of ISONIL — Thermal & Industrial Insulation Solutions, General Management in El Jadida, Morocco.',
+      'Official digital business card of ISONIL — Industrial Thermal Insulation Solutions in Morocco, General Management in El Jadida.',
     cardKicker: 'Official Digital Business Card',
     displayName: 'General Management',
     businessActivity: 'Industrial Thermal Insulation\nSolutions in Morocco',
@@ -424,7 +424,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     },
     share: {
       title: 'ISONIL — General Management',
-      text: 'Official digital business card of ISONIL (Thermal & Industrial Insulation Solutions).',
+      text: 'Official digital business card of ISONIL — Industrial Thermal Insulation Solutions in Morocco.',
     },
     prefill: {
       whatsappMessage:
@@ -533,7 +533,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     switcherLabel: 'العربية',
     metaTitle: 'ISONIL — الإدارة العامة | بطاقة التعريف الرقمية',
     metaDescription:
-      'بطاقة التعريف الرقمية الرسمية لشركة ISONIL — حلول العزل الحراري والصناعي، الإدارة العامة في الجديدة، المغرب.',
+      'بطاقة التعريف الرقمية الرسمية لشركة ISONIL — حلول العزل الحراري الصناعي في المغرب، الإدارة العامة في الجديدة.',
     cardKicker: 'بطاقة التعريف الرقمية الرسمية',
     displayName: 'الإدارة العامة',
     businessActivity: 'حلول العزل الحراري\nالصناعي في المغرب',
@@ -602,7 +602,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     },
     share: {
       title: 'ISONIL — الإدارة العامة',
-      text: 'بطاقة التعريف الرقمية الرسمية لشركة ISONIL — حلول العزل الحراري والصناعي.',
+      text: 'بطاقة التعريف الرقمية الرسمية لشركة ISONIL — حلول العزل الحراري الصناعي في المغرب.',
     },
     prefill: {
       whatsappMessage: 'السلام عليكم، يسعدني التواصل مع شركة ISONIL عبر بطاقتكم الرقمية الرسمية.',
