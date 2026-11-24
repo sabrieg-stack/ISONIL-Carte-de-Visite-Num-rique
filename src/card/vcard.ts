@@ -44,14 +44,42 @@ export function buildIsonilVCard(): string {
 }
 
 /**
- * Triggers a clean download of /contact.vcf compatible with Android and iPhone.
+ * Triggers a clean, 100% client-side vCard (.vcf) download compatible with
+ * iPhone (iOS Safari), Android, and desktop browsers without making a
+ * cookie-sensitive HTTP request to the server.
  */
 export function downloadIsonilVCard(): void {
-  const link = document.createElement('a');
-  link.href = ISONIL_CONTACT.vcardPublicPath;
-  link.download = ISONIL_CONTACT.vcardFilename;
-  link.rel = 'noopener';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const vcardContent = buildIsonilVCard();
+  const filename = ISONIL_CONTACT.vcardFilename;
+
+  if (
+    typeof Blob !== 'undefined' &&
+    typeof URL !== 'undefined' &&
+    typeof URL.createObjectURL === 'function'
+  ) {
+    const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8' });
+    const objectUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    if ('download' in link) {
+      link.href = objectUrl;
+      link.download = filename;
+      link.rel = 'noopener noreferrer';
+      link.className = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.setTimeout(() => {
+        URL.revokeObjectURL(objectUrl);
+      }, 60_000);
+      return;
+    }
+
+    URL.revokeObjectURL(objectUrl);
+  }
+
+  // Fallback for legacy iOS/Safari WebViews without anchor `download` support
+  const dataUrl = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcardContent)}`;
+  window.location.assign(dataUrl);
 }

@@ -3,6 +3,7 @@ export type CardLanguage = 'fr' | 'en' | 'ar';
 export const DEFAULT_LANGUAGE: CardLanguage = 'fr';
 export const STORAGE_LANG_KEY = 'isonil_card_lang';
 export const STORAGE_FAVORITE_KEY = 'isonil_card_favorite';
+export const STORAGE_HOME_SCREEN_HINT_DISMISSED_KEY = 'isonil_a2hs_dismissed';
 
 export const ISONIL_CONTACT = {
   company: 'ISONIL',

@@ -194,6 +194,17 @@ export interface CardTranslation {
     step2: string;
     step3: string;
   };
+  homeScreenHint: {
+    regionAria: string;
+    title: string;
+    subtitle: string;
+    iosStep1: string;
+    iosStep2: string;
+    androidStep1: string;
+    androidStep2: string;
+    installAction: string;
+    dismissAria: string;
+  };
   footer: {
     officialNotice: string;
     rights: string;
@@ -403,6 +414,17 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       step2: 'Ouvrez une application d’écriture NFC standard et ajoutez un enregistrement « URL / URI ».',
       step3: 'Approchez la carte vierge NTAG213 ou NTAG215 du téléphone ou du lecteur NFC pour enregistrer.',
     },
+    homeScreenHint: {
+      regionAria: "Instructions d'ajout sur l'écran d'accueil",
+      title: "Accès direct sur votre écran d’accueil",
+      subtitle: "Enregistrez la carte officielle ISONIL comme raccourci sur votre téléphone.",
+      iosStep1: "Touchez Partager dans la barre Safari",
+      iosStep2: "Choisissez « Sur l’écran d’accueil »",
+      androidStep1: "Ouvrez le menu (⋮) du navigateur",
+      androidStep2: "Touchez « Ajouter à l’écran d’accueil »",
+      installAction: "Ajouter maintenant",
+      dismissAria: "Masquer ce conseil d’accès rapide",
+    },
     footer: {
       officialNotice: 'Carte numérique officielle d’ISONIL — El Jadida, Maroc',
       rights: 'ISONIL',
@@ -611,6 +633,17 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       step2: 'Open a standard NFC writer app on an NFC-capable device and choose a URL / URI record.',
       step3: 'Hold a blank NTAG213 or NTAG215 card against the NFC antenna to write and verify.',
     },
+    homeScreenHint: {
+      regionAria: 'Add to Home Screen instructions',
+      title: 'Pin to your phone’s Home Screen',
+      subtitle: 'Keep the official ISONIL card one tap away like an app bookmark.',
+      iosStep1: 'Tap Share in the Safari bar',
+      iosStep2: 'Select “Add to Home Screen”',
+      androidStep1: 'Tap the browser menu (⋮)',
+      androidStep2: 'Choose “Add to Home screen”',
+      installAction: 'Add to Home Screen',
+      dismissAria: 'Dismiss home screen shortcut tip',
+    },
     footer: {
       officialNotice: 'Official Digital Card of ISONIL — El Jadida, Morocco',
       rights: 'ISONIL',
@@ -817,6 +850,17 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       step1: 'انسخ رابط NFC الدائم والثابت أعلاه.',
       step2: 'افتح تطبيق كتابة NFC قياسياً على جهاز يدعم NFC واختر إضافة سجل رابط (URL / URI).',
       step3: 'قرّب بطاقة NTAG213 أو NTAG215 الفارغة من هوائي NFC بالهاتف أو القارئ لإتمام الكتابة.',
+    },
+    homeScreenHint: {
+      regionAria: 'إرشادات تثبيت البطاقة على الشاشة الرئيسية',
+      title: 'تثبيت البطاقة على الشاشة الرئيسية',
+      subtitle: 'احفظ بطاقة ISONIL الرسمية كاختصار مباشر على هاتفك للوصول الفوري.',
+      iosStep1: 'اضغط على أيقونة المشاركة في شريط Safari',
+      iosStep2: 'اختر «إضافة إلى الشاشة الرئيسية»',
+      androidStep1: 'افتح قائمة المتصفح (⋮)',
+      androidStep2: 'اختر «الإضافة إلى الشاشة الرئيسية»',
+      installAction: 'إضافة للشاشة الرئيسية',
+      dismissAria: 'إخفاء إرشادات الشاشة الرئيسية',
     },
     footer: {
       officialNotice: 'البطاقة الرقمية الرسمية لشركة ISONIL — الجديدة، المغرب',

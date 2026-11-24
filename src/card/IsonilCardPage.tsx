@@ -29,6 +29,7 @@ import {
 import { CARD_TRANSLATIONS } from './translations';
 import { downloadIsonilVCard } from './vcard';
 import { QrCodePanel } from './QrCodePanel';
+import { HomeScreenPromptBox } from './HomeScreenPromptBox';
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from './SocialIcons';
 
 const FavoritesModal = lazy(() =>
@@ -312,7 +313,7 @@ export function IsonilCardPage() {
     }, 2400);
   }, [showToast, t.toasts.vcfDownloaded]);
 
-  const handleSaveContactFromModal = useCallback(() => {
+  const handleSaveContact = useCallback(() => {
     downloadIsonilVCard();
     triggerSaveContactFeedback();
   }, [triggerSaveContactFeedback]);
@@ -675,12 +676,11 @@ export function IsonilCardPage() {
                     </a>
                   </div>
 
-                  {/* 8. Save Contact (Downloads /contact.vcf — Restful smoked-cyan glassmorphic primary CTA) */}
+                  {/* 8. Save Contact (Client-side vCard Blob download — zero server/cookie dependency on Safari & iOS) */}
                   <div className="col-span-2 no-print mt-1.5">
-                    <a
-                      href={ISONIL_CONTACT.vcardPublicPath}
-                      download={ISONIL_CONTACT.vcardFilename}
-                      onClick={triggerSaveContactFeedback}
+                    <button
+                      type="button"
+                      onClick={handleSaveContact}
                       aria-label={t.aria.saveContactAction}
                       className={`isonil-enter isonil-delay-9 isonil-btn-primary w-full min-h-[52px] px-4 py-2.5 rounded-[14px] backdrop-blur-xl text-[#F8FAFC] text-sm font-semibold ${
                         isRtl ? '' : 'tracking-[0.015em]'
@@ -701,7 +701,7 @@ export function IsonilCardPage() {
                           <span className="whitespace-nowrap">{t.actions.saveContact}</span>
                         </>
                       )}
-                    </a>
+                    </button>
                   </div>
 
                   {/* 9. Structured B2B Project Inquiry / Quote Composer (Sheer veil glass below dominant Save Contact CTA) */}
@@ -1132,6 +1132,13 @@ export function IsonilCardPage() {
           </aside>
         </div>
 
+        {/* Subtle, context-aware Mobile Home Screen bookmark box (only mobile browser + manifest detected) */}
+        <HomeScreenPromptBox
+          t={t}
+          langAnimClass={langAnimClass}
+          onTriggerFeedback={triggerSubtleHaptic}
+        />
+
         {/* Understated Corporate Footer: Location + Discreet Visitor NFC Guide (Admin settings reserved for #nfc-settings / ?admin=nfc or inside NFC guide) */}
         <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#DCE8F2]/10 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
           <a
@@ -1226,7 +1233,7 @@ export function IsonilCardPage() {
             onCopyNfcUrl={() =>
               handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.nfc.nfcLinkCopiedToast)
             }
-            onDownloadVCard={handleSaveContactFromModal}
+            onDownloadVCard={handleSaveContact}
             onNotify={showToast}
           />
         </Suspense>
