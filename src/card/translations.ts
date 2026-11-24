@@ -68,6 +68,7 @@ export interface CardTranslation {
     followUs: string;
     qrTitle: string;
     qrSubtitle: string;
+    qrScanCaption: string;
     permanentLinkLabel: string;
   };
   fields: {
@@ -281,6 +282,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       followUs: 'Suivez-nous',
       qrTitle: 'Scanner le QR Code',
       qrSubtitle: 'Ouvre directement cette carte officielle sur mobile, sans application requise.',
+      qrScanCaption: 'Scanner pour se connecter',
       permanentLinkLabel: 'Lien permanent',
     },
     fields: {
@@ -500,6 +502,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       followUs: 'Follow us',
       qrTitle: 'Scan QR Code',
       qrSubtitle: 'Opens this official digital card directly on any smartphone camera.',
+      qrScanCaption: 'Scan to connect',
       permanentLinkLabel: 'Permanent link',
     },
     fields: {
@@ -719,6 +722,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       followUs: 'تابعنا',
       qrTitle: 'مسح رمز QR',
       qrSubtitle: 'وجّه كاميرا الهاتف لفتح البطاقة الرقمية مباشرة دون الحاجة لأي تطبيق.',
+      qrScanCaption: 'امسح الرمز للتواصل',
       permanentLinkLabel: 'الرابط الدائم',
     },
     fields: {

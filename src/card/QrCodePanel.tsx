@@ -151,10 +151,13 @@ export function QrCodePanel({
             </button>
 
             <p
-              dir="ltr"
-              className="mt-3 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em] text-[#96AAB9] select-none"
+              className={`mt-3 text-[#96AAB9] select-none ${
+                t.dir === 'rtl'
+                  ? 'text-[11px] sm:text-xs font-medium'
+                  : 'text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em]'
+              } ${langAnimClass}`.trim()}
             >
-              SCAN TO CONNECT
+              {t.sections.qrScanCaption}
             </p>
 
             {/* Structured permanent canonical link bar */}
@@ -314,10 +317,13 @@ export function QrCodePanel({
             </div>
 
             <p
-              dir="ltr"
-              className="mt-3 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em] text-[#96AAB9] select-none"
+              className={`mt-3 text-[#96AAB9] select-none ${
+                t.dir === 'rtl'
+                  ? 'text-[11px] sm:text-xs font-medium'
+                  : 'text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em]'
+              }`}
             >
-              SCAN TO CONNECT
+              {t.sections.qrScanCaption}
             </p>
 
             <div className="mt-3">
