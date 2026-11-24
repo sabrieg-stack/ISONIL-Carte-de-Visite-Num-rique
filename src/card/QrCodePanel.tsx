@@ -107,7 +107,7 @@ export function QrCodePanel({
     <>
       <section
         aria-labelledby="isonil-qr-heading"
-        className="flex flex-col justify-between bg-[#131C24] rounded-2xl border border-[#CBD8E6]/12 ring-1 ring-white/[0.025] shadow-[0_24px_56px_-18px_rgba(2,6,10,0.9),inset_0_1px_0_rgba(248,250,252,0.09)] p-4 min-[390px]:p-5 sm:p-6.5 h-full min-w-0"
+        className="isonil-glass-shell flex flex-col justify-between rounded-2xl border ring-1 ring-white/[0.03] p-4 min-[390px]:p-5 sm:p-6.5 h-full min-w-0"
       >
         <div>
           <div className={`min-w-0 text-center lg:text-start ${langAnimClass}`}>
@@ -154,7 +154,7 @@ export function QrCodePanel({
             </p>
 
             {/* Structured permanent canonical link bar */}
-            <div className={`mt-4 w-full rounded-xl bg-[#0F161C]/75 border border-[#CBD8E6]/8 px-3 sm:px-3.5 py-2.5 ${langAnimClass}`}>
+            <div className={`isonil-glass-well mt-4 w-full rounded-xl border px-3 sm:px-3.5 py-2.5 ${langAnimClass}`}>
               <p className="text-[11px] font-medium text-[#8B9EAD]">{t.sections.permanentLinkLabel}</p>
               <div className="mt-0.5 flex flex-wrap min-[360px]:flex-nowrap items-center justify-between gap-2">
                 <a
@@ -170,7 +170,7 @@ export function QrCodePanel({
                   type="button"
                   onClick={onCopyUrl}
                   aria-label={t.aria.copyCardUrl}
-                  className="isonil-icon-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] -me-1 px-2.5 rounded-lg text-[11.5px] sm:text-xs font-medium text-[#66D1E6] hover:bg-[#1C2A36] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                  className="isonil-icon-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] -me-1 px-2.5 rounded-lg text-[11.5px] sm:text-xs font-medium text-[#66D1E6] hover:bg-white/[0.08] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                 >
                   {urlCopied ? (
                     <>
@@ -190,13 +190,13 @@ export function QrCodePanel({
         </div>
 
         {/* Utility actions for scanning, download & mobile share */}
-        <div className={`mt-5 pt-4 border-t border-[#CBD8E6]/8 grid grid-cols-2 gap-2.5 sm:gap-3 no-print ${langAnimClass}`}>
+        <div className={`mt-5 pt-4 border-t border-[#DCE8F2]/10 grid grid-cols-2 gap-2.5 sm:gap-3 no-print ${langAnimClass}`}>
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
             aria-haspopup="dialog"
             aria-label={t.actions.enlargeQr}
-            className="isonil-btn group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+            className="isonil-btn isonil-glass-tile group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border text-[#EBF1F6] hover:text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <Maximize2 strokeWidth={1.65} className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
             <span className="truncate">{t.actions.enlargeQr}</span>
@@ -207,7 +207,7 @@ export function QrCodePanel({
             onClick={handleDownloadPng}
             disabled={isDownloading}
             aria-label={t.actions.downloadQr}
-            className="isonil-btn group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border border-[#CBD8E6]/10 hover:border-[#45C4DC]/42 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#EBF1F6] hover:text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+            className="isonil-btn isonil-glass-tile group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border text-[#EBF1F6] hover:text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <Download strokeWidth={1.65} className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
             <span className="truncate">{t.actions.downloadQr}</span>
@@ -218,7 +218,7 @@ export function QrCodePanel({
               type="button"
               onClick={onShareCard}
               aria-label={t.aria.shareCardAction}
-              className="lg:hidden col-span-2 isonil-btn group w-full min-h-[48px] px-4 py-2.5 rounded-[14px] border border-[#CBD8E6]/12 hover:border-[#45C4DC]/45 active:border-[#45C4DC]/65 bg-gradient-to-b from-[#18232E] to-[#141E27] hover:from-[#1D2A36] hover:to-[#17232D] active:from-[#202E3C] active:to-[#192632] shadow-[0_6px_16px_-8px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)] text-[#F8FAFC] text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+              className="lg:hidden col-span-2 isonil-btn isonil-glass-tile group w-full min-h-[48px] px-4 py-2.5 rounded-[14px] border text-[#F8FAFC] text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
             >
               <Share2 strokeWidth={1.65} className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
               <span className="truncate">{t.actions.shareCard}</span>
@@ -233,13 +233,13 @@ export function QrCodePanel({
           role="dialog"
           aria-modal="true"
           aria-labelledby="isonil-qr-modal-title"
-          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060A0D]/82 backdrop-blur-md p-0 sm:p-4"
+          className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#05090D]/72 backdrop-blur-md p-0 sm:p-4"
           onClick={handleCloseExpanded}
         >
           <div
             ref={dialogRef}
             {...sheetTouchHandlers}
-            className="isonil-sheet-enter overscroll-contain w-full sm:max-w-sm max-h-[92dvh] overflow-y-auto bg-[#131C24] rounded-t-3xl sm:rounded-2xl border border-[#CBD8E6]/14 ring-1 ring-white/[0.03] shadow-2xl p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center text-[#F8FAFC]"
+            className="isonil-sheet-enter isonil-glass-sheet overscroll-contain w-full sm:max-w-sm max-h-[92dvh] overflow-y-auto rounded-t-3xl sm:rounded-2xl border ring-1 ring-white/[0.04] p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center text-[#F8FAFC]"
             onClick={(event) => event.stopPropagation()}
           >
             <div
@@ -310,7 +310,7 @@ export function QrCodePanel({
               <button
                 type="button"
                 onClick={() => setIsExpanded(false)}
-                className="isonil-btn min-h-[46px] px-3 py-2 rounded-xl border border-[#CBD8E6]/14 hover:border-[#45C4DC]/50 bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] text-[#F1F5F9] text-xs sm:text-sm font-medium whitespace-nowrap cursor-pointer"
+                className="isonil-btn isonil-glass-tile min-h-[46px] px-3 py-2 rounded-xl border text-[#F1F5F9] text-xs sm:text-sm font-medium whitespace-nowrap cursor-pointer"
               >
                 {t.actions.close}
               </button>

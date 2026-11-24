@@ -1,0 +1,19 @@
+{
+  "name": "ISONIL — Carte de Visite Numérique",
+  "short_name": "ISONIL",
+  "description": "Carte de visite numérique officielle d'ISONIL — Solutions d'Isolation Thermique Industrielle au Maroc.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#10171D",
+  "theme_color": "#10171D",
+  "icons": [
+    {
+      "src": "/assets/isonil-logo-transparent.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

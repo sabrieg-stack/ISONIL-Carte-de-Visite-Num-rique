@@ -34,6 +34,8 @@ export interface CardTranslation {
     downloadQr: string;
     jumpToQr: string;
     close: string;
+    requestQuote: string;
+    copyAllDetails: string;
   };
   aria: {
     callAction: string;
@@ -44,6 +46,7 @@ export interface CardTranslation {
     clientPortalAction: string;
     locationAction: string;
     saveContactAction: string;
+    requestQuoteAction: string;
     shareCardAction: string;
     favoritesAction: string;
     linkedinAction: string;
@@ -53,6 +56,7 @@ export interface CardTranslation {
     copyEmail: string;
     copyAddress: string;
     copyCardUrl: string;
+    copyAllDetails: string;
     qrCodeImage: string;
     jumpToQrAction: string;
     logoAlt: string;
@@ -60,6 +64,7 @@ export interface CardTranslation {
   sections: {
     quickActions: string;
     contactDetails: string;
+    contactDetailsHint: string;
     followUs: string;
     qrTitle: string;
     qrSubtitle: string;
@@ -80,12 +85,37 @@ export interface CardTranslation {
     whatsappMessage: string;
     emailSubject: string;
   };
+  inquiry: {
+    modalTitle: string;
+    modalSubtitle: string;
+    topicLabel: string;
+    topics: {
+      quote: string;
+      study: string;
+      partnership: string;
+      general: string;
+    };
+    nameLabel: string;
+    namePlaceholder: string;
+    companyLabel: string;
+    companyPlaceholder: string;
+    detailsLabel: string;
+    detailsPlaceholder: string;
+    sendWhatsapp: string;
+    sendEmail: string;
+    copyMessage: string;
+    greeting: string;
+    subjectPrefix: string;
+    emailSubjectBase: string;
+  };
   toasts: {
     vcfDownloaded: string;
     linkCopied: string;
     phoneCopied: string;
     emailCopied: string;
     addressCopied: string;
+    allDetailsCopied: string;
+    inquiryCopied: string;
     shareCompleted: string;
     shareFallbackCopied: string;
     qrDownloaded: string;
@@ -206,6 +236,8 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'Télécharger PNG',
       jumpToQr: 'QR Code',
       close: 'Fermer',
+      requestQuote: 'Demander un devis / Contact projet',
+      copyAllDetails: 'Copier tout',
     },
     aria: {
       callAction: 'Appeler ISONIL au +212 710 738 409',
@@ -216,6 +248,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       clientPortalAction: 'Ouvrir le portail clients officiel d’ISONIL dans un nouvel onglet',
       locationAction: "Ouvrir l'adresse ISONIL sur Google Maps",
       saveContactAction: 'Télécharger la fiche contact VCF pour iPhone et Android',
+      requestQuoteAction: 'Préparer une demande de devis ou de contact projet avec ISONIL',
       shareCardAction: 'Partager le lien permanent de la carte ISONIL',
       favoritesAction: 'Ajouter cette carte aux favoris du navigateur',
       linkedinAction: 'Suivre ISONIL sur LinkedIn',
@@ -225,6 +258,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: "Copier l'adresse e-mail",
       copyAddress: "Copier l'adresse postale",
       copyCardUrl: 'Copier le lien permanent de la carte',
+      copyAllDetails: 'Copier toutes les coordonnées officielles d’ISONIL',
       qrCodeImage: 'Code QR permanent vers https://carte.isonil.com/',
       jumpToQrAction: 'Descendre directement vers le QR Code',
       logoAlt: 'Logo officiel ISONIL',
@@ -232,6 +266,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     sections: {
       quickActions: 'Contact direct',
       contactDetails: 'Coordonnées officielles',
+      contactDetailsHint: 'Téléphone, e-mail, portail & adresse',
       followUs: 'Suivez-nous',
       qrTitle: 'Scanner le QR Code',
       qrSubtitle: 'Ouvre directement cette carte officielle sur mobile, sans application requise.',
@@ -253,12 +288,37 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
         'Bonjour, j’ai le plaisir de contacter ISONIL via votre carte de visite numérique officielle.',
       emailSubject: 'Contact — Carte Numérique ISONIL',
     },
+    inquiry: {
+      modalTitle: 'Demande de devis & contact projet',
+      modalSubtitle: 'Préparez votre message professionnel et envoyez-le directement via WhatsApp ou e-mail.',
+      topicLabel: 'Objet de la demande',
+      topics: {
+        quote: 'Devis isolation',
+        study: 'Étude technique',
+        partnership: 'Partenariat B2B',
+        general: 'Direction Générale',
+      },
+      nameLabel: 'Votre nom',
+      namePlaceholder: 'Ex. Karim Benali',
+      companyLabel: 'Entreprise / Site',
+      companyPlaceholder: 'Nom de votre société',
+      detailsLabel: 'Détails du projet',
+      detailsPlaceholder: 'Type d’installation, ville ou besoin en isolation thermique industrielle…',
+      sendWhatsapp: 'Envoyer via WhatsApp',
+      sendEmail: 'Par e-mail',
+      copyMessage: 'Copier le texte',
+      greeting: 'Bonjour l’équipe ISONIL,',
+      subjectPrefix: 'Objet',
+      emailSubjectBase: 'Demande professionnelle — ISONIL',
+    },
     toasts: {
       vcfDownloaded: 'Fiche contact ISONIL (.vcf) prête à être enregistrée.',
       linkCopied: 'Lien officiel copié dans le presse-papiers.',
       phoneCopied: 'Numéro de téléphone copié.',
       emailCopied: 'Adresse e-mail copiée.',
       addressCopied: 'Adresse complète copiée.',
+      allDetailsCopied: 'Toutes les coordonnées ISONIL ont été copiées.',
+      inquiryCopied: 'Message professionnel copié dans le presse-papiers.',
       shareCompleted: 'Carte partagée avec succès.',
       shareFallbackCopied: 'Partage indisponible — le lien a été copié.',
       qrDownloaded: 'Image QR Code haute définition téléchargée.',
@@ -384,6 +444,8 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'Download PNG',
       jumpToQr: 'QR Code',
       close: 'Close',
+      requestQuote: 'Request a Quote / Project Inquiry',
+      copyAllDetails: 'Copy all',
     },
     aria: {
       callAction: 'Call ISONIL at +212 710 738 409',
@@ -394,6 +456,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       clientPortalAction: 'Open the official ISONIL Client Portal in a new tab',
       locationAction: 'Open ISONIL address in Google Maps',
       saveContactAction: 'Download VCF contact card for iPhone and Android',
+      requestQuoteAction: 'Compose a quote request or project inquiry for ISONIL',
       shareCardAction: 'Share the permanent ISONIL card link',
       favoritesAction: 'Save this card to browser favorites',
       linkedinAction: 'Follow ISONIL on LinkedIn',
@@ -403,6 +466,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: 'Copy email address',
       copyAddress: 'Copy street address',
       copyCardUrl: 'Copy permanent card link',
+      copyAllDetails: 'Copy all official ISONIL contact details',
       qrCodeImage: 'Permanent QR code linking to https://carte.isonil.com/',
       jumpToQrAction: 'Scroll directly to the QR Code',
       logoAlt: 'Official ISONIL logo',
@@ -410,6 +474,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     sections: {
       quickActions: 'Direct Actions',
       contactDetails: 'Official Contact Details',
+      contactDetailsHint: 'Phone, email, portal & address',
       followUs: 'Follow us',
       qrTitle: 'Scan QR Code',
       qrSubtitle: 'Opens this official digital card directly on any smartphone camera.',
@@ -431,12 +496,37 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
         'Hello, it is a pleasure connecting with ISONIL via your official digital business card.',
       emailSubject: 'Contact — ISONIL Digital Business Card',
     },
+    inquiry: {
+      modalTitle: 'Quote Request & Project Inquiry',
+      modalSubtitle: 'Prepare a structured business message and send it directly via WhatsApp or email.',
+      topicLabel: 'Inquiry topic',
+      topics: {
+        quote: 'Insulation Quote',
+        study: 'Technical Study',
+        partnership: 'B2B Partnership',
+        general: 'General Management',
+      },
+      nameLabel: 'Your name',
+      namePlaceholder: 'e.g. Karim Benali',
+      companyLabel: 'Company / Plant',
+      companyPlaceholder: 'Your organization name',
+      detailsLabel: 'Project brief',
+      detailsPlaceholder: 'Facility type, city, or industrial thermal insulation requirements…',
+      sendWhatsapp: 'Send via WhatsApp',
+      sendEmail: 'Send Email',
+      copyMessage: 'Copy message',
+      greeting: 'Hello ISONIL team,',
+      subjectPrefix: 'Subject',
+      emailSubjectBase: 'Business Inquiry — ISONIL',
+    },
     toasts: {
       vcfDownloaded: 'ISONIL contact file (.vcf) ready to save.',
       linkCopied: 'Official card link copied to clipboard.',
       phoneCopied: 'Phone number copied.',
       emailCopied: 'Email address copied.',
       addressCopied: 'Full address copied.',
+      allDetailsCopied: 'All official ISONIL contact details copied.',
+      inquiryCopied: 'Business inquiry copied to clipboard.',
       shareCompleted: 'Card shared successfully.',
       shareFallbackCopied: 'Native share unavailable — link copied instead.',
       qrDownloaded: 'High-resolution QR Code PNG downloaded.',
@@ -562,6 +652,8 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'تنزيل PNG',
       jumpToQr: 'رمز QR',
       close: 'إغلاق',
+      requestQuote: 'طلب عرض سعر / تواصل مشروع',
+      copyAllDetails: 'نسخ الكل',
     },
     aria: {
       callAction: 'الاتصال بشركة ISONIL على الرقم +212 710 738 409',
@@ -572,6 +664,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       clientPortalAction: 'فتح بوابة العملاء الرسمية لشركة ISONIL في تبويب جديد',
       locationAction: 'فتح عنوان ISONIL على خرائط جوجل',
       saveContactAction: 'تنزيل بطاقة جهة الاتصال (vCard) لهواتف آيفون وأندرويد',
+      requestQuoteAction: 'تجهيز طلب عرض سعر أو استفسار مشروع مع شركة ISONIL',
       shareCardAction: 'مشاركة الرابط الدائم لبطاقة ISONIL',
       favoritesAction: 'حفظ البطاقة في مفضلة المتصفح',
       linkedinAction: 'متابعة ISONIL على LinkedIn',
@@ -581,6 +674,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       copyEmail: 'نسخ البريد الإلكتروني',
       copyAddress: 'نسخ العنوان الكامل',
       copyCardUrl: 'نسخ الرابط الدائم للبطاقة',
+      copyAllDetails: 'نسخ جميع بيانات التواصل الرسمية لشركة ISONIL',
       qrCodeImage: 'رمز QR دائم يفتح الرابط https://carte.isonil.com/',
       jumpToQrAction: 'الانتقال مباشرة إلى رمز QR',
       logoAlt: 'الشعار الرسمي لشركة ISONIL',
@@ -588,6 +682,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     sections: {
       quickActions: 'التواصل السريع',
       contactDetails: 'بيانات التواصل الرسمية',
+      contactDetailsHint: 'الهاتف، البريد، البوابة والعنوان',
       followUs: 'تابعنا',
       qrTitle: 'مسح رمز QR',
       qrSubtitle: 'وجّه كاميرا الهاتف لفتح البطاقة الرقمية مباشرة دون الحاجة لأي تطبيق.',
@@ -608,12 +703,37 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       whatsappMessage: 'السلام عليكم، يسعدني التواصل مع شركة ISONIL عبر بطاقتكم الرقمية الرسمية.',
       emailSubject: 'تواصل عبر البطاقة الرقمية — ISONIL',
     },
+    inquiry: {
+      modalTitle: 'طلب عرض سعر وتواصل مشروع',
+      modalSubtitle: 'جهّز رسالتك المهنية وأرسلها مباشرة عبر واتساب أو البريد الإلكتروني الرسمي.',
+      topicLabel: 'موضوع التواصل',
+      topics: {
+        quote: 'طلب عرض سعر',
+        study: 'دراسة فنية ومعاينة',
+        partnership: 'شراكة أعمال',
+        general: 'الإدارة العامة',
+      },
+      nameLabel: 'الاسم الكامل',
+      namePlaceholder: 'مثال: كريم بنعلي',
+      companyLabel: 'الشركة / المصنع',
+      companyPlaceholder: 'اسم المؤسسة أو الشركة',
+      detailsLabel: 'نبذة عن المشروع',
+      detailsPlaceholder: 'نوع المنشأة، المدينة، أو متطلبات العزل الحراري الصناعي…',
+      sendWhatsapp: 'إرسال عبر واتساب',
+      sendEmail: 'عبر البريد',
+      copyMessage: 'نسخ الرسالة',
+      greeting: 'السلام عليكم فريق ISONIL،',
+      subjectPrefix: 'الموضوع',
+      emailSubjectBase: 'طلب تواصل مهني — ISONIL',
+    },
     toasts: {
       vcfDownloaded: 'تم تجهيز بطاقة التواصل (.vcf)؛ يمكنك حفظها مباشرة في جهات اتصالك.',
       linkCopied: 'تم نسخ رابط البطاقة الرسمي.',
       phoneCopied: 'تم نسخ رقم الهاتف.',
       emailCopied: 'تم نسخ البريد الإلكتروني.',
       addressCopied: 'تم نسخ العنوان الكامل.',
+      allDetailsCopied: 'تم نسخ جميع بيانات التواصل الرسمية لشركة ISONIL.',
+      inquiryCopied: 'تم نسخ نص الطلب المهني إلى الحافظة.',
       shareCompleted: 'تمت مشاركة البطاقة بنجاح.',
       shareFallbackCopied: 'المشاركة المباشرة غير متوفرة — تم نسخ الرابط.',
       qrDownloaded: 'تم تنزيل صورة رمز QR بدقة عالية.',

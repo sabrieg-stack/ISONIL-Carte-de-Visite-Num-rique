@@ -93,13 +93,13 @@ export function NfcSettingsModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-nfc-modal-title"
-      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060A0D]/82 backdrop-blur-md p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#05090D]/72 backdrop-blur-md p-0 sm:p-4"
       onClick={onClose}
     >
       <div
         ref={dialogRef}
         {...sheetTouchHandlers}
-        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-xl bg-[#131C24] text-[#F8FAFC] rounded-t-3xl sm:rounded-2xl border border-[#CBD8E6]/14 ring-1 ring-white/[0.03] shadow-[0_26px_60px_-18px_rgba(2,6,10,0.88),inset_0_1px_0_rgba(248,250,252,0.1)] p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
+        className="isonil-sheet-enter isonil-glass-sheet overscroll-contain w-full sm:max-w-xl text-[#F8FAFC] rounded-t-3xl sm:rounded-2xl border ring-1 ring-white/[0.04] p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[92dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -112,7 +112,7 @@ export function NfcSettingsModal({
           <div className="flex items-start gap-3 min-w-0">
             <div
               aria-hidden="true"
-              className="w-10 h-10 rounded-xl bg-gradient-to-b from-[#1A2631] to-[#15202A] border border-[#45C4DC]/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[#45C4DC] flex items-center justify-center shrink-0 mt-0.5"
+              className="isonil-glass-tile w-10 h-10 rounded-xl border border-[#45C4DC]/35 text-[#45C4DC] flex items-center justify-center shrink-0 mt-0.5"
             >
               <Nfc className="w-5 h-5" strokeWidth={1.65} />
             </div>
@@ -139,8 +139,8 @@ export function NfcSettingsModal({
         </div>
 
         {/* Readiness Status Summary (Icon + Text Label — never color-only) */}
-        <section className="mt-5 pt-4 border-t border-[#CBD8E6]/10">
-          <div className="flex flex-wrap items-center justify-between gap-3 py-3 px-4 rounded-xl bg-[#0F161C]/80 border border-[#CBD8E6]/12">
+        <section className="mt-5 pt-4 border-t border-[#DCE8F2]/10">
+          <div className="isonil-glass-well flex flex-wrap items-center justify-between gap-3 py-3 px-4 rounded-xl border">
             <div>
               <p className="text-xs text-[#8B9EAD]">{t.nfc.statusLabel}</p>
               <p className="mt-0.5 text-sm sm:text-base font-semibold text-[#F8FAFC] flex items-center gap-2">
@@ -185,7 +185,7 @@ export function NfcSettingsModal({
             {t.nfc.permanentUrlHint}
           </p>
 
-          <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#0F161C]/80 border border-[#CBD8E6]/12">
+          <div className="isonil-glass-well mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border">
             <span
               dir="ltr"
               className="ltr-isolate font-mono text-xs sm:text-sm font-semibold text-[#66D1E6] break-all"
@@ -291,7 +291,7 @@ export function NfcSettingsModal({
               <button
                 type="button"
                 onClick={onDownloadVCard}
-                className="isonil-btn group w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD8E6]/14 hover:border-[#45C4DC]/45 bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                className="isonil-btn isonil-glass-tile group w-full min-h-[46px] px-4 py-2.5 rounded-xl border text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
                 <UserPlus className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" strokeWidth={1.65} />
                 <span>{t.nfc.downloadVcard}</span>
@@ -301,7 +301,7 @@ export function NfcSettingsModal({
                 type="button"
                 onClick={handleDownloadQrPng}
                 disabled={isDownloadingQr}
-                className="isonil-btn group w-full min-h-[46px] px-4 py-2.5 rounded-xl border border-[#CBD8E6]/14 hover:border-[#45C4DC]/45 bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                className="isonil-btn isonil-glass-tile group w-full min-h-[46px] px-4 py-2.5 rounded-xl border text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
                 <Download className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" strokeWidth={1.65} />
                 <span>{t.actions.downloadQr}</span>
@@ -311,7 +311,7 @@ export function NfcSettingsModal({
         </section>
 
         {/* Dynamic Updates + No External Service + Honest Hardware Writer Disclosure */}
-        <section className="mt-5 pt-5 border-t border-[#CBD8E6]/10 space-y-4">
+        <section className="mt-5 pt-5 border-t border-[#DCE8F2]/10 space-y-4">
           <div className="flex items-start gap-2.5">
             <RefreshCw className="w-4 h-4 text-[#45C4DC] mt-0.5 shrink-0" strokeWidth={1.65} />
             <div>
@@ -325,7 +325,7 @@ export function NfcSettingsModal({
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#0F161C]/90 border border-[#CBD8E6]/12 flex items-start gap-2.5">
+          <div className="isonil-glass-well p-3.5 rounded-xl border flex items-start gap-2.5">
             <Info className="w-4 h-4 text-[#E50914] mt-0.5 shrink-0" strokeWidth={1.65} />
             <div>
               <h4 className="text-xs sm:text-sm font-semibold text-[#F8FAFC]">

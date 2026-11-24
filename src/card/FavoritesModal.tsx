@@ -97,13 +97,13 @@ export function FavoritesModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="isonil-favorites-title"
-      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#060A0D]/82 backdrop-blur-md p-0 sm:p-4"
+      className="isonil-backdrop-enter fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#05090D]/72 backdrop-blur-md p-0 sm:p-4"
       onClick={onClose}
     >
       <div
         ref={dialogRef}
         {...sheetTouchHandlers}
-        className="isonil-sheet-enter overscroll-contain w-full sm:max-w-md bg-[#131C24] text-[#F8FAFC] rounded-t-3xl sm:rounded-2xl border border-[#CBD8E6]/14 ring-1 ring-white/[0.03] shadow-[0_26px_60px_-18px_rgba(2,6,10,0.88),inset_0_1px_0_rgba(248,250,252,0.1)] p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
+        className="isonil-sheet-enter isonil-glass-sheet overscroll-contain w-full sm:max-w-md text-[#F8FAFC] rounded-t-3xl sm:rounded-2xl border ring-1 ring-white/[0.04] p-5 sm:p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] max-h-[90dvh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -147,8 +147,8 @@ export function FavoritesModal({
             onClick={onToggleFavorite}
             className={`isonil-btn min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
               isFavorite
-                ? 'bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] border border-[#CBD8E6]/14 hover:border-[#45C4DC]/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[#F1F5F9]'
-                : 'border border-[#7ADAE9]/35 hover:border-[#7ADAE9]/60 bg-gradient-to-b from-[#45C4DC]/[0.20] via-white/[0.08] to-[#45C4DC]/[0.06] hover:from-[#45C4DC]/[0.28] hover:via-white/[0.12] hover:to-[#45C4DC]/[0.10] backdrop-blur-md shadow-[0_8px_20px_-10px_rgba(69,196,220,0.4),inset_0_1px_0_rgba(255,255,255,0.26)] text-[#F8FAFC]'
+                ? 'isonil-glass-tile border text-[#F1F5F9]'
+                : 'border border-[#7ADAE9]/38 hover:border-[#7ADAE9]/62 bg-gradient-to-b from-[#45C4DC]/[0.22] via-white/[0.10] to-[#45C4DC]/[0.07] hover:from-[#45C4DC]/[0.30] hover:via-white/[0.14] hover:to-[#45C4DC]/[0.11] backdrop-blur-md shadow-[0_8px_20px_-10px_rgba(69,196,220,0.42),inset_0_1px_0_rgba(255,255,255,0.28)] text-[#F8FAFC]'
             }`}
           >
             {isFavorite ? t.favoritesModal.toggleRemove : t.favoritesModal.toggleSave}
@@ -186,7 +186,7 @@ export function FavoritesModal({
         </div>
 
         {/* Copy canonical link for quick saving */}
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[#0F161C]/80 border border-[#CBD8E6]/10 px-3.5 py-2.5">
+          <div className="isonil-glass-well mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border px-3.5 py-2.5">
             <span
               dir="ltr"
               className="ltr-isolate font-mono text-xs text-[#66D1E6] break-all"
@@ -196,7 +196,7 @@ export function FavoritesModal({
             <button
               type="button"
               onClick={onCopyUrl}
-              className="isonil-btn group min-h-[44px] px-4 py-2 rounded-xl border border-[#CBD8E6]/14 hover:border-[#45C4DC]/45 bg-gradient-to-b from-[#1A2631] to-[#15202A] hover:from-[#1F2D3A] hover:to-[#182530] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+              className="isonil-btn isonil-glass-tile group min-h-[44px] px-4 py-2 rounded-xl border text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
             >
               {urlCopied ? (
                 <>
