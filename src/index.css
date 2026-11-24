@@ -30,6 +30,11 @@ button {
   touch-action: manipulation;
 }
 
+::selection {
+  background-color: rgba(69, 196, 220, 0.28);
+  color: #F8FAFC;
+}
+
 /* Portrait & landscape safe-area container padding for iPhone notch / Dynamic Island / Android gesture bar */
 .safe-area-main {
   padding-top: max(0.875rem, env(safe-area-inset-top));
@@ -90,17 +95,17 @@ button {
 .isonil-glass-shell {
   background: linear-gradient(
     162deg,
-    rgba(25, 38, 50, 0.56) 0%,
+    rgba(26, 40, 52, 0.56) 0%,
     rgba(17, 26, 35, 0.46) 54%,
     rgba(13, 21, 28, 0.58) 100%
   );
   -webkit-backdrop-filter: blur(22px) saturate(145%);
   backdrop-filter: blur(22px) saturate(145%);
-  border-color: rgba(220, 232, 242, 0.14);
+  border-color: rgba(226, 236, 245, 0.15);
   box-shadow:
-    0 26px 60px -20px rgba(2, 6, 10, 0.88),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 -1px 0 rgba(69, 196, 220, 0.05);
+    0 28px 64px -22px rgba(2, 6, 10, 0.90),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(69, 196, 220, 0.06);
 }
 
 .isonil-glass-header {
@@ -641,11 +646,12 @@ button {
 .isonil-icon-btn,
 .isonil-qr-frame {
   transition:
-    transform 160ms var(--isonil-ease-tactile),
-    background-color 180ms ease,
-    border-color 180ms ease,
+    transform 180ms var(--isonil-ease-out),
+    background 220ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
     color 180ms ease,
-    box-shadow 200ms ease;
+    box-shadow 220ms ease;
 }
 
 .isonil-btn-icon {

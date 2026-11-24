@@ -456,7 +456,7 @@ export function IsonilCardPage() {
                   aria-label={`${t.languageSelectorAria}: ${CARD_TRANSLATIONS[code].langName}`}
                   aria-pressed={active}
                   lang={code}
-                  className={`isonil-tab-btn min-h-[44px] min-w-[68px] sm:min-w-[44px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                  className={`isonil-tab-btn min-h-[44px] min-w-[56px] sm:min-w-[46px] px-3 sm:px-3.5 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
                     active
                       ? 'bg-gradient-to-b from-[#45C4DC]/24 via-white/[0.11] to-white/[0.04] backdrop-blur-md border border-[#7ADAE9]/38 text-[#F8FAFC] shadow-[0_6px_16px_-8px_rgba(69,196,220,0.38),inset_0_1px_0_rgba(255,255,255,0.26)]'
                       : 'border border-transparent text-[#96AAB9] hover:text-white hover:bg-white/[0.06]'
@@ -660,17 +660,18 @@ export function IsonilCardPage() {
                     <span className="leading-tight text-balance">{t.actions.location}</span>
                   </a>
 
-                  {/* 7. Client Portal (Full-width size preserved, unified tile lighting & shape) */}
+                  {/* 7. Client Portal (Sleek full-width horizontal glass bar bridging tile matrix and primary CTAs) */}
                   <div className="col-span-2">
                     <a
                       href={ISONIL_CONTACT.clientPortalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={t.aria.clientPortalAction}
-                      className={`isonil-enter isonil-delay-8 ${uniformStandardBtnClass}`}
+                      className="isonil-enter isonil-delay-8 isonil-btn isonil-glass-tile group w-full min-h-[54px] px-4 py-3 rounded-[14px] border text-[#EBF1F6] hover:text-white text-xs sm:text-sm font-medium flex items-center justify-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                     >
                       <LayoutDashboard strokeWidth={1.65} className="isonil-btn-icon w-[18px] h-[18px] text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
-                      <span className="leading-tight text-balance">{t.actions.clientPortal}</span>
+                      <span className="leading-tight">{t.actions.clientPortal}</span>
+                      <ArrowUpRight strokeWidth={1.65} className="w-3.5 h-3.5 text-[#8B9EAD] group-hover:text-[#7ADAE9] transition-colors rtl:-scale-x-100 shrink-0" />
                     </a>
                   </div>
 
@@ -786,6 +787,8 @@ export function IsonilCardPage() {
                   handleCopyValue('url', ISONIL_CONTACT.cardCanonicalUrl, t.toasts.linkCopied)
                 }
                 onShareCard={handleShareCard}
+                onOpenFavorites={handleOpenFavorites}
+                isFavorite={isFavorite}
                 urlCopied={copiedField === 'url'}
               />
             </div>
@@ -795,7 +798,7 @@ export function IsonilCardPage() {
               aria-labelledby="isonil-contact-details-heading"
               className={`isonil-enter isonil-delay-11 isonil-glass-shell rounded-2xl border ring-1 ring-white/[0.03] p-4 min-[390px]:p-5 sm:p-6.5 ${langAnimClass}`}
             >
-              {/* Mobile/Tablet sleek disclosure toggle */}
+              {/* Mobile/Tablet sleek executive folio disclosure toggle */}
               <button
                 type="button"
                 onClick={() => {
@@ -804,22 +807,27 @@ export function IsonilCardPage() {
                 }}
                 aria-expanded={mobileDetailsOpen}
                 aria-controls="isonil-contact-details-body"
-                className="lg:hidden w-full min-h-[44px] flex items-center justify-between gap-3 text-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg cursor-pointer no-print"
+                className="lg:hidden group w-full min-h-[46px] flex items-center justify-between gap-3 text-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-xl cursor-pointer no-print"
               >
                 <div className="min-w-0">
-                  <span className="block text-sm font-semibold text-[#F8FAFC]">
+                  <span className="block text-sm font-semibold text-[#F8FAFC] group-hover:text-white transition-colors">
                     {t.sections.contactDetails}
                   </span>
                   <span className="block text-xs text-[#8B9EAD] mt-0.5 truncate">
                     {t.sections.contactDetailsHint}
                   </span>
                 </div>
-                <ChevronDown
-                  strokeWidth={1.75}
-                  className={`w-4 h-4 text-[#45C4DC] shrink-0 transition-transform duration-200 ${
-                    mobileDetailsOpen ? 'rotate-180' : ''
-                  }`}
-                />
+                <span
+                  aria-hidden="true"
+                  className="isonil-glass-well w-9 h-9 rounded-xl border flex items-center justify-center shrink-0"
+                >
+                  <ChevronDown
+                    strokeWidth={1.75}
+                    className={`w-4 h-4 text-[#45C4DC] transition-transform duration-200 ${
+                      mobileDetailsOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </span>
               </button>
 
               {/* Desktop permanent heading + Copy All action */}
@@ -836,7 +844,7 @@ export function IsonilCardPage() {
                   type="button"
                   onClick={handleCopyAllDetails}
                   aria-label={t.aria.copyAllDetails}
-                  className="isonil-icon-btn no-print min-h-[36px] px-2.5 rounded-lg text-xs font-medium text-[#66D1E6] hover:text-[#7ADAE9] hover:bg-[#1C2A36] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                  className="isonil-icon-btn no-print min-h-[36px] px-2.5 rounded-lg text-xs font-medium text-[#66D1E6] hover:text-[#7ADAE9] hover:bg-white/[0.08] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                 >
                   {copiedField === 'all' ? (
                     <>
@@ -861,7 +869,7 @@ export function IsonilCardPage() {
                     type="button"
                     onClick={handleCopyAllDetails}
                     aria-label={t.aria.copyAllDetails}
-                    className="isonil-icon-btn min-h-[40px] px-2.5 rounded-lg text-xs font-medium text-[#66D1E6] hover:text-[#7ADAE9] hover:bg-[#1C2A36] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                    className="isonil-icon-btn min-h-[40px] px-2.5 rounded-lg text-xs font-medium text-[#66D1E6] hover:text-[#7ADAE9] hover:bg-white/[0.08] inline-flex items-center gap-1.5 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                   >
                     {copiedField === 'all' ? (
                       <>
@@ -1085,8 +1093,8 @@ export function IsonilCardPage() {
                 </div>
               </dl>
 
-              {/* Compact 2-column Share & Favorites Utility Row */}
-              <div className="mt-4 pt-4 border-t border-[#DCE8F2]/10 grid grid-cols-1 min-[400px]:grid-cols-2 gap-2.5 no-print">
+              {/* Desktop-only 2-column Share & Favorites Utility Row (mobile lives cleanly in QrCodePanel with zero duplication) */}
+              <div className="hidden lg:grid mt-4 pt-4 border-t border-[#DCE8F2]/10 grid-cols-2 gap-2.5 no-print">
                 <button
                   type="button"
                   onClick={handleShareCard}
@@ -1124,8 +1132,8 @@ export function IsonilCardPage() {
           </aside>
         </div>
 
-        {/* Bottom Footer Information: City & Country + Visitor NFC Guide & Favorites */}
-        <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#CBD8E6]/8 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
+        {/* Understated Corporate Footer: Location + Discreet Visitor NFC Guide (Admin settings reserved for #nfc-settings / ?admin=nfc or inside NFC guide) */}
+        <footer className={`isonil-enter isonil-delay-12 mt-6 sm:mt-10 pt-4 sm:pt-5 border-t border-[#DCE8F2]/10 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-3 text-[11px] sm:text-xs text-[#8396A6] px-1 text-center lg:text-start ${langAnimClass}`}>
           <a
             href={ISONIL_CONTACT.mapsHref}
             target="_blank"
@@ -1137,31 +1145,7 @@ export function IsonilCardPage() {
             <span>{t.cityCountry}</span>
           </a>
 
-          <div className="flex items-center justify-center gap-1 sm:gap-2 shrink-0 no-print">
-            <button
-              type="button"
-              onClick={handleOpenFavorites}
-              aria-haspopup="dialog"
-              aria-label={t.aria.favoritesAction}
-              className={`lg:hidden isonil-icon-btn min-h-[44px] inline-flex items-center gap-1.5 font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg px-2.5 cursor-pointer ${
-                isFavorite ? 'text-[#F1F5F9] hover:text-white' : 'text-[#96AAB9] hover:text-[#7ADAE9]'
-              }`}
-            >
-              <Bookmark
-                strokeWidth={1.65}
-                className={`w-3.5 h-3.5 shrink-0 ${
-                  isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#45C4DC]'
-                }`}
-              />
-              <span className="whitespace-nowrap">
-                {isFavorite ? t.actions.savedInFavorites : t.actions.addToFavorites}
-              </span>
-            </button>
-
-            <span aria-hidden="true" className="lg:hidden text-[#CBD8E6]/25 select-none">
-              ·
-            </span>
-
+          <div className="flex items-center justify-center gap-2 shrink-0 no-print">
             <button
               type="button"
               onClick={() => {
@@ -1170,24 +1154,10 @@ export function IsonilCardPage() {
               }}
               aria-haspopup="dialog"
               aria-label={t.nfcTapHelp.triggerAria}
-              className="isonil-icon-btn min-h-[44px] inline-flex items-center gap-1.5 font-medium text-[#8B9EAD] hover:text-[#7ADAE9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg px-2.5 cursor-pointer"
+              className="isonil-icon-btn min-h-[44px] inline-flex items-center gap-1.5 font-medium text-[#8B9EAD] hover:text-[#7ADAE9] hover:bg-white/[0.05] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg px-2.5 cursor-pointer"
             >
               <Nfc strokeWidth={1.65} className="w-3.5 h-3.5 text-[#45C4DC] shrink-0" />
               <span className="whitespace-nowrap">{t.nfcTapHelp.triggerLabel}</span>
-            </button>
-
-            <span aria-hidden="true" className="hidden lg:inline text-[#CBD8E6]/25 select-none">
-              ·
-            </span>
-
-            <button
-              type="button"
-              onClick={() => setNfcModalOpen(true)}
-              aria-haspopup="dialog"
-              aria-label={t.nfc.triggerAria}
-              className="hidden lg:inline-flex isonil-icon-btn min-h-[44px] items-center gap-1.5 font-medium text-[#8B9EAD] hover:text-[#7ADAE9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] rounded-lg px-2 cursor-pointer"
-            >
-              <span className="whitespace-nowrap">{t.nfc.triggerLabel}</span>
             </button>
           </div>
         </footer>

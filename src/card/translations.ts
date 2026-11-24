@@ -236,7 +236,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'Télécharger PNG',
       jumpToQr: 'QR Code',
       close: 'Fermer',
-      requestQuote: 'Demander un devis / Contact projet',
+      requestQuote: 'Demande de devis & projet',
       copyAllDetails: 'Copier tout',
     },
     aria: {
@@ -285,11 +285,11 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     },
     prefill: {
       whatsappMessage:
-        'Bonjour, j’ai le plaisir de contacter ISONIL via votre carte de visite numérique officielle.',
+        'Bonjour, je prends contact avec ISONIL suite à la consultation de votre carte de visite numérique officielle.',
       emailSubject: 'Contact — Carte Numérique ISONIL',
     },
     inquiry: {
-      modalTitle: 'Demande de devis & contact projet',
+      modalTitle: 'Contact projet & demande de devis',
       modalSubtitle: 'Préparez votre message professionnel et envoyez-le directement via WhatsApp ou e-mail.',
       topicLabel: 'Objet de la demande',
       topics: {
@@ -307,7 +307,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       sendWhatsapp: 'Envoyer via WhatsApp',
       sendEmail: 'Par e-mail',
       copyMessage: 'Copier le texte',
-      greeting: 'Bonjour l’équipe ISONIL,',
+      greeting: 'Madame, Monsieur,',
       subjectPrefix: 'Objet',
       emailSubjectBase: 'Demande professionnelle — ISONIL',
     },
@@ -444,7 +444,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'Download PNG',
       jumpToQr: 'QR Code',
       close: 'Close',
-      requestQuote: 'Request a Quote / Project Inquiry',
+      requestQuote: 'Project & Quote Inquiry',
       copyAllDetails: 'Copy all',
     },
     aria: {
@@ -493,11 +493,11 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
     },
     prefill: {
       whatsappMessage:
-        'Hello, it is a pleasure connecting with ISONIL via your official digital business card.',
+        'Hello, I am reaching out to ISONIL via your official digital business card.',
       emailSubject: 'Contact — ISONIL Digital Business Card',
     },
     inquiry: {
-      modalTitle: 'Quote Request & Project Inquiry',
+      modalTitle: 'Project & Quote Inquiry',
       modalSubtitle: 'Prepare a structured business message and send it directly via WhatsApp or email.',
       topicLabel: 'Inquiry topic',
       topics: {
@@ -515,7 +515,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       sendWhatsapp: 'Send via WhatsApp',
       sendEmail: 'Send Email',
       copyMessage: 'Copy message',
-      greeting: 'Hello ISONIL team,',
+      greeting: 'Dear ISONIL Team,',
       subjectPrefix: 'Subject',
       emailSubjectBase: 'Business Inquiry — ISONIL',
     },
@@ -652,7 +652,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       downloadQr: 'تنزيل PNG',
       jumpToQr: 'رمز QR',
       close: 'إغلاق',
-      requestQuote: 'طلب عرض سعر / تواصل مشروع',
+      requestQuote: 'تواصل مهني وطلب عرض سعر',
       copyAllDetails: 'نسخ الكل',
     },
     aria: {
@@ -700,11 +700,11 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       text: 'بطاقة التعريف الرقمية الرسمية لشركة ISONIL — حلول العزل الحراري الصناعي في المغرب.',
     },
     prefill: {
-      whatsappMessage: 'السلام عليكم، يسعدني التواصل مع شركة ISONIL عبر بطاقتكم الرقمية الرسمية.',
+      whatsappMessage: 'السلام عليكم ورحمة الله، أتواصل معكم في شركة ISONIL عبر بطاقتكم الرقمية الرسمية.',
       emailSubject: 'تواصل عبر البطاقة الرقمية — ISONIL',
     },
     inquiry: {
-      modalTitle: 'طلب عرض سعر وتواصل مشروع',
+      modalTitle: 'تواصل مهني وطلب عرض سعر',
       modalSubtitle: 'جهّز رسالتك المهنية وأرسلها مباشرة عبر واتساب أو البريد الإلكتروني الرسمي.',
       topicLabel: 'موضوع التواصل',
       topics: {
@@ -722,7 +722,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       sendWhatsapp: 'إرسال عبر واتساب',
       sendEmail: 'عبر البريد',
       copyMessage: 'نسخ الرسالة',
-      greeting: 'السلام عليكم فريق ISONIL،',
+      greeting: 'السلام عليكم، السادة فريق ISONIL المحترمين،',
       subjectPrefix: 'الموضوع',
       emailSubjectBase: 'طلب تواصل مهني — ISONIL',
     },
@@ -778,7 +778,7 @@ export const CARD_TRANSLATIONS: Record<CardLanguage, CardTranslation> = {
       triggerAria: 'فتح إعدادات وتجهيز تقنية NFC لبطاقة ISONIL',
       modalTitle: 'إعدادات وتجهيز NFC',
       modalSubtitle: 'أدوات الإدارة التقنية لتجهيز وكتابة بطاقات ISONIL الذكية بتقنية NFC.',
-      managementScopeNote: 'قسم خاص بإدارة البطاقة — ولا يظهر كعنصر مزعج لزوار البطاقة.',
+      managementScopeNote: 'قسم خاص بإدارة البطاقة وتجهيزها المؤسسي.',
       statusLabel: 'حالة التجهيز للبرمجة',
       statusReady: 'جاهز للبرمجة',
       statusIncomplete: 'غير مكتمل',

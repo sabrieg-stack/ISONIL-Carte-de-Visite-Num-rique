@@ -108,7 +108,7 @@ export function QuickInquiryModal({
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
-            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C8D4DF] hover:bg-[#1C2A36] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C8D4DF] hover:bg-white/[0.08] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <X className="w-5 h-5" strokeWidth={1.65} />
           </button>
@@ -156,7 +156,7 @@ export function QuickInquiryModal({
                 value={senderName}
                 onChange={(e) => setSenderName(e.target.value)}
                 placeholder={t.inquiry.namePlaceholder}
-                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
+                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
               />
             </div>
 
@@ -174,7 +174,7 @@ export function QuickInquiryModal({
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder={t.inquiry.companyPlaceholder}
-                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
+                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ export function QuickInquiryModal({
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder={t.inquiry.detailsPlaceholder}
-              className="isonil-glass-well w-full px-3.5 py-2.5 rounded-xl border focus:border-[#45C4DC]/65 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] leading-relaxed resize-none transition-colors"
+              className="isonil-glass-well w-full px-3.5 py-2.5 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] leading-relaxed resize-none transition-colors"
             />
           </div>
         </div>

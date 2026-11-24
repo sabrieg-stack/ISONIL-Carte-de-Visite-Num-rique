@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import QRCode from 'qrcode';
-import { Check, Copy, Download, Maximize2, Share2, X } from 'lucide-react';
+import { Bookmark, Check, Copy, Download, Maximize2, Share2, X } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
 import type { CardTranslation } from './translations';
 import { useModalSheet } from './useModalSheet';
@@ -11,6 +11,8 @@ interface QrCodePanelProps {
   onNotify: (message: string) => void;
   onCopyUrl: () => void;
   onShareCard?: () => void;
+  onOpenFavorites?: () => void;
+  isFavorite?: boolean;
   urlCopied: boolean;
 }
 
@@ -55,6 +57,8 @@ export function QrCodePanel({
   onNotify,
   onCopyUrl,
   onShareCard,
+  onOpenFavorites,
+  isFavorite = false,
   urlCopied,
 }: QrCodePanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -218,10 +222,36 @@ export function QrCodePanel({
               type="button"
               onClick={onShareCard}
               aria-label={t.aria.shareCardAction}
-              className="lg:hidden col-span-2 isonil-btn isonil-glass-tile group w-full min-h-[48px] px-4 py-2.5 rounded-[14px] border text-[#F8FAFC] text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+              className={`lg:hidden ${
+                onOpenFavorites ? '' : 'col-span-2'
+              } isonil-btn isonil-glass-tile group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border text-[#EBF1F6] hover:text-white text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer`}
             >
               <Share2 strokeWidth={1.65} className="isonil-btn-icon w-4 h-4 text-[#45C4DC] group-hover:text-[#7ADAE9] shrink-0" />
               <span className="truncate">{t.actions.shareCard}</span>
+            </button>
+          )}
+
+          {onOpenFavorites && (
+            <button
+              type="button"
+              onClick={onOpenFavorites}
+              aria-haspopup="dialog"
+              aria-label={t.aria.favoritesAction}
+              className={`lg:hidden isonil-btn group min-w-0 min-h-[48px] px-2.5 sm:px-3 py-2.5 rounded-[14px] border text-[11px] min-[370px]:text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer ${
+                isFavorite
+                  ? 'border-[#E50914]/45 bg-[#E50914]/14 backdrop-blur-md text-[#F8FAFC] hover:bg-[#E50914]/20 active:bg-[#E50914]/24 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]'
+                  : 'isonil-glass-tile text-[#EBF1F6] hover:text-white'
+              }`}
+            >
+              <Bookmark
+                strokeWidth={1.65}
+                className={`isonil-btn-icon w-4 h-4 shrink-0 ${
+                  isFavorite ? 'fill-[#E50914] text-[#E50914]' : 'text-[#45C4DC] group-hover:text-[#7ADAE9]'
+                }`}
+              />
+              <span className="truncate">
+                {isFavorite ? t.actions.savedInFavorites : t.actions.addToFavorites}
+              </span>
             </button>
           )}
         </div>
@@ -259,7 +289,7 @@ export function QrCodePanel({
                 type="button"
                 onClick={handleCloseExpanded}
                 aria-label={t.actions.close}
-                className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#C8D4DF] hover:bg-[#1C2A36] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 rounded-xl text-[#C8D4DF] hover:bg-white/[0.08] hover:text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
                 <X strokeWidth={1.75} className="w-5 h-5" />
               </button>

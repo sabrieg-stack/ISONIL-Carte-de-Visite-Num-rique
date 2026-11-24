@@ -70,7 +70,7 @@ export function NfcTapHelpModal({
             type="button"
             onClick={onClose}
             aria-label={t.actions.close}
-            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C8D4DF] hover:bg-[#1C2A36] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-2 -mt-1 rounded-xl text-[#C8D4DF] hover:bg-white/[0.08] hover:text-white flex items-center justify-center shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <X className="w-5 h-5" strokeWidth={1.65} />
           </button>
@@ -95,7 +95,7 @@ export function NfcTapHelpModal({
           <button
             type="button"
             onClick={onOpenAdminSettings}
-            className="isonil-icon-btn min-h-[44px] px-3 rounded-xl text-xs font-medium text-[#96AAB9] hover:text-[#7ADAE9] hover:bg-[#1A2631] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+            className="isonil-icon-btn min-h-[44px] px-3 rounded-xl text-xs font-medium text-[#8B9EAD] hover:text-[#7ADAE9] hover:bg-white/[0.06] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
           >
             <Settings2 className="w-3.5 h-3.5 text-[#45C4DC]" strokeWidth={1.65} />
             <span>{t.nfc.triggerLabel}</span>
