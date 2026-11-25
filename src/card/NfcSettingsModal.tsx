@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState } from 'react';
-import QRCode from 'qrcode';
 import {
   AlertTriangle,
   Check,
@@ -15,7 +14,7 @@ import {
 } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
 import { evaluateNfcReadiness } from './nfc';
-import { buildPermanentQrMatrix } from './QrCodePanel';
+import { buildPermanentQrMatrix, downloadPermanentQrPng } from './qrUtils';
 import type { CardTranslation } from './translations';
 import { useModalSheet } from './useModalSheet';
 
@@ -58,21 +57,7 @@ export function NfcSettingsModal({
     if (isDownloadingQr) return;
     setIsDownloadingQr(true);
     try {
-      const dataUrl = await QRCode.toDataURL(ISONIL_CONTACT.cardCanonicalUrl, {
-        width: 1024,
-        margin: 4,
-        errorCorrectionLevel: 'H',
-        color: {
-          dark: '#45C4DC',
-          light: '#00000000',
-        },
-      });
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'ISONIL-NFC-Card-QR.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      await downloadPermanentQrPng('ISONIL-NFC-Card-QR.png');
       onNotify(t.toasts.qrDownloaded);
     } catch {
       onNotify(t.toasts.qrDownloadError);

@@ -156,7 +156,7 @@ export function QuickInquiryModal({
                 value={senderName}
                 onChange={(e) => setSenderName(e.target.value)}
                 placeholder={t.inquiry.namePlaceholder}
-                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
+                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-base sm:text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
               />
             </div>
 
@@ -174,7 +174,7 @@ export function QuickInquiryModal({
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder={t.inquiry.companyPlaceholder}
-                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
+                className="isonil-glass-well w-full min-h-[44px] px-3.5 py-2 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-base sm:text-sm text-[#F8FAFC] placeholder:text-[#667B8C] transition-colors"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ export function QuickInquiryModal({
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder={t.inquiry.detailsPlaceholder}
-              className="isonil-glass-well w-full px-3.5 py-2.5 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-sm text-[#F8FAFC] placeholder:text-[#667B8C] leading-relaxed resize-none transition-colors"
+              className="isonil-glass-well w-full px-3.5 py-2.5 rounded-xl border focus:border-[#45C4DC]/65 focus:ring-1 focus:ring-[#45C4DC]/35 focus:outline-none text-base sm:text-sm text-[#F8FAFC] placeholder:text-[#667B8C] leading-relaxed resize-none transition-colors"
             />
           </div>
         </div>

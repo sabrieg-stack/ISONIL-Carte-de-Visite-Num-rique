@@ -105,7 +105,7 @@ export function HomeScreenPromptBox({
       fetch(manifestEl.href, {
         method: 'GET',
         credentials: 'same-origin',
-        cache: 'force-cache',
+        cache: 'default',
         signal: abortController.signal,
       })
         .then(async (response) => {
@@ -219,7 +219,7 @@ export function HomeScreenPromptBox({
               )}
             </span>
             <span className="text-[11.5px] sm:text-xs font-medium text-[#E2EBF4] leading-snug">
-              <span className="text-[#66D1E6] font-mono me-1.5">1.</span>
+              <span dir="ltr" className="ltr-isolate text-[#66D1E6] font-mono me-1.5">1.</span>
               {step1Text}
             </span>
           </div>
@@ -239,7 +239,7 @@ export function HomeScreenPromptBox({
               <PlusSquare className="w-4 h-4" strokeWidth={1.7} />
             </span>
             <span className="text-[11.5px] sm:text-xs font-medium text-[#E2EBF4] leading-snug">
-              <span className="text-[#66D1E6] font-mono me-1.5">2.</span>
+              <span dir="ltr" className="ltr-isolate text-[#66D1E6] font-mono me-1.5">2.</span>
               {step2Text}
             </span>
           </div>

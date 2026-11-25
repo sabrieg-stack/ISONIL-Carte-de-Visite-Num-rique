@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import QRCode from 'qrcode';
 import { Bookmark, Check, Copy, Download, Maximize2, Share2, X } from 'lucide-react';
 import { ISONIL_CONTACT } from './constants';
+import { buildPermanentQrMatrix, downloadPermanentQrPng } from './qrUtils';
 import type { CardTranslation } from './translations';
 import { useModalSheet } from './useModalSheet';
 
@@ -14,41 +14,6 @@ interface QrCodePanelProps {
   onOpenFavorites?: () => void;
   isFavorite?: boolean;
   urlCopied: boolean;
-}
-
-export interface QrSvgMatrix {
-  viewBoxSize: number;
-  pathData: string;
-}
-
-/**
- * Computes a deterministic, high-error-correction (Level H) SVG vector path
- * encoding the permanent canonical URL: https://carte.isonil.com/.
- * This value is completely independent of UI language or temporary host URLs.
- */
-export function buildPermanentQrMatrix(): QrSvgMatrix {
-  const qr = QRCode.create(ISONIL_CONTACT.cardCanonicalUrl, {
-    errorCorrectionLevel: 'H',
-  });
-  const quietZone = 4;
-  const moduleCount = qr.modules.size;
-  const viewBoxSize = moduleCount + quietZone * 2;
-
-  const segments: string[] = [];
-  for (let row = 0; row < moduleCount; row += 1) {
-    for (let col = 0; col < moduleCount; col += 1) {
-      if (qr.modules.get(row, col)) {
-        const x = col + quietZone;
-        const y = row + quietZone;
-        segments.push(`M${x} ${y}h1v1h-1z`);
-      }
-    }
-  }
-
-  return {
-    viewBoxSize,
-    pathData: segments.join(''),
-  };
 }
 
 export function QrCodePanel({
@@ -84,21 +49,7 @@ export function QrCodePanel({
     if (isDownloading) return;
     setIsDownloading(true);
     try {
-      const dataUrl = await QRCode.toDataURL(ISONIL_CONTACT.cardCanonicalUrl, {
-        width: 1024,
-        margin: 4,
-        errorCorrectionLevel: 'H',
-        color: {
-          dark: '#45C4DC',
-          light: '#00000000',
-        },
-      });
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'ISONIL-Card-QR.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      await downloadPermanentQrPng('ISONIL-Card-QR.png');
       onNotify(t.toasts.qrDownloaded);
     } catch {
       onNotify(t.toasts.qrDownloadError);
@@ -177,7 +128,7 @@ export function QrCodePanel({
                   type="button"
                   onClick={onCopyUrl}
                   aria-label={t.aria.copyCardUrl}
-                  className="isonil-icon-btn min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] -me-1 px-2.5 rounded-lg text-[11.5px] sm:text-xs font-medium text-[#66D1E6] hover:bg-white/[0.08] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
+                  className="isonil-icon-btn min-h-[44px] min-w-[44px] -me-1 px-2.5 rounded-lg text-[11.5px] sm:text-xs font-medium text-[#66D1E6] hover:bg-white/[0.08] hover:text-[#7ADAE9] inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
                 >
                   {urlCopied ? (
                     <>
@@ -346,7 +297,7 @@ export function QrCodePanel({
               <button
                 type="button"
                 onClick={() => setIsExpanded(false)}
-                className="isonil-btn isonil-glass-tile min-h-[46px] px-3 py-2 rounded-xl border text-[#F1F5F9] text-xs sm:text-sm font-medium whitespace-nowrap cursor-pointer"
+                className="isonil-btn isonil-glass-tile min-h-[46px] px-3 py-2 rounded-xl border text-[#F1F5F9] hover:text-white text-xs sm:text-sm font-medium whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#45C4DC] cursor-pointer"
               >
                 {t.actions.close}
               </button>

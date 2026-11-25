@@ -66,14 +66,20 @@ export function downloadIsonilVCard(): void {
       link.download = filename;
       link.rel = 'noopener noreferrer';
       link.className = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      try {
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-      window.setTimeout(() => {
-        URL.revokeObjectURL(objectUrl);
-      }, 60_000);
-      return;
+        window.setTimeout(() => {
+          URL.revokeObjectURL(objectUrl);
+        }, 60_000);
+        return;
+      } catch {
+        if (link.parentNode) {
+          link.parentNode.removeChild(link);
+        }
+      }
     }
 
     URL.revokeObjectURL(objectUrl);

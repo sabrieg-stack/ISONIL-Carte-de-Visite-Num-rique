@@ -25,9 +25,12 @@ interface UseModalSheetResult {
   };
 }
 
+let activeSheetCount = 0;
+let savedBodyOverflow: string | null = null;
+
 /**
  * Shared accessible bottom-sheet & dialog controller:
- * - Locks background page scrolling while open
+ * - Ref-counts background page scroll locking across modal transitions
  * - Moves focus into the dialog and restores previous focus on close
  * - Traps Tab / Shift+Tab keyboard focus inside the dialog (WCAG 2.1 AA)
  * - Closes cleanly on Escape
@@ -63,8 +66,11 @@ export function useModalSheet({
     }
 
     const previousFocused = document.activeElement as HTMLElement | null;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    if (activeSheetCount === 0) {
+      savedBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    }
+    activeSheetCount += 1;
 
     const focusFrame = window.requestAnimationFrame(() => {
       initialFocusRef.current?.focus();
@@ -104,9 +110,15 @@ export function useModalSheet({
     return () => {
       window.cancelAnimationFrame(focusFrame);
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousOverflow;
+      activeSheetCount = Math.max(0, activeSheetCount - 1);
+      if (activeSheetCount === 0) {
+        document.body.style.overflow = savedBodyOverflow ?? '';
+        savedBodyOverflow = null;
+        if (previousFocused && previousFocused.isConnected) {
+          previousFocused.focus();
+        }
+      }
       resetSheetDrag();
-      previousFocused?.focus();
     };
   }, [isOpen, onClose, dialogRef, initialFocusRef, resetSheetDrag]);
 
